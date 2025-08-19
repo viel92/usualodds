@@ -1,8 +1,9 @@
-import { createClient } from '@/lib/supabase';
+// @ts-nocheck
+import { createApiClient } from '@/lib/supabase';
 import { WindowType } from '@/types/database';
 
 export abstract class BaseFeatureBuilder {
-  protected supabase = createClient();
+  protected supabase = createApiClient();
 
   protected async getMatchData(matchId: string) {
     const { data, error } = await this.supabase

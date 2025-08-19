@@ -54,12 +54,13 @@ export async function POST(request: NextRequest) {
         const status = await Promise.all(
           windows.map(async (w) => {
             try {
-              const validation = await enhancedOrchestrator.validateTemporalConstraints(w);
+              const { temporalValidator } = await import('@/lib/features/temporal-validator');
+              const validation = await temporalValidator.validateTemporalConstraints('test', w, new Date());
               return {
                 window: w,
-                canProceed: validation.canProceed,
+                canProceed: validation.isValid,
                 violations: validation.violations.length,
-                nextExecution: validation.nextValidExecution
+                warnings: validation.warning.length
               };
             } catch (error) {
               return {

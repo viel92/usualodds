@@ -317,7 +317,7 @@ async function getPerformanceAnalysis() {
     .limit(10);
 
   // Insights généraux
-  const insights = generatePerformanceInsights(seasonalData, windowData, evolutionData);
+  const insights = generatePerformanceInsights(seasonalData || [], windowData || [], evolutionData || []);
 
   return {
     seasonalPerformance: seasonalData || [],

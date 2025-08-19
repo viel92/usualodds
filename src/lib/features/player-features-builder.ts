@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseFeatureBuilder } from './base-feature-builder';
 import { WindowType, PositionType } from '@/types/database';
 

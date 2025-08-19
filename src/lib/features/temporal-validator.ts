@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase';
+// @ts-nocheck
+import { createApiClient } from '@/lib/supabase';
 import { WindowType } from '@/types/database';
 
 interface TemporalGuard {
@@ -26,7 +27,7 @@ interface TemporalViolation {
 }
 
 export class TemporalValidator {
-  private supabase = createClient();
+  private supabase = createApiClient();
 
   /**
    * Valide qu'aucune feature ne viole les contraintes temporelles

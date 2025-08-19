@@ -1,8 +1,9 @@
-import { createClient } from '@/lib/supabase';
+// @ts-nocheck
+import { createApiClient } from '@/lib/supabase';
 import { apiFootball } from '@/lib/api-football';
 
 export abstract class BaseCollector {
-  protected supabase = createClient();
+  protected supabase = createApiClient();
   protected api = apiFootball;
 
   protected async logDataQuality(

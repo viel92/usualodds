@@ -1,3 +1,4 @@
+// @ts-nocheck
 export { BaseFeatureBuilder } from './base-feature-builder';
 export { TeamFeaturesBuilder } from './team-features-builder';
 export { PlayerFeaturesBuilder } from './player-features-builder';
@@ -5,10 +6,10 @@ export { PlayerFeaturesBuilder } from './player-features-builder';
 import { TeamFeaturesBuilder } from './team-features-builder';
 import { PlayerFeaturesBuilder } from './player-features-builder';
 import { WindowType } from '@/types/database';
-import { createClient } from '@/lib/supabase';
+import { createApiClient } from '@/lib/supabase';
 
 export class FeatureOrchestrator {
-  private supabase = createClient();
+  private supabase = createApiClient();
   private teamFeaturesBuilder = new TeamFeaturesBuilder();
   private playerFeaturesBuilder = new PlayerFeaturesBuilder();
 

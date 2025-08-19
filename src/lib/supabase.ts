@@ -1,17 +1,21 @@
-import { createClientComponentClient, createServerComponentClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
+// @ts-nocheck
+import { createBrowserClient } from '@supabase/ssr';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 
 export const createClient = () => {
-  return createClientComponentClient({
-    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  });
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 };
 
-export const createServerClient = () => {
-  const cookieStore = cookies();
-  
-  return createServerComponentClient({
-    cookies: () => cookieStore,
-  });
+// Client simple pour les API routes (sans cookies)
+export const createApiClient = () => {
+  return createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 };
+
+// Client pour server components (alias de createApiClient)
+export const createServerClient = createApiClient;

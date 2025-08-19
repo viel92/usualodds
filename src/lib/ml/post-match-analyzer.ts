@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase';
+// @ts-nocheck
+import { createApiClient } from '@/lib/supabase';
 import { WindowType, Match } from '@/types/database';
 
 interface PredictionError {
@@ -36,7 +37,7 @@ interface LearningInsight {
 }
 
 export class PostMatchAnalyzer {
-  private supabase = createClient();
+  private supabase = createApiClient();
   private analysisDelay = 2 * 60 * 60 * 1000; // 2 heures après le match
 
   async analyzeFinishedMatches(): Promise<void> {

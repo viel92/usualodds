@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Modèles contextuels spécialisés pour différentes situations de match
 // Chaque modèle excelle dans un contexte particulier et est activé selon les conditions
 

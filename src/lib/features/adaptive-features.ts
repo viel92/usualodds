@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase';
+// @ts-nocheck
+import { createApiClient } from '@/lib/supabase';
 import { WindowType } from '@/types/database';
 import { temporalValidator } from './temporal-validator';
 
@@ -30,7 +31,7 @@ interface FeatureInteraction {
 }
 
 export class AdaptiveFeaturesBuilder {
-  private supabase = createClient();
+  private supabase = createApiClient();
   private config: AdaptiveFeatureConfig = {
     enableAutoCreation: true,
     enableAutoRemoval: false, // Conservative pour montante

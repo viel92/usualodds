@@ -92,39 +92,39 @@ async function getPerformanceMetrics(days: number) {
 
   // Calculate metrics
   const totalPredictions = errors.length;
-  const overallBrierScore = errors.reduce((sum, e) => sum + e.brier_score, 0) / totalPredictions;
-  const calibrationError = errors.reduce((sum, e) => sum + Math.abs(e.predicted_prob - e.actual_result), 0) / totalPredictions;
+  const overallBrierScore = errors.reduce((sum: number, e: any) => sum + e.brier_score, 0) / totalPredictions;
+  const calibrationError = errors.reduce((sum: number, e: any) => sum + Math.abs(e.predicted_prob - e.actual_result), 0) / totalPredictions;
 
   // Performance by window
-  const windowPerformance = errors.reduce((acc, error) => {
+  const windowPerformance = errors.reduce((acc: Record<string, { count: number; totalBrier: number }>, error: any) => {
     if (!acc[error.window]) {
       acc[error.window] = { count: 0, totalBrier: 0 };
     }
     acc[error.window].count++;
     acc[error.window].totalBrier += error.brier_score;
     return acc;
-  }, {} as Record<string, { count: number; totalBrier: number }>);
+  }, {} as Record<string, { count: number; totalBrier: number; avgBrier?: number }>);
 
   Object.keys(windowPerformance).forEach(window => {
-    windowPerformance[window].avgBrier = windowPerformance[window].totalBrier / windowPerformance[window].count;
+    (windowPerformance[window] as any).avgBrier = windowPerformance[window].totalBrier / windowPerformance[window].count;
   });
 
   // Performance by market
-  const marketPerformance = errors.reduce((acc, error) => {
+  const marketPerformance = errors.reduce((acc: Record<string, { count: number; totalBrier: number }>, error: any) => {
     if (!acc[error.market]) {
       acc[error.market] = { count: 0, totalBrier: 0 };
     }
     acc[error.market].count++;
     acc[error.market].totalBrier += error.brier_score;
     return acc;
-  }, {} as Record<string, { count: number; totalBrier: number }>);
+  }, {} as Record<string, { count: number; totalBrier: number; avgBrier?: number }>);
 
   Object.keys(marketPerformance).forEach(market => {
-    marketPerformance[market].avgBrier = marketPerformance[market].totalBrier / marketPerformance[market].count;
+    (marketPerformance[market] as any).avgBrier = marketPerformance[market].totalBrier / marketPerformance[market].count;
   });
 
   // Error type distribution
-  const errorTypeDistribution = errors.reduce((acc, error) => {
+  const errorTypeDistribution = errors.reduce((acc: Record<string, number>, error: any) => {
     acc[error.error_type] = (acc[error.error_type] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);

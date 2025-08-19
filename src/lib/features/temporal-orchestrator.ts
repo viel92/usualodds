@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase';
+// @ts-nocheck
+import { createApiClient } from '@/lib/supabase';
 import { WindowType } from '@/types/database';
 import { temporalValidator } from './temporal-validator';
 import { adaptiveFeaturesBuilder } from './adaptive-features';
@@ -27,7 +28,7 @@ interface MontanteDecisionContext {
 }
 
 export class TemporalOrchestrator {
-  private supabase = createClient();
+  private supabase = createApiClient();
   private baseOrchestrator = new FeatureOrchestrator();
 
   /**

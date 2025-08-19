@@ -171,7 +171,7 @@ async function getEnsemblePerformanceStatus() {
     models_needing_retraining: degradedModels || [],
     recent_error_patterns: errorPatterns || [],
     last_retraining: await getLastRetrainingTime(),
-    system_health: calculateSystemHealth(summary)
+    system_health: calculateSystemHealth(summary || [])
   };
 }
 

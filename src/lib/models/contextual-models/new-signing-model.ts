@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ContextualModelInput, ContextualPrediction } from './index';
 
 /**

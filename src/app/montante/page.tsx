@@ -166,7 +166,7 @@ export default async function MontantePage() {
           <li>• Stake 100% of current bankroll on each bet</li>
           <li>• Minimum odds: 1.50 per selection</li>
           <li>• Maximum 2-3 legs per bet (if uncorrelated)</li>
-          <li>• Positive expected value required (EV > 0)</li>
+          <li>• Positive expected value required (EV &gt; 0)</li>
           <li>• Reset to €5.00 after any loss</li>
           <li>• Decisions made at T-1h window only</li>
         </ul>

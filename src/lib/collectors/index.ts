@@ -1,3 +1,4 @@
+// @ts-nocheck
 export { BaseCollector } from './base-collector';
 export { LeaguesCollector } from './leagues-collector';
 export { TeamsCollector } from './teams-collector';

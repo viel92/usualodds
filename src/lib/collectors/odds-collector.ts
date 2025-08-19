@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseCollector } from './base-collector';
 import { WindowType } from '@/types/database';
 

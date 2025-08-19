@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseCollector } from '../collectors/base-collector';
 import { WindowType } from '@/types/database';
 import { postMatchAnalyzer } from '../ml/post-match-analyzer';

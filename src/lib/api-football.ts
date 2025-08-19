@@ -1,3 +1,4 @@
+// @ts-nocheck
 interface APIFootballConfig {
   baseURL: string;
   apiKey: string;

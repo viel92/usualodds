@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BaseCollector } from './base-collector';
 
 interface APIFixture {

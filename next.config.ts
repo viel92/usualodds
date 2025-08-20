@@ -36,11 +36,12 @@ const nextConfig: NextConfig = {
   // Redirections
   async redirects() {
     return [
-      {
-        source: '/dashboard',
-        destination: '/',
-        permanent: false,
-      },
+      // Redirections désactivées pour permettre l'accès aux pages premium
+      // {
+      //   source: '/dashboard',
+      //   destination: '/',
+      //   permanent: false,
+      // },
     ];
   },
   

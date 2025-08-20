@@ -2,32 +2,380 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/**
+ * DESIGN SYSTEM PREMIUM - USUALODDS SAAS
+ * =====================================
+ * CSS Variables pour thème dynamique et design tokens
+ */
+
+@layer base {
+  :root {
+    /* 🎨 COULEURS PRIMAIRES */
+    --primary-50: 239 246 255;
+    --primary-100: 219 234 254; 
+    --primary-500: 59 130 246;
+    --primary-600: 37 99 235;
+    --primary-700: 29 78 216;
+    --primary-900: 30 58 138;
+
+    /* 🎨 COULEURS SECONDAIRES */
+    --secondary-50: 238 242 255;
+    --secondary-500: 99 102 241;
+    --secondary-600: 79 70 229;
+
+    /* ✅ SUCCESS */
+    --success-50: 236 253 245;
+    --success-500: 16 185 129;
+    --success-600: 5 150 105;
+
+    /* ⚠️ WARNING */
+    --warning-50: 255 251 235;
+    --warning-500: 245 158 11;
+    --warning-600: 217 119 6;
+
+    /* ❌ ERROR */
+    --error-50: 254 242 242;
+    --error-500: 239 68 68;
+    --error-600: 220 38 38;
+
+    /* 🌫️ NEUTRAL */
+    --neutral-25: 252 252 253;
+    --neutral-50: 248 250 252;
+    --neutral-100: 241 245 249;
+    --neutral-200: 226 232 240;
+    --neutral-300: 203 213 225;
+    --neutral-400: 148 163 184;
+    --neutral-500: 100 116 139;
+    --neutral-600: 71 85 105;
+    --neutral-700: 51 65 85;
+    --neutral-800: 30 41 59;
+    --neutral-900: 15 23 42;
+    --neutral-950: 2 6 23;
+
+    /* 🎨 SURFACES */
+    --background: 255 255 255;
+    --foreground: 15 23 42;
+    --card: 255 255 255;
+    --card-foreground: 15 23 42;
+    --border: 226 232 240;
+    --input: 255 255 255;
+    --ring: 37 99 235;
+
+    /* 📐 SPACING CUSTOM */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+
+    /* 📏 BORDER RADIUS */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+
+    /* 🌑 SHADOWS */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+  }
+
+  /* 🌙 DARK MODE */
+  [data-theme="dark"] {
+    --primary-50: 30 41 59;
+    --primary-500: 96 165 250;
+    --primary-600: 59 130 246;
+
+    --neutral-25: 2 6 23;
+    --neutral-50: 15 23 42;
+    --neutral-100: 30 41 59;
+    --neutral-200: 51 65 85;
+    --neutral-300: 71 85 105;
+    --neutral-900: 241 245 249;
+    --neutral-950: 248 250 252;
+
+    --background: 15 23 42;
+    --foreground: 241 245 249;
+    --card: 30 41 59;
+    --card-foreground: 241 245 249;
+    --border: 51 65 85;
+    --input: 30 41 59;
+  }
+
+  /* 🖼️ BASE STYLES */
+  * {
+    border-color: rgb(var(--border));
+  }
+
+  body {
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* 📝 TYPOGRAPHY */
+  .text-display {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+
+  .text-headline {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .text-body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+  }
+
+  .text-caption {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+
+  /* 📏 RESPONSIVE TYPOGRAPHY */
+  .text-display-lg { font-size: clamp(2.5rem, 5vw, 4rem); }
+  .text-display-md { font-size: clamp(2rem, 4vw, 3rem); }
+  .text-headline-lg { font-size: clamp(1.5rem, 3vw, 2rem); }
+  .text-headline-md { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
+  .text-body-lg { font-size: 1.125rem; }
+  .text-body-md { font-size: 1rem; }
+  .text-caption-lg { font-size: 0.875rem; }
+  .text-caption-md { font-size: 0.75rem; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer components {
+  /* 🔘 BUTTON SYSTEM */
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800;
+    @apply text-white shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30;
+    @apply border border-blue-600 rounded-lg px-4 py-2 font-medium;
+    @apply transition-all duration-200 active:scale-[0.98];
+    @apply focus:ring-4 focus:ring-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-white hover:bg-neutral-50 text-neutral-700 hover:text-neutral-900;
+    @apply border border-neutral-200 hover:border-neutral-300 shadow-sm hover:shadow-md;
+    @apply rounded-lg px-4 py-2 font-medium transition-all duration-200;
+    @apply focus:ring-4 focus:ring-blue-500/20 active:scale-[0.98];
+  }
+
+  .btn-success {
+    @apply bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800;
+    @apply text-white shadow-lg shadow-emerald-500/25 rounded-lg px-4 py-2 font-medium;
+    @apply transition-all duration-200 active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply bg-transparent hover:bg-neutral-100 text-neutral-600 hover:text-neutral-900;
+    @apply rounded-lg px-4 py-2 font-medium transition-all duration-200;
+  }
+
+  /* 🃏 CARD SYSTEM */
+  .card-default {
+    @apply bg-white border border-neutral-200 shadow-sm hover:shadow-md;
+    @apply rounded-xl transition-all duration-300;
+  }
+
+  .card-elevated {
+    @apply bg-white border border-neutral-200 shadow-lg hover:shadow-xl;
+    @apply rounded-xl transition-all duration-300;
+  }
+
+  .card-gradient {
+    @apply bg-gradient-to-br from-white to-neutral-50 border border-neutral-200;
+    @apply shadow-lg hover:shadow-xl rounded-xl transition-all duration-300;
+  }
+
+  .card-glass {
+    @apply bg-white/80 backdrop-blur-sm border border-white/20;
+    @apply shadow-xl rounded-xl;
+  }
+
+  /* ✨ GRADIENTS SIGNATURE */
+  .gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .gradient-success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  }
+
+  .gradient-mesh {
+    background: 
+      radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+  }
+
+  /* 📊 PROGRESS & LOADING */
+  .progress-bar {
+    @apply bg-neutral-200 rounded-full overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full;
+    @apply transition-all duration-500 ease-out;
+  }
+
+  /* 🔄 LOADING SPINNER */
+  .spinner {
+    @apply animate-spin rounded-full border-2 border-neutral-200 border-t-blue-600;
+  }
+
+  /* 🎯 FOCUS STATES */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500;
+  }
+
+  /* 🌟 HOVER INTERACTIONS */
+  .hover-lift {
+    @apply transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1;
+    @apply hover:shadow-xl;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300;
+    @apply hover:shadow-lg hover:shadow-blue-500/25;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
 @layer utilities {
+  /* 📱 RESPONSIVE UTILITIES */
+  .container-custom {
+    @apply w-full mx-auto px-4;
+  }
+
+  @media (min-width: 768px) {
+    .container-custom { @apply px-6 max-w-6xl; }
+  }
+
+  @media (min-width: 1024px) {
+    .container-custom { @apply px-8 max-w-7xl; }
+  }
+
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* ⚡ ANIMATION UTILITIES */
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.4s ease-out;
+  }
+
+  .animate-bounce-in {
+    animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* 🌑 DARK MODE UTILITIES */
+  .dark-mode-transition {
+    @apply transition-colors duration-300;
+  }
+
+  /* 📐 SPACING UTILITIES */
+  .space-content > * + * {
+    margin-top: var(--spacing-md);
+  }
+
+  .space-section > * + * {
+    margin-top: var(--spacing-xl);
+  }
+}
+
+/* 🎬 KEYFRAMES */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 🔤 FONT LOADING OPTIMIZATION */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+}
+
+/* 📱 MOBILE OPTIMIZATIONS */
+@media (max-width: 767px) {
+  .mobile-optimized {
+    @apply text-sm leading-relaxed;
+  }
+  
+  .mobile-touch {
+    @apply min-h-[44px] min-w-[44px]; /* iOS recommandé */
+  }
+}
+
+/* ♿ ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 🖨️ PRINT STYLES */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  * {
+    background: white !important;
+    color: black !important;
   }
 }

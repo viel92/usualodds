@@ -1,9 +1,30 @@
-# 🤖 ROADMAP MACHINE LEARNING USUALODDS - ÉDITION ACCOMPLIE ✅
+# 🤖 ROADMAP MACHINE LEARNING USUALODDS - RESTRUCTURATION CRITIQUE 🔥
 
-## 🎯 OBJECTIF: Système ML Robuste Niveau Mondial 88% Précision
+## 🎯 OBJECTIF: Système ML Robuste 55-60% Précision (Phase 1)
 
-### 🏆 **STATUT ACTUEL: SYSTÈME ML OPÉRATIONNEL - 47.4% ACCURACY**
-**Date Maj:** 20 Août 2025 | **Performance:** 47.4% (Ensemble Model) | **Statut:** ✅ ENTERPRISE READY
+### ⚠️ **STATUT CRITIQUE: DATA LEAKAGE ÉLIMINÉ - PERFORMANCE RÉELLE 45.8%**
+**Date Maj:** 20 Août 2025 | **Performance:** 45.8% (RÉALISTE) | **Statut:** 🔧 SYSTÈME CORRIGÉ - PRÊT AMÉLIORATION
+
+## ⚠️ **DIAGNOSTIC URGENT - PROBLÈMES IDENTIFIÉS**
+
+### 🔍 **ANALYSE CRITIQUE DU SYSTÈME ACTUEL**
+```python
+problemes_critiques = {
+    'accuracy': '47.4% - EN DESSOUS DU HASARD (50%)',
+    'data_leakage': 'CRITIQUE - Look-ahead bias dans backtesting',
+    'architecture_mixte': 'Scripts Python obsolètes + TypeScript moderne',
+    'backtesting_defaillant': 'Méthodologie biaisée, résultats non fiables',
+    'features_temporelles': 'Problème timeline - future data dans prédictions',
+    'validation': 'Cross-validation non respectueuse chronologie'
+}
+```
+
+### 🔥 **ACTIONS URGENTES CETTE SEMAINE**
+1. **ARRÊTER** utilisation scripts `/scripts/` obsolètes
+2. **MIGRER** vers architecture TypeScript `/src/lib/collectors/`
+3. **AUDITER** et corriger data leakage backtesting
+4. **TESTER** système API `/api/collect` complet
+5. **VALIDER** intégrité temporelle features
 
 ---
 
@@ -151,8 +172,126 @@ phase_4_strategy = {
 
 ---
 
+---
+
+## 🚀 **NOUVELLE ROADMAP RESTRUCTURATION - BASÉE SUR ANALYSE CRITIQUE**
+
+### 🎯 **PHASE MVP (4-6 SEMAINES) → OBJECTIF 55-60% ACCURACY**
+
+#### **MVP.1 - CORRECTION DATA LEAKAGE (Semaine 1-2)**
+```python
+# PRIORITÉ ABSOLUE - BACKTESTING RIGOUREUX
+corrections_critiques = {
+    'walk_forward_validation': 'Timeline strictement respectée',
+    'feature_engineering_temporal': 'Aucune future data dans features',
+    'backtesting_methodology': 'Split temporel rigoureux (2021→2022→2023)',
+    'cross_validation_fix': 'TimeSeriesSplit au lieu de StratifiedKFold',
+    'data_pipeline_audit': 'Vérification look-ahead bias complet'
+}
+```
+
+#### **MVP.2 - ARCHITECTURE UNIFIÉE (Semaine 2-3)**  
+```typescript
+// MIGRATION COMPLÈTE VERS TYPESCRIPT
+architecture_target = {
+    'collectors_system': '/src/lib/collectors/ → SEULE SOURCE',
+    'api_endpoints': '/api/collect → initialize/daily/historical',
+    'feature_pipeline': 'Enhanced orchestrator intégré',
+    'database_layer': 'Supabase client unifié',
+    'obsolete_removal': 'Suppression /scripts/ Python legacy'
+}
+```
+
+#### **MVP.3 - VALIDATION SYSTÈME (Semaine 3-4)**
+```python
+# TESTS INTÉGRATION COMPLETS
+validation_plan = {
+    'data_quality': 'Audit complet pipeline données',
+    'feature_integrity': 'Validation chronologique features',
+    'model_performance': 'Backtesting sans biais',
+    'api_functionality': 'Tests endpoints complets',
+    'production_readiness': 'Monitoring + alerting'
+}
+```
+
+### 🎯 **PHASE STABLE (6-8 SEMAINES) → OBJECTIF 65-72% ACCURACY**
+
+#### **STABLE.1 - OPTIMISATION MODÈLES (Semaine 5-6)**
+```python
+# TECHNIQUES ML AVANCÉES PROPRES
+optimization_techniques = {
+    'ensemble_refinement': 'Stacking avec méta-features temporelles',
+    'hyperparameter_tuning': 'Optuna avec contraintes temporelles',
+    'feature_selection': 'Récursive elimination + importance',
+    'model_calibration': 'Isotonic regression probabilités',
+    'uncertainty_quantification': 'Confiance predictions'
+}
+```
+
+#### **STABLE.2 - FEATURES ENGINEERING AVANCÉES (Semaine 6-7)**
+```python
+# NOUVELLES FEATURES SANS LOOK-AHEAD
+advanced_features = {
+    'elo_momentum': 'Ratings dynamiques avec inertie',
+    'team_synergy': 'Compatibilité tactique calculée',
+    'form_weighted': 'Forme récente pondérée temps',
+    'psychological_factors': 'Pression, motivation, confiance',
+    'market_dynamics': 'Intégration cotes bookmakers historiques'
+}
+```
+
+#### **STABLE.3 - MONITORING & VALIDATION (Semaine 7-8)**
+```python
+# SYSTÈME MONITORING PRODUCTION
+monitoring_system = {
+    'drift_detection': 'Alerte dégradation performance',
+    'feature_monitoring': 'Quality checks automatiques',
+    'model_diagnostics': 'SHAP values + explainability',
+    'business_metrics': 'ROI + Kelly criterion tracking',
+    'automated_retraining': 'Pipeline ML automatisé'
+}
+```
+
+### 🎯 **PHASE PRODUCTION (4-6 SEMAINES) → OBJECTIF 75-85% ACCURACY**
+
+#### **PROD.1 - DEEP LEARNING & TECHNIQUES AVANCÉES (Semaine 9-10)**
+```python
+# MODÈLES ÉTAT-DE-L'ART
+advanced_models = {
+    'lstm_temporal': 'Réseaux récurrents pour séquences',
+    'attention_mechanisms': 'Transformer pour patterns complexes',
+    'graph_neural_nets': 'Relations équipes/joueurs',
+    'ensemble_stacking': 'Meta-learning sophistiqué',
+    'adversarial_training': 'Robustesse vs manipulation'
+}
+```
+
+#### **PROD.2 - API PRODUCTION & SCALABILITÉ (Semaine 11-12)**
+```typescript
+// INFRASTRUCTURE ENTERPRISE
+production_api = {
+    'fastapi_endpoints': 'API haute performance',
+    'caching_strategy': 'Redis pour predictions fréquentes',
+    'load_balancing': 'Multiple instances modèles',
+    'rate_limiting': 'Protection abuse',
+    'monitoring_observability': 'Métriques temps réel'
+}
+```
+
+#### **PROD.3 - DÉPLOIEMENT & OPTIMISATION FINALE (Semaine 12-14)**
+```python
+# OPTIMISATION BUSINESS
+final_optimization = {
+    'kelly_criterion': 'Sizing optimal paris',
+    'value_betting': 'Edge detection automatique',
+    'risk_management': 'Drawdown protection',
+    'portfolio_theory': 'Diversification paris',
+    'continuous_learning': 'Adaptation temps réel'
+}
+```
+
 ## 📋 **PHASE 4 PLANIFIÉE: DONNÉES SUPABASE RÉELLES**
-**Durée:** 1 semaine | **Statut:** 📋 PLANIFIÉ - PRIORITÉ IMMÉDIATE
+**Durée:** 1 semaine | **Statut:** 📋 REPORTÉ - APRÈS MVP
 
 ### 🎯 **4.1 Intégration Supabase Directe**
 ```python
@@ -333,20 +472,150 @@ final_targets = {
 4. ✅ **Performance Prometteuse** - 47.4% accuracy baseline solide
 5. ✅ **Infrastructure Production** - API + Monitoring ready
 
-### 🎯 **PROCHAINES ÉTAPES IMMÉDIATES - PHASE 4**
-1. ✅ **Phase 3 Optimisation Terminée** - 47.4% stable, plateau identifié
-2. 🎯 **PRIORITÉ: Intégration Supabase Directe** - Vraies données = breakthrough attendu
-3. 📊 **Validation Walk-Forward Réelle** - 2021→2022→2023 avec données réelles  
-4. 🚀 **Production API** - Si 55%+ atteint avec vraies données
-5. 🎯 **Deep Learning** - LSTM/Transformer sur patterns réels
+### ⚠️ **MVP.1 CORRIGÉ - DATA LEAKAGE ÉLIMINÉ**
+1. ✅ **ERREUR DÉTECTÉE ET CORRIGÉE** - 100% était dû à data leakage massif
+2. ✅ **VRAIE PERFORMANCE VALIDÉE** - 45.8% accuracy réaliste
+3. ✅ **SYSTÈME TEMPOREL CRÉÉ** - Train sur saisons passées, test sur futures
+4. ✅ **DATA LEAKAGE ÉLIMINÉ** - Plus de home_score/away_score dans features
+5. ✅ **MÉTHODOLOGIE PROPRE** - Temporal training system opérationnel
 
-### 🏆 **TRAJECTOIRE SUCCÈS ACTUALISÉE**
-**Baseline Original:** 45% → **Phase 1-3 Accomplie:** 47.4% → **Phase 4 Target:** 55-65% → **Objectif Final:** 88%
-
-**Statut Global:** ✅ **PHASE 3 TERMINÉE - SYSTÈME ROBUSTE**  
-**Insight Clé:** 🔍 Plateau données simulées → **Vraies données = clé breakthrough**
-**Prêt pour:** 🎯 **Phase 4 intégration Supabase directe**
+### 🚀 **PRIORITÉS POST-CORRECTION DATA LEAKAGE**
+**CHOIX STRATÉGIQUE:**
+- **Option A**: Améliorer features engineering (45.8% → 55-60%)
+- **Option B**: Optimiser modèles avec données réelles Supabase
+- **Option C**: Implémenter walk-forward validation en production
 
 ---
 
-*Dernière mise à jour: 20 Août 2025 - Système ML UsualOdds v2.0 Enterprise Edition*
+## 🎯 **NOUVELLE TRAJECTOIRE DE SUCCÈS - RESTRUCTURATION CRITIQUE**
+
+### 📊 **TIMELINE RÉVISÉE BASÉE ANALYSE CRITIQUE**
+
+| Phase | Duration | Accuracy Cible | Techniques Clés | Statut |
+|-------|----------|----------------|------------------|---------|
+| 🔥 **MVP.1-3 URGENT** | Sem 1-4 | **55-60%** | Correction data leakage + Architecture | **🚀 DÉMARRAGE IMMÉDIAT** |
+| 🎯 **STABLE.1-3** | Sem 5-8 | **65-72%** | Optimisation + Features + Monitoring | **📋 PLANIFIÉ** |
+| 🏆 **PROD.1-3** | Sem 9-14 | **75-85%** | Deep Learning + Production + Business | **🎯 OBJECTIF FINAL** |
+
+### 🚨 **PRIORITÉS ABSOLUES CETTE SEMAINE**
+```bash
+# Actions immédiates - Ne pas reporter
+1. npm run dev                           # Tester état actuel
+2. curl -X POST /api/collect -d '{"action": "initialize"}'  # API test
+3. python scripts/ml/backtest-clean-methodology.py         # Audit backtesting
+4. Identifier et corriger data leakage critique
+5. Migrer vers architecture TypeScript unifiée
+```
+
+### 🎯 **OBJECTIFS BUSINESS REVUS**
+```python
+business_targets_revised = {
+    # Performance ML
+    'mvp_accuracy': '55-60%',      # Correction critique → baseline viable
+    'stable_accuracy': '65-72%',   # Optimisation → performance competitve  
+    'prod_accuracy': '75-85%',     # État-de-l'art → excellence mondiale
+    
+    # ROI Business
+    'mvp_roi': '10-15%',           # Rentabilité démontrée
+    'stable_roi': '20-30%',        # Croissance solide
+    'prod_roi': '35-50%',          # Performance exceptionnelle
+    
+    # Métriques Système
+    'uptime_target': '99.9%',      # Fiabilité production
+    'latency_target': '<200ms',    # Temps réel
+    'capacity_target': '1000 req/min'  # Scalabilité
+}
+```
+
+### 🏁 **RÉSUMÉ STATUT PROJET - POST CORRECTION DATA LEAKAGE**
+
+#### ✅ **CORRECTION RÉUSSIE**
+1. **Data leakage éliminé** - Plus de home_score/away_score dans features
+2. **Performance réelle validée** - 45.8% accuracy cohérente et reproductible
+3. **Système temporel propre** - Train sur saisons passées, test sur futures
+4. **Méthodologie robuste** - Walk-forward validation opérationnelle
+
+#### 🎯 **PROCHAINES ÉTAPES**
+1. **Features engineering** - ELO dynamique, forme pondérée, styles de jeu
+2. **Optimisation modèles** - Hyperparamètres avec contraintes temporelles
+3. **Validation continue** - Monitoring drift + performance en temps réel
+4. **Objectif réaliste** - Améliorer 45.8% → 55-60% sans data leakage
+
+### 🚀 **PROCHAINES ACTIONS IMMÉDIATES**
+**Statut Global:** ✅ **DATA LEAKAGE ÉLIMINÉ - SYSTÈME PROPRE**  
+**Insight Clé:** 🔍 **Performance réelle 45.8% - Base saine pour amélioration**
+**Action Immédiate:** 🎯 **Features engineering avancées pour 55-60%**
+
+---
+
+## 📝 **JOURNAL DE SESSION - SYSTÈME DE TRACKING**
+
+### ✅ **SESSION TERMINÉE - 20 AOÛT 2025 - DATA LEAKAGE CORRIGÉ ✅**
+**Objectif:** Corriger data leakage massif + Créer système temporel propre
+**Réalisations:**
+- ✅ **DETECTION DATA LEAKAGE** - home_score/away_score utilisés comme features
+- ✅ **CORRECTION SYSTÈME** - Temporal training clean créé
+- ✅ **VALIDATION RÉELLE** - 45.8% accuracy confirmée (cohérente)
+- ✅ **MÉTHODOLOGIE PROPRE** - Walk-forward validation implémentée
+- ✅ **FEATURES PRÉ-MATCH** - Seulement données disponibles avant match
+- ✅ **SYSTÈME REPRODUCTIBLE** - scripts/ml/temporal-training-clean.py
+- ✅ **PERFORMANCE HONNÊTE** - Abandon faux 100%, acceptation 45.8%
+- ✅ **ROADMAP MISE À JOUR** - Objectifs réalistes rétablis
+
+**Status Critique:** **DATA LEAKAGE ÉLIMINÉ - PERFORMANCE RÉELLE 45.8%** ⚠️
+
+### ⚠️ **RÉSULTATS CORRECTION DATA LEAKAGE:**
+- **Problème Détecté**: Data leakage massif (home_score/away_score dans features)
+- **Correction Appliquée**: Temporal training system avec features PRÉ-MATCH uniquement
+- **Performance Corrigée**: 45.8% accuracy (RÉALISTE vs 100% FAUX)
+- **Validation Temporelle**: Train 2020-2023 → Test 2024 ✅
+- **Features Propres**: ELO, Form, Ranks, Possession (avant match) ✅
+- **Système Clean**: scripts/ml/temporal-training-clean.py ✅
+
+### ⚠️ **DIAGNOSTIC PERFORMANCE CORRIGÉE:**
+```python
+CORRECTION DATA LEAKAGE - PERFORMANCE RÉELLE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Avant correction: 100.0% (FAUX - data leakage)
+Après correction: 45.8% accuracy (RÉALISTE)
+
+CORRECTION APPLIQUÉE:
+- home_score/away_score ÉLIMINÉS des features
+- Temporal validation: train passé → test futur
+- Features PRÉ-MATCH uniquement
+- Walk-forward validation implémentée
+
+PERFORMANCE TEMPORELLE VALIDÉE:
+- Window 2020-21 → 2022: ~46% accuracy
+- Window 2020-22 → 2023: ~45% accuracy  
+- Window 2020-23 → 2024: ~46% accuracy
+- Moyenne stable: 45.8% (cohérente)
+
+STATUT SYSTÈME:
+- Data leakage: ÉLIMINÉ ✅
+- Méthodologie: PROPRE ✅
+- Performance: HONNÊTE mais EN DESSOUS hasard
+- Objectif suivant: Améliorer 45.8% → 55-60%
+```
+
+**Prochaine étape:** Features engineering avancées pour dépasser 50% (hasard)
+
+---
+
+*Dernière mise à jour: 20 Août 2025 - DATA LEAKAGE CORRIGÉ v4.0*
+
+---
+
+## 📋 **CONCLUSION CORRECTION DATA LEAKAGE**
+
+### ✅ **PROBLÈME RÉSOLU**
+- **Erreur détectée:** home_score/away_score utilisés comme features (= triche)
+- **Correction appliquée:** Temporal training system avec features PRÉ-MATCH uniquement
+- **Performance corrigée:** 45.8% accuracy (réaliste vs 100% impossible)
+- **Système propre:** scripts/ml/temporal-training-clean.py opérationnel
+
+### 🎯 **PROCHAINE PHASE: AMÉLIORATION 45.8% → 55-60%**
+- **Stratégie:** Features engineering avancées sans data leakage
+- **Techniques:** ELO dynamique, forme pondérée, patterns tactiques
+- **Validation:** Walk-forward validation stricte
+- **Objectif réaliste:** Dépasser 50% (hasard) vers 55-60%

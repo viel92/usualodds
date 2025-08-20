@@ -1,0 +1,909 @@
+{
+  "generated_at": "2025-08-19T23:21:26.259Z",
+  "total_predictions": 7,
+  "predictions": [
+    {
+      "match_info": {
+        "fixture_id": 1387713,
+        "date": "2025-08-22T18:45:00+00:00",
+        "round": "Regular Season - 2",
+        "home_team_name": "Paris Saint Germain",
+        "away_team_name": "Angers",
+        "venue": "Parc des Princes"
+      },
+      "prediction": {
+        "result_1x2": {
+          "home_win": 0.6965414495778869,
+          "draw": 0.15419966836970883,
+          "away_win": 0.14925888205240434,
+          "confidence": 75
+        },
+        "total_goals": {
+          "over_2_5": 0.5106837772629818,
+          "under_2_5": 0.48931622273701825,
+          "over_1_5": 0.7539797665396737,
+          "over_3_5": 0.289608821673561,
+          "confidence": 67.5
+        },
+        "probable_scorers": {
+          "home": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ],
+          "away": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ]
+        },
+        "goal_timing": {
+          "first_half_goal": 0.7,
+          "early_goal_0_15": 0.18,
+          "late_goal_75_90": 0.28
+        },
+        "analysis": {
+          "home_analysis": {
+            "style_tactique": "offensif",
+            "forces": [
+              "Attaque efficace",
+              "Défense solide",
+              "Motivation élevée"
+            ],
+            "faiblesses": [
+              "Pression importante"
+            ],
+            "patterns": {
+              "domicile": "Fort à domicile",
+              "exterieur": "Bon en déplacement",
+              "gros_matchs": "Présent sur gros matchs"
+            },
+            "predictibilite": 62,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "away_analysis": {
+            "style_tactique": "equilibre",
+            "forces": [
+              "Motivation élevée"
+            ],
+            "faiblesses": [
+              "Attaque en difficulté"
+            ],
+            "patterns": {
+              "domicile": "Standard",
+              "exterieur": "Variable",
+              "gros_matchs": "À confirmer"
+            },
+            "predictibilite": 88,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "matchup_analysis": {
+            "avantage_tactique": "domicile",
+            "avantage_explication": "Avantage domicile grâce à forte performance à domicile",
+            "zones_conflit": [
+              "milieu terrain",
+              "couloirs",
+              "surface de réparation"
+            ],
+            "scenarios": [
+              {
+                "type": "Victoire domicile serrée",
+                "probabilite": 45,
+                "description": "1-0 ou 2-1 domicile"
+              },
+              {
+                "type": "Match nul",
+                "probabilite": 30,
+                "description": "Résistance visiteur"
+              },
+              {
+                "type": "Surprise visiteur",
+                "probabilite": 25,
+                "description": "Contre-performance domicile"
+              }
+            ],
+            "facteurs_cles": [
+              "Écart de niveau significatif",
+              "Enjeu important"
+            ],
+            "upset_potential": 15,
+            "confiance_matchup": 80
+          },
+          "key_factors": [
+            "Écart de niveau significatif",
+            "Enjeu important"
+          ],
+          "overall_confidence": 75
+        }
+      },
+      "generated_at": "2025-08-19T23:21:26.251Z"
+    },
+    {
+      "match_info": {
+        "fixture_id": 1387712,
+        "date": "2025-08-23T17:00:00+00:00",
+        "round": "Regular Season - 2",
+        "home_team_name": "Nice",
+        "away_team_name": "Auxerre",
+        "venue": "Allianz Riviera"
+      },
+      "prediction": {
+        "result_1x2": {
+          "home_win": 0.6371252152257598,
+          "draw": 0.21685167260144628,
+          "away_win": 0.14602311217279396,
+          "confidence": 75
+        },
+        "total_goals": {
+          "over_2_5": 0.4393981002090235,
+          "under_2_5": 0.5606018997909765,
+          "over_1_5": 0.6989208367449367,
+          "over_3_5": 0.22843495126494143,
+          "confidence": 67.5
+        },
+        "probable_scorers": {
+          "home": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ],
+          "away": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ]
+        },
+        "goal_timing": {
+          "first_half_goal": 0.7,
+          "early_goal_0_15": 0.18,
+          "late_goal_75_90": 0.28
+        },
+        "analysis": {
+          "home_analysis": {
+            "style_tactique": "offensif",
+            "forces": [
+              "Attaque efficace",
+              "Motivation élevée",
+              "Qualité équipe"
+            ],
+            "faiblesses": [],
+            "patterns": {
+              "domicile": "Fort à domicile",
+              "exterieur": "Variable",
+              "gros_matchs": "Présent sur gros matchs"
+            },
+            "predictibilite": 68,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "away_analysis": {
+            "style_tactique": "equilibre",
+            "forces": [],
+            "faiblesses": [],
+            "patterns": {
+              "domicile": "Standard",
+              "exterieur": "Variable",
+              "gros_matchs": "À confirmer"
+            },
+            "predictibilite": 82,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "matchup_analysis": {
+            "avantage_tactique": "domicile",
+            "avantage_explication": "Avantage domicile grâce à forte performance à domicile",
+            "zones_conflit": [
+              "milieu terrain",
+              "couloirs",
+              "surface de réparation"
+            ],
+            "scenarios": [
+              {
+                "type": "Victoire domicile serrée",
+                "probabilite": 45,
+                "description": "1-0 ou 2-1 domicile"
+              },
+              {
+                "type": "Match nul",
+                "probabilite": 30,
+                "description": "Résistance visiteur"
+              },
+              {
+                "type": "Surprise visiteur",
+                "probabilite": 25,
+                "description": "Contre-performance domicile"
+              }
+            ],
+            "facteurs_cles": [
+              "Écart de niveau significatif"
+            ],
+            "upset_potential": 15,
+            "confiance_matchup": 80
+          },
+          "key_factors": [
+            "Écart de niveau significatif"
+          ],
+          "overall_confidence": 75
+        }
+      },
+      "generated_at": "2025-08-19T23:21:26.252Z"
+    },
+    {
+      "match_info": {
+        "fixture_id": 1387714,
+        "date": "2025-08-24T15:15:00+00:00",
+        "round": "Regular Season - 2",
+        "home_team_name": "Strasbourg",
+        "away_team_name": "Nantes",
+        "venue": "Stade de la Meinau"
+      },
+      "prediction": {
+        "result_1x2": {
+          "home_win": 0.6287992440882229,
+          "draw": 0.2255420979156775,
+          "away_win": 0.14565865799609967,
+          "confidence": 75
+        },
+        "total_goals": {
+          "over_2_5": 0.37325911419891716,
+          "under_2_5": 0.6267408858010828,
+          "over_1_5": 0.6417180761390745,
+          "over_3_5": 0.17758235971809141,
+          "confidence": 67.5
+        },
+        "probable_scorers": {
+          "home": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ],
+          "away": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ]
+        },
+        "goal_timing": {
+          "first_half_goal": 0.7,
+          "early_goal_0_15": 0.18,
+          "late_goal_75_90": 0.28
+        },
+        "analysis": {
+          "home_analysis": {
+            "style_tactique": "equilibre",
+            "forces": [
+              "Attaque efficace"
+            ],
+            "faiblesses": [],
+            "patterns": {
+              "domicile": "Fort à domicile",
+              "exterieur": "Variable",
+              "gros_matchs": "À confirmer"
+            },
+            "predictibilite": 74,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "away_analysis": {
+            "style_tactique": "equilibre",
+            "forces": [],
+            "faiblesses": [],
+            "patterns": {
+              "domicile": "Standard",
+              "exterieur": "Variable",
+              "gros_matchs": "À confirmer"
+            },
+            "predictibilite": 86,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "matchup_analysis": {
+            "avantage_tactique": "domicile",
+            "avantage_explication": "Avantage domicile grâce à forte performance à domicile",
+            "zones_conflit": [
+              "milieu terrain",
+              "couloirs",
+              "surface de réparation"
+            ],
+            "scenarios": [
+              {
+                "type": "Victoire domicile serrée",
+                "probabilite": 45,
+                "description": "1-0 ou 2-1 domicile"
+              },
+              {
+                "type": "Match nul",
+                "probabilite": 30,
+                "description": "Résistance visiteur"
+              },
+              {
+                "type": "Surprise visiteur",
+                "probabilite": 25,
+                "description": "Contre-performance domicile"
+              }
+            ],
+            "facteurs_cles": [
+              "Écart de niveau significatif"
+            ],
+            "upset_potential": 15,
+            "confiance_matchup": 80
+          },
+          "key_factors": [
+            "Écart de niveau significatif"
+          ],
+          "overall_confidence": 75
+        }
+      },
+      "generated_at": "2025-08-19T23:21:26.255Z"
+    },
+    {
+      "match_info": {
+        "fixture_id": 1387715,
+        "date": "2025-08-24T15:15:00+00:00",
+        "round": "Regular Season - 2",
+        "home_team_name": "Toulouse",
+        "away_team_name": "Stade Brestois 29",
+        "venue": "Stadium de Toulouse"
+      },
+      "prediction": {
+        "result_1x2": {
+          "home_win": 0.4911,
+          "draw": 0.311,
+          "away_win": 0.1979,
+          "confidence": 75
+        },
+        "total_goals": {
+          "over_2_5": 0.27831408908204147,
+          "under_2_5": 0.7216859109179585,
+          "over_1_5": 0.5470117250398626,
+          "over_3_5": 0.11407017116174972,
+          "confidence": 67.5
+        },
+        "probable_scorers": {
+          "home": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ],
+          "away": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ]
+        },
+        "goal_timing": {
+          "first_half_goal": 0.7,
+          "early_goal_0_15": 0.18,
+          "late_goal_75_90": 0.28
+        },
+        "analysis": {
+          "home_analysis": {
+            "style_tactique": "equilibre",
+            "forces": [],
+            "faiblesses": [],
+            "patterns": {
+              "domicile": "Standard",
+              "exterieur": "Variable",
+              "gros_matchs": "À confirmer"
+            },
+            "predictibilite": 80,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "away_analysis": {
+            "style_tactique": "equilibre",
+            "forces": [
+              "Attaque efficace"
+            ],
+            "faiblesses": [],
+            "patterns": {
+              "domicile": "Fort à domicile",
+              "exterieur": "Variable",
+              "gros_matchs": "À confirmer"
+            },
+            "predictibilite": 78,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "matchup_analysis": {
+            "avantage_tactique": "equilibre",
+            "avantage_explication": "Match équilibré, léger avantage domicile standard",
+            "zones_conflit": [
+              "milieu terrain",
+              "couloirs",
+              "surface de réparation"
+            ],
+            "scenarios": [
+              {
+                "type": "Match serré",
+                "probabilite": 40,
+                "description": "Décision aux détails"
+              },
+              {
+                "type": "Avantage domicile",
+                "probabilite": 35,
+                "description": "Facteur domicile décisif"
+              },
+              {
+                "type": "Surprise visiteur",
+                "probabilite": 25,
+                "description": "Motivation extérieur"
+              }
+            ],
+            "facteurs_cles": [],
+            "upset_potential": 15,
+            "confiance_matchup": 80
+          },
+          "key_factors": [],
+          "overall_confidence": 75
+        }
+      },
+      "generated_at": "2025-08-19T23:21:26.256Z"
+    },
+    {
+      "match_info": {
+        "fixture_id": 1387707,
+        "date": "2025-08-24T15:15:00+00:00",
+        "round": "Regular Season - 2",
+        "home_team_name": "Le Havre",
+        "away_team_name": "Lens",
+        "venue": "Stade Océane"
+      },
+      "prediction": {
+        "result_1x2": {
+          "home_win": 0.37351613192596356,
+          "draw": 0.35084571758913174,
+          "away_win": 0.27563815048490464,
+          "confidence": 75
+        },
+        "total_goals": {
+          "over_2_5": 0.21536318341235636,
+          "under_2_5": 0.7846368165876436,
+          "over_1_5": 0.47347992718482496,
+          "over_3_5": 0.1,
+          "confidence": 67.5
+        },
+        "probable_scorers": {
+          "home": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ],
+          "away": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ]
+        },
+        "goal_timing": {
+          "first_half_goal": 0.7,
+          "early_goal_0_15": 0.18,
+          "late_goal_75_90": 0.28
+        },
+        "analysis": {
+          "home_analysis": {
+            "style_tactique": "equilibre",
+            "forces": [
+              "Motivation élevée"
+            ],
+            "faiblesses": [
+              "Défense perméable",
+              "Position difficile"
+            ],
+            "patterns": {
+              "domicile": "Standard",
+              "exterieur": "Variable",
+              "gros_matchs": "Présent sur gros matchs"
+            },
+            "predictibilite": 90,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "away_analysis": {
+            "style_tactique": "equilibre",
+            "forces": [
+              "Défense solide"
+            ],
+            "faiblesses": [],
+            "patterns": {
+              "domicile": "Standard",
+              "exterieur": "Variable",
+              "gros_matchs": "Présent sur gros matchs"
+            },
+            "predictibilite": 76,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "matchup_analysis": {
+            "avantage_tactique": "domicile",
+            "avantage_explication": "Avantage domicile grâce à forme supérieure",
+            "zones_conflit": [
+              "milieu terrain",
+              "couloirs",
+              "surface de réparation"
+            ],
+            "scenarios": [
+              {
+                "type": "Victoire domicile serrée",
+                "probabilite": 45,
+                "description": "1-0 ou 2-1 domicile"
+              },
+              {
+                "type": "Match nul",
+                "probabilite": 30,
+                "description": "Résistance visiteur"
+              },
+              {
+                "type": "Surprise visiteur",
+                "probabilite": 25,
+                "description": "Contre-performance domicile"
+              }
+            ],
+            "facteurs_cles": [
+              "Écart de niveau significatif",
+              "Enjeu important"
+            ],
+            "upset_potential": 15,
+            "confiance_matchup": 80
+          },
+          "key_factors": [
+            "Écart de niveau significatif",
+            "Enjeu important"
+          ],
+          "overall_confidence": 75
+        }
+      },
+      "generated_at": "2025-08-19T23:21:26.257Z"
+    },
+    {
+      "match_info": {
+        "fixture_id": 1387708,
+        "date": "2025-08-24T18:45:00+00:00",
+        "round": "Regular Season - 2",
+        "home_team_name": "Lille",
+        "away_team_name": "Monaco",
+        "venue": "Decathlon Arena - Stade Pierre-Mauroy"
+      },
+      "prediction": {
+        "result_1x2": {
+          "home_win": 0.5599000000000001,
+          "draw": 0.23420000000000002,
+          "away_win": 0.20590000000000003,
+          "confidence": 75
+        },
+        "total_goals": {
+          "over_2_5": 0.49122092028566605,
+          "under_2_5": 0.5087790797143339,
+          "over_1_5": 0.7395783426255126,
+          "over_3_5": 0.27222486432021914,
+          "confidence": 67.5
+        },
+        "probable_scorers": {
+          "home": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ],
+          "away": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ]
+        },
+        "goal_timing": {
+          "first_half_goal": 0.7,
+          "early_goal_0_15": 0.18,
+          "late_goal_75_90": 0.28
+        },
+        "analysis": {
+          "home_analysis": {
+            "style_tactique": "equilibre",
+            "forces": [
+              "Attaque efficace",
+              "Défense solide",
+              "Motivation élevée"
+            ],
+            "faiblesses": [],
+            "patterns": {
+              "domicile": "Fort à domicile",
+              "exterieur": "Variable",
+              "gros_matchs": "Présent sur gros matchs"
+            },
+            "predictibilite": 70,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "away_analysis": {
+            "style_tactique": "offensif",
+            "forces": [
+              "Attaque efficace",
+              "Motivation élevée",
+              "Qualité équipe"
+            ],
+            "faiblesses": [
+              "Pression importante"
+            ],
+            "patterns": {
+              "domicile": "Fort à domicile",
+              "exterieur": "Variable",
+              "gros_matchs": "Présent sur gros matchs"
+            },
+            "predictibilite": 66,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "matchup_analysis": {
+            "avantage_tactique": "equilibre",
+            "avantage_explication": "Match équilibré, léger avantage domicile standard",
+            "zones_conflit": [
+              "milieu terrain",
+              "couloirs",
+              "surface de réparation"
+            ],
+            "scenarios": [
+              {
+                "type": "Match serré",
+                "probabilite": 40,
+                "description": "Décision aux détails"
+              },
+              {
+                "type": "Avantage domicile",
+                "probabilite": 35,
+                "description": "Facteur domicile décisif"
+              },
+              {
+                "type": "Surprise visiteur",
+                "probabilite": 25,
+                "description": "Motivation extérieur"
+              }
+            ],
+            "facteurs_cles": [
+              "Enjeu important"
+            ],
+            "upset_potential": 15,
+            "confiance_matchup": 80
+          },
+          "key_factors": [
+            "Enjeu important"
+          ],
+          "overall_confidence": 75
+        }
+      },
+      "generated_at": "2025-08-19T23:21:26.258Z"
+    },
+    {
+      "match_info": {
+        "fixture_id": 1387718,
+        "date": "2025-08-29T18:45:00+00:00",
+        "round": "Regular Season - 3",
+        "home_team_name": "Lens",
+        "away_team_name": "Stade Brestois 29",
+        "venue": "Stade Bollaert-Delelis"
+      },
+      "prediction": {
+        "result_1x2": {
+          "home_win": 0.5226,
+          "draw": 0.2916,
+          "away_win": 0.1858,
+          "confidence": 75
+        },
+        "total_goals": {
+          "over_2_5": 0.30545962894454143,
+          "under_2_5": 0.6945403710554585,
+          "over_1_5": 0.5758350724112672,
+          "over_3_5": 0.13109750962444425,
+          "confidence": 67.5
+        },
+        "probable_scorers": {
+          "home": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ],
+          "away": [
+            {
+              "name": "Attaquant principal",
+              "probability": 0.22
+            },
+            {
+              "name": "Ailier/Second attaquant",
+              "probability": 0.15
+            },
+            {
+              "name": "Milieu offensif",
+              "probability": 0.1
+            }
+          ]
+        },
+        "goal_timing": {
+          "first_half_goal": 0.7,
+          "early_goal_0_15": 0.18,
+          "late_goal_75_90": 0.28
+        },
+        "analysis": {
+          "home_analysis": {
+            "style_tactique": "equilibre",
+            "forces": [
+              "Défense solide"
+            ],
+            "faiblesses": [],
+            "patterns": {
+              "domicile": "Standard",
+              "exterieur": "Variable",
+              "gros_matchs": "Présent sur gros matchs"
+            },
+            "predictibilite": 76,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "away_analysis": {
+            "style_tactique": "equilibre",
+            "forces": [
+              "Attaque efficace"
+            ],
+            "faiblesses": [],
+            "patterns": {
+              "domicile": "Fort à domicile",
+              "exterieur": "Variable",
+              "gros_matchs": "À confirmer"
+            },
+            "predictibilite": 78,
+            "forme_actuelle": "moyenne",
+            "confiance_analyse": 75
+          },
+          "matchup_analysis": {
+            "avantage_tactique": "equilibre",
+            "avantage_explication": "Match équilibré, léger avantage domicile standard",
+            "zones_conflit": [
+              "milieu terrain",
+              "couloirs",
+              "surface de réparation"
+            ],
+            "scenarios": [
+              {
+                "type": "Match serré",
+                "probabilite": 40,
+                "description": "Décision aux détails"
+              },
+              {
+                "type": "Avantage domicile",
+                "probabilite": 35,
+                "description": "Facteur domicile décisif"
+              },
+              {
+                "type": "Surprise visiteur",
+                "probabilite": 25,
+                "description": "Motivation extérieur"
+              }
+            ],
+            "facteurs_cles": [],
+            "upset_potential": 15,
+            "confiance_matchup": 80
+          },
+          "key_factors": [],
+          "overall_confidence": 75
+        }
+      },
+      "generated_at": "2025-08-19T23:21:26.259Z"
+    }
+  ]
+}

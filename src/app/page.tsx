@@ -8,7 +8,7 @@ import { Target, Zap, Brain, TrendingUp, ArrowRight } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={{ backgroundColor: '#f8fafc', color: '#0f172a' }}>
       {/* Pas d'header ici - c'est dans Navigation.tsx */}
 
       {/* Hero Section Premium avec gradient background */}

@@ -23,6 +23,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" suppressHydrationWarning>
+      <head>
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            /* Styles CSS critiques pour éviter FOUC */
+            body { font-family: Inter, system-ui, sans-serif; background: #f8fafc; color: #0f172a; }
+            .btn-primary { background: linear-gradient(to right, #2563eb, #1d4ed8); color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; }
+            .card-elevated { background: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+          `
+        }} />
+      </head>
       <body className="antialiased min-h-screen bg-background text-foreground font-sans">
         <ThemeProvider
           attribute="data-theme"

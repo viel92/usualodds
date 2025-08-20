@@ -1792,3 +1792,89 @@ Le plan est **complet et actionnable** avec :
 
 *Plan établi par les experts UX-UI Designer et AI-ML Specialist*  
 *Session de refonte complète - 20 Août 2025*
+## 🎯 **JOUR 2 : FIXES UX CARDS & LAYOUT (20/08/2025 - Soir)**
+
+### **🚨 PROBLÈMES UX IDENTIFIÉS**
+**Diagnostic des cards de prédictions :**
+- ❌ **Alignement cassé** : Longueur des noms d'équipes désaligne les éléments
+- ❌ **Espace vide excessif** : Trop de blanc entre équipes (effet "coupure")  
+- ❌ **Info stade manquante** : Stade devrait être sous l'équipe home, pas dispersé
+- ❌ **Layout monotone** : Une seule colonne, potentiel gaspillé
+
+### **✅ SOLUTIONS UX PLANIFIÉES**
+
+#### **1. 🏗️ RESTRUCTURATION CARDS PRÉDICTIONS**
+```
+AVANT:                          APRÈS:
+[Équipe A]    VS    [Équipe B]  [Équipe A]  VS  [Équipe B]
+              ^                 [Stade]    ^
+         espace vide             dense   compact
+```
+
+**Améliorations :**
+- **Grid fixes** : CSS Grid avec colonnes fixes pour alignement parfait
+- **Stade repositionné** : Sous nom équipe home + sous "VS" central
+- **Espacement optimisé** : Réduction blanc, densité équilibrée
+- **Typography responsive** : Troncature intelligente noms longs
+
+#### **2. 🏗️ REFONTE LAYOUT - ARCHITECTURE 2-3 COLONNES**
+
+**Colonne principale (60%) :**
+- 📊 Cards prédictions optimisées
+- 🔄 Pagination élégante
+- 🎯 Filtres intégrés
+
+**Sidebar droite (40%) :**
+- 📈 **Analytics temps réel - À venir**
+- 🏆 **Top prédictions confidence - À venir**  
+- ⚡ **Tendances live - À venir**
+- 🎮 **Mini-widget paris - À venir**
+- 📊 **Stats comparatives - À venir**
+
+**Header amélioré :**
+- 🔍 **Recherche avancée - À venir**
+- 🗂️ **Filtres intelligents - À venir**
+- ⚙️ **Préférences utilisateur - À venir**
+
+#### **3. 🎨 COMPOSANTS SIDEBAR À VENIR**
+
+1. **📊 Analytics Real-time Widget**
+   - Graphique confiance moyenne
+   - Taux réussite prédictions
+   - Performance journalière
+
+2. **🏆 Top Predictions Board**
+   - 5 prédictions haute confiance
+   - Badges "Hot picks"
+   - Countdown matchs imminents
+
+3. **⚡ Live Trends Panel**
+   - Équipes en forme
+   - Surprises détectées  
+   - Insights IA temps réel
+
+4. **🎮 Quick Bet Integration**
+   - CTA vers bookmakers
+   - Odds comparaison
+   - ROI calculator
+
+5. **📊 Team Comparison Tool**
+   - H2H rapide
+   - Stats visuelles
+   - Form guide
+
+### **🎯 TIMELINE IMMÉDIATE**
+
+**Étape 1 (Ce soir) :** Fix cards alignement + stade
+**Étape 2 (Demain) :** Layout 2-colonnes + sidebar
+**Étape 3 (48h) :** Widgets "À venir" premium
+
+### **💎 RÉSULTAT ATTENDU**
+
+Interface dense, professionnelle et engageante :
+- Cards parfaitement alignées quelque soit la longueur
+- Stade visible et logique  
+- Sidebar riche en fonctionnalités "À venir"
+- Layout moderne 2-3 colonnes responsive
+- Expérience premium justifiant le pricing
+

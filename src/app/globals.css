@@ -119,33 +119,33 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* 📝 TYPOGRAPHY */
+  /* 📝 TYPOGRAPHY RAFFINÉE */
   .text-display {
     font-family: 'Inter', -apple-system, system-ui, sans-serif;
-    font-weight: 800;
-    letter-spacing: -0.025em;
-    line-height: 1.1;
+    font-weight: 700; /* Réduit de 800 à 700 pour plus de finesse */
+    letter-spacing: -0.02em; /* Ajusté pour meilleure lisibilité */
+    line-height: 1.15; /* Légèrement augmenté pour respirer */
   }
 
   .text-headline {
     font-family: 'Inter', -apple-system, system-ui, sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+    font-weight: 600; /* Réduit de 700 à 600 pour élégance */
+    letter-spacing: -0.015em; /* Optimisé pour balance */
+    line-height: 1.25; /* Amélioré pour hiérarchie visuelle */
   }
 
   .text-body {
     font-family: 'Inter', -apple-system, system-ui, sans-serif;
     font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.5;
+    letter-spacing: -0.005em; /* Réduit pour fluidité de lecture */
+    line-height: 1.6; /* Augmenté pour meilleure lisibilité */
   }
 
   .text-caption {
-    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-family: 'Inter', -apple-system, system-ui, sans-serif; /* Unifié avec Inter */
     font-weight: 500;
-    letter-spacing: 0;
-    line-height: 1.4;
+    letter-spacing: 0.01em; /* Léger espacement pour les petits textes */
+    line-height: 1.45; /* Optimisé pour labels/captions */
   }
 
   /* 📏 RESPONSIVE TYPOGRAPHY */

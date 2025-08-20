@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { QueryProvider } from "@/components/providers/query-provider";
 
 export const metadata: Metadata = {
   title: "UsualOdds - Prédictions Football IA",
@@ -34,17 +35,18 @@ export default function RootLayout({
         }} />
       </head>
       <body className="antialiased min-h-screen bg-background text-foreground font-sans">
-        <ThemeProvider
-          attribute="data-theme"
-          defaultTheme="light"
-          enableSystem={true}
-          disableTransitionOnChange={false}
-        >
-          <div className="flex flex-col min-h-screen">
-            <Navigation />
-            <main className="flex-1">
-              {children}
-            </main>
+        <QueryProvider>
+          <ThemeProvider
+            attribute="data-theme"
+            defaultTheme="light"
+            enableSystem={true}
+            disableTransitionOnChange={false}
+          >
+            <div className="flex flex-col min-h-screen">
+              <Navigation />
+              <main className="flex-1">
+                {children}
+              </main>
             
             {/* Footer minimal premium */}
             <footer className="border-t border-neutral-200 bg-neutral-50/50 no-print">
@@ -62,8 +64,9 @@ export default function RootLayout({
                 </div>
               </div>
             </footer>
-          </div>
-        </ThemeProvider>
+            </div>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

@@ -26,7 +26,7 @@ export default function DashboardPage() {
     try {
       await refreshMutation.mutateAsync()
     } catch (err) {
-      console.error('Erreur rafraîchissement:', err)
+      console.error('Dashboard Analytics - À venir:', err)
     }
   }
 
@@ -76,7 +76,7 @@ export default function DashboardPage() {
             <Target className="w-8 h-8" />
           </div>
           <h3 className="text-headline-md font-bold text-neutral-900 mb-2">
-            Erreur de Chargement
+            Dashboard Analytics - À venir
           </h3>
           <p className="text-neutral-600 mb-6">
             {error?.message || 'Impossible de charger les prédictions'}

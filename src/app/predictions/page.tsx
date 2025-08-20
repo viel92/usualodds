@@ -64,10 +64,10 @@ export default function PredictionsPage() {
         
         setPredictions(transformedPredictions)
       } else {
-        setError('Aucune prédiction disponible')
+        setError('Prédictions en temps réel - À venir')
       }
     } catch (err) {
-      setError('Erreur chargement prédictions')
+      setError('Prédictions en temps réel - À venir')
       console.error('Erreur:', err)
     } finally {
       setLoading(false)
@@ -142,7 +142,7 @@ export default function PredictionsPage() {
           <div className="w-16 h-16 bg-error-50 text-error-600 rounded-full flex items-center justify-center mx-auto mb-6">
             <BarChart3 className="w-8 h-8" />
           </div>
-          <h2 className="text-headline-md font-bold text-neutral-900 mb-4">Erreur de chargement</h2>
+          <h2 className="text-headline-md font-bold text-neutral-900 mb-4">Prédictions en temps réel - À venir</h2>
           <p className="text-body-md text-neutral-600 mb-8">{error}</p>
           <Button
             onClick={loadPredictions}
@@ -241,7 +241,7 @@ export default function PredictionsPage() {
             <div className="w-20 h-20 bg-primary-50 text-primary-600 rounded-full flex items-center justify-center mx-auto mb-8">
               <BarChart3 className="w-10 h-10" />
             </div>
-            <h3 className="text-display-md font-black text-neutral-900 mb-4">Aucune prédiction disponible</h3>
+            <h3 className="text-display-md font-black text-neutral-900 mb-4">Prédictions en temps réel - À venir</h3>
             <p className="text-body-lg text-neutral-600 mb-8">Générez des prédictions depuis le dashboard</p>
             <Link href="/dashboard">
               <Button leftIcon={<TrendingUp className="w-4 h-4" />}>

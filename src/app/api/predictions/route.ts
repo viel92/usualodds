@@ -83,7 +83,7 @@ async function getUpcomingMatches(limit: number = 20) {
     .limit(limit);
     
   if (error) {
-    throw new Error(`Erreur Supabase: ${error.message}`);
+    throw new Error(`Données de prédiction - À venir: ${error.message}`);
   }
   
   console.log(`✅ ${matches?.length || 0} matches trouvés`);

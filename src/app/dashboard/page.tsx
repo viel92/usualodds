@@ -339,7 +339,8 @@ export default function DashboardPage() {
                     {/* Match Info Premium */}
                     <div className="lg:col-span-5">
                       <div className="flex items-center justify-between mb-4">
-                        <Badge variant="secondary" leftIcon={<Calendar className="w-3 h-3" />}>
+                        <Badge variant="secondary">
+                          <Calendar className="w-3 h-3 mr-1" />
                           {formatDate(prediction.date)}
                         </Badge>
                         <ConfidenceBadge confidence={prediction.confidence} />

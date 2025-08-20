@@ -176,7 +176,8 @@ export default function PredictionsPage() {
                   </span>
                 </h1>
                 <div className="flex items-center space-x-4 mt-2">
-                  <Badge variant="primary" leftIcon={<Calendar className="w-3 h-3" />}>
+                  <Badge variant="primary">
+                    <Calendar className="w-3 h-3 mr-1" />
                     Saison 2025-26
                   </Badge>
                   <Badge variant="success" dot dotColor="bg-success-500">
@@ -263,7 +264,8 @@ export default function PredictionsPage() {
                           <Badge variant="outline" size="sm">
                             Ligue 1
                           </Badge>
-                          <Badge variant="secondary" leftIcon={<Clock className="w-3 h-3" />} size="sm">
+                          <Badge variant="secondary" size="sm">
+                            <Clock className="w-3 h-3 mr-1" />
                             {formatDate(prediction.matchDate)}
                           </Badge>
                         </div>
@@ -272,7 +274,8 @@ export default function PredictionsPage() {
                           <div className="text-center flex-1">
                             <div className="font-bold text-neutral-900 mb-2">{prediction.homeTeam}</div>
                             {winner.type === 'home' && (
-                              <Badge variant="gold" size="sm" leftIcon={<Crown className="w-3 h-3" />}>
+                              <Badge variant="gold" size="sm">
+                                <Crown className="w-3 h-3 mr-1" />
                                 Favori
                               </Badge>
                             )}
@@ -283,7 +286,8 @@ export default function PredictionsPage() {
                           <div className="text-center flex-1">
                             <div className="font-bold text-neutral-900 mb-2">{prediction.awayTeam}</div>
                             {winner.type === 'away' && (
-                              <Badge variant="gold" size="sm" leftIcon={<Crown className="w-3 h-3" />}>
+                              <Badge variant="gold" size="sm">
+                                <Crown className="w-3 h-3 mr-1" />
                                 Favori
                               </Badge>
                             )}
@@ -340,7 +344,8 @@ export default function PredictionsPage() {
                           
                           {prediction.predictions.confidence >= 75 && (
                             <div className="text-center">
-                              <Badge variant="success" leftIcon={<Target className="w-3 h-3" />} size="sm">
+                              <Badge variant="success" size="sm">
+                                <Target className="w-3 h-3 mr-1" />
                                 Haute confiance
                               </Badge>
                             </div>

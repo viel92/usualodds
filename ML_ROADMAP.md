@@ -652,11 +652,64 @@ INSIGHTS BUSINESS:
 ✅ Amélioration progressive = stratégie optimale
 ```
 
-**Prochaine étape:** Résolution linkage XG + Features Head-to-Head pour breakthrough final
+### 🚀 **PHASE CONSOLIDATION TERMINÉE - FEATURES ENGINEERED COMPLÈTÉES:**
+
+#### **BREAKTHROUGH XG LINKAGE RÉSOLU ✅**
+- **Problème identifié**: match_statistics.match_id ↔ matches.api_id linkage
+- **Solution implémentée**: Script `fix-xg-linkage.py` avec mapping automatique
+- **Résultats**: 437 entrées XG + 18 équipes/saisons avec features calculées
+- **Features XG**: xg_mean, xg_recent, xg_variance (saison 2024 uniquement)
+- **Impact**: Données XG intégrées dans team_features via colonnes existantes
+
+#### **FEATURES HEAD-TO-HEAD DÉVELOPPÉES ✅**
+- **Script créé**: `calculate-head-to-head-features.py` - Confrontations historiques
+- **Méthode**: Analyse chronologique 1760 matches avec historique précédent
+- **Coverage**: 43 confrontations avec historique sur échantillon 200 matches
+- **Features H2H**: h2h_total_matches, h2h_home_advantage, h2h_goals_avg
+- **Impact attendu**: +2-3% accuracy (52.1% → 54-55%)
+
+#### **ENSEMBLE FEATURES DISPONIBLES POUR ML:**
+```python
+FEATURES_STACK_COMPLET = {
+    # Existantes et optimisées ✅
+    'elo_features': ['elo_rating', 'elo_advantage'] + '99 équipes',
+    'form_features': ['form_5_points', 'form_advantage'] + '99 équipes', 
+    'volatility_features': ['volatility_index'] + '96 équipes',
+    
+    # Nouvellement ajoutées ✅
+    'xg_features': ['xg_mean', 'xg_recent', 'xg_variance'] + '18 équipes S2024',
+    'h2h_features': ['h2h_home_advantage', 'h2h_goals_avg'] + 'coverage partielle',
+    
+    # Target ML performance
+    'objective': '52.1% → 55-60% accuracy ATTEIGNABLE'
+}
+```
+
+### 🎯 **PHASE FINALE: OPTIMISATION ENSEMBLE MODELS**
+
+#### **PRIORITÉ IMMÉDIATE**: Test ML avec stack features complet
+- **Objectif**: Valider impact XG + H2H sur performance 52.1% baseline
+- **Modèles**: Random Forest + XGBoost + Neural Network ensemble optimisé
+- **Validation**: Walk-forward temporal sur 1760 matches avec nouvelles features
+- **Target**: Confirmation 55-60% accuracy avec stack features engineered
+
+### ⚠️ **INVESTIGATION XG MANQUANTES - SAISONS 2021-2023:**
+
+**Question critique identifiée**: Pourquoi XG uniquement sur saison 2024 ?
+
+**Hypothèses à vérifier**:
+1. **JSON raw_data incomplet** sur saisons anciennes ?
+2. **API collection différente** entre saisons ?
+3. **Match_statistics population** progressive ?
+4. **Expected_goals** ajouté récemment dans collecte ?
+
+**Action requise**: Audit match_statistics + raw_data pour saisons 2021-2023
+
+**Prochaine étape:** Investigation XG manquantes + Test ML avec features actuelles
 
 ---
 
-*Dernière mise à jour: 20 Août 2025 - ANALYSE ERREURS & STRATÉGIE RÉALISTE v5.0*
+*Dernière mise à jour: 20 Août 2025 - CONSOLIDATION FEATURES & INVESTIGATION XG v6.0*
 
 ---
 

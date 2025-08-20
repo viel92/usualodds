@@ -162,11 +162,11 @@
 @layer components {
   /* 🔘 BUTTON SYSTEM */
   .btn-primary {
-    @apply bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800;
-    @apply text-white shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30;
-    @apply border border-primary-600 rounded-lg px-4 py-2 font-medium;
-    @apply transition-all duration-200 active:scale-[0.98];
-    @apply focus:ring-4 focus:ring-primary-500/20 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 !important;
+    @apply text-white shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 !important;
+    @apply border border-primary-600 rounded-lg px-4 py-2 font-medium !important;
+    @apply transition-all duration-200 active:scale-[0.98] !important;
+    @apply focus:ring-4 focus:ring-primary-500/20 disabled:opacity-50 disabled:cursor-not-allowed !important;
   }
 
   .btn-secondary {

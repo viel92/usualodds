@@ -121,12 +121,13 @@ export class TeamsCollector extends BaseCollector {
             .from('teams')
             .insert({
               name: apiTeam.team.name,
-              short_name: apiTeam.team.code || null,
+              code: apiTeam.team.code || null,
               logo_url: apiTeam.team.logo || null,
               founded: apiTeam.team.founded || null,
               venue_name: apiTeam.venue?.name || null,
               venue_capacity: apiTeam.venue?.capacity || null,
-              api_id: apiTeam.team.id
+              api_id: apiTeam.team.id,
+              country: apiTeam.team.country || null
             });
 
           if (error) {

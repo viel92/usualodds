@@ -1,81 +1,64 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 /**
- * DASHBOARD MINIMALISTE USUALODDS
+ * DASHBOARD SAAS - HUB CENTRAL USUALODDS
  * 
- * Interface simple pour visualiser les prédictions de matchs
+ * Vue d'ensemble des prédictions avec navigation claire
  */
 
 interface Prediction {
-  id: number
-  match: {
-    home_team: string
-    away_team: string
-    date: string
-    venue: string
-    round: string
+  id: string
+  homeTeam: string
+  awayTeam: string
+  date: string
+  venue: string
+  probabilities: {
+    home: number
+    draw: number
+    away: number
   }
-  predictions: {
-    result_1x2: {
-      home_win: number
-      draw: number
-      away_win: number
-    }
-    total_goals: {
-      over_2_5: number
-      under_2_5: number
-      over_1_5: number
-      over_3_5: number
-    }
-    scorers: {
-      home: Array<{ name: string; probability: number }>
-      away: Array<{ name: string; probability: number }>
-    }
+  confidence: number
+  prediction: 'home' | 'draw' | 'away'
+  features: {
+    homeElo: number
+    awayElo: number
+    homeForm: number
+    awayForm: number
   }
-  analysis: {
-    overall_confidence: number
-    home_style: string
-    away_style: string
-    home_form: string
-    away_form: string
-    advantage: string
-    upset_potential: number
-    key_factors: string[]
-  }
-  generated_at: string
-}
-
-interface DashboardStats {
-  total_predictions: number
-  avg_confidence: number
-  home_wins: number
-  away_wins: number
-  draws: number
-  over_2_5_count: number
 }
 
 interface DashboardData {
   predictions: Prediction[]
-  stats: DashboardStats
-  generated_at: string
-  total: number
+  pagination: {
+    total: number
+    page: number
+    perPage: number
+    hasMore: boolean
+  }
+  meta: {
+    avgConfidence: number
+    modelAccuracy: string
+    lastUpdate: string
+    generated: number
+  }
 }
 
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [regenerating, setRegenerating] = useState(false)
+  const [refreshing, setRefreshing] = useState(false)
 
-  // Charger les prédictions
+  // Charger les prédictions depuis la nouvelle API unifiée
   const loadPredictions = async () => {
     try {
       setLoading(true)
       setError(null)
       
-      const response = await fetch('/api/dashboard/predictions')
+      const response = await fetch('/api/predictions?limit=10&confidence_min=50')
       const result = await response.json()
       
       if (result.success) {
@@ -91,31 +74,26 @@ export default function DashboardPage() {
     }
   }
 
-  // Régénérer les prédictions
-  const regeneratePredictions = async () => {
+  // Rafraîchir les prédictions
+  const refreshPredictions = async () => {
     try {
-      setRegenerating(true)
+      setRefreshing(true)
       
-      const response = await fetch('/api/dashboard/predictions', {
+      const response = await fetch('/api/predictions', {
         method: 'POST'
       })
       const result = await response.json()
       
       if (result.success) {
-        // Recharger les prédictions après régénération
-        setTimeout(() => {
-          loadPredictions()
-        }, 2000)
+        setData(result.data)
       } else {
-        // Afficher les instructions pour régénération manuelle
-        const instructions = result.instructions?.join('\n') || result.details
-        alert(`Régénération manuelle requise:\n\n${instructions}`)
+        setError(result.error || 'Erreur rafraîchissement')
       }
     } catch (err) {
-      setError('Erreur régénération prédictions')
-      console.error('Erreur régénération:', err)
+      setError('Erreur rafraîchissement prédictions')
+      console.error('Erreur rafraîchissement:', err)
     } finally {
-      setRegenerating(false)
+      setRefreshing(false)
     }
   }
 
@@ -136,26 +114,60 @@ export default function DashboardPage() {
     })
   }
 
-  // Couleur confiance
-  const getConfidenceColor = (confidence: number) => {
-    if (confidence >= 80) return 'text-green-600'
-    if (confidence >= 60) return 'text-yellow-600'
-    return 'text-red-600'
+  const formatTime = (dateStr: string) => {
+    const date = new Date(dateStr)
+    return date.toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    })
   }
 
-  // Couleur avantage
-  const getAdvantageColor = (advantage: string) => {
-    if (advantage === 'domicile') return 'text-blue-600'
-    if (advantage === 'exterieur') return 'text-purple-600'
-    return 'text-gray-600'
+  // Couleurs basées sur confiance
+  const getConfidenceColor = (confidence: number) => {
+    if (confidence >= 80) return 'text-green-600 bg-green-50'
+    if (confidence >= 70) return 'text-blue-600 bg-blue-50'
+    if (confidence >= 60) return 'text-yellow-600 bg-yellow-50'
+    return 'text-gray-600 bg-gray-50'
+  }
+
+  const getPredictionLabel = (prediction: string) => {
+    switch (prediction) {
+      case 'home': return 'Victoire Dom.'
+      case 'away': return 'Victoire Ext.'
+      case 'draw': return 'Match Nul'
+      default: return 'Indéterminé'
+    }
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Chargement des prédictions...</p>
+      <div className="min-h-screen bg-gray-50">
+        {/* Header */}
+        <div className="bg-white border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <div className="flex items-center space-x-4">
+                <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  ⚽ UsualOdds
+                </Link>
+                <div className="hidden md:block text-gray-400">|</div>
+                <h1 className="hidden md:block text-xl font-semibold text-gray-900">Dashboard</h1>
+              </div>
+              <nav className="flex items-center space-x-6">
+                <Link href="/predictions" className="text-gray-600 hover:text-gray-900 font-medium">
+                  Toutes les prédictions
+                </Link>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        {/* Loading State */}
+        <div className="flex items-center justify-center py-20">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p className="text-gray-600">Chargement du dashboard...</p>
+          </div>
         </div>
       </div>
     )
@@ -164,14 +176,15 @@ export default function DashboardPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center bg-white p-8 rounded-lg shadow-md">
-          <div className="text-red-500 text-xl mb-4">⚠️ Erreur</div>
-          <p className="text-gray-600 mb-4">{error}</p>
+        <div className="text-center bg-white p-8 rounded-xl shadow-sm border max-w-md">
+          <div className="text-red-500 text-5xl mb-4">⚠️</div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Erreur de chargement</h2>
+          <p className="text-gray-600 mb-6">{error}</p>
           <button
             onClick={loadPredictions}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
           >
-            Réessayer
+            🔄 Réessayer
           </button>
         </div>
       </div>
@@ -180,17 +193,43 @@ export default function DashboardPage() {
 
   if (!data || data.predictions.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center bg-white p-8 rounded-lg shadow-md">
-          <div className="text-yellow-500 text-xl mb-4">📊</div>
-          <p className="text-gray-600 mb-4">Aucune prédiction disponible</p>
-          <button
-            onClick={regeneratePredictions}
-            disabled={regenerating}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:opacity-50"
-          >
-            {regenerating ? 'Génération...' : 'Générer prédictions'}
-          </button>
+      <div className="min-h-screen bg-gray-50">
+        {/* Header */}
+        <div className="bg-white border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <div className="flex items-center space-x-4">
+                <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  ⚽ UsualOdds
+                </Link>
+                <div className="hidden md:block text-gray-400">|</div>
+                <h1 className="hidden md:block text-xl font-semibold text-gray-900">Dashboard</h1>
+              </div>
+              <nav className="flex items-center space-x-6">
+                <Link href="/predictions" className="text-gray-600 hover:text-gray-900 font-medium">
+                  Toutes les prédictions
+                </Link>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        {/* Empty State */}
+        <div className="flex items-center justify-center py-20">
+          <div className="text-center bg-white p-12 rounded-xl shadow-sm border max-w-lg">
+            <div className="text-6xl mb-6">🔮</div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Aucune prédiction disponible</h2>
+            <p className="text-gray-600 mb-8">
+              Les prédictions apparaîtront ici une fois les matches collectés et analysés.
+            </p>
+            <button
+              onClick={refreshPredictions}
+              disabled={refreshing}
+              className="bg-blue-600 text-white px-8 py-4 rounded-xl hover:bg-blue-700 transition-colors font-semibold disabled:opacity-50"
+            >
+              {refreshing ? '🔄 Génération...' : '✨ Générer prédictions'}
+            </button>
+          </div>
         </div>
       </div>
     )
@@ -198,187 +237,155 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">UsualOdds Dashboard</h1>
-              <p className="text-gray-600">
-                Prédictions générées le {formatDate(data.generated_at)}
-              </p>
+      {/* Header avec navigation */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-4">
+              <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                ⚽ UsualOdds
+              </Link>
+              <div className="hidden md:block text-gray-400">|</div>
+              <h1 className="hidden md:block text-xl font-semibold text-gray-900">Dashboard</h1>
             </div>
-            <button
-              onClick={regeneratePredictions}
-              disabled={regenerating}
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50 flex items-center gap-2"
-            >
-              {regenerating ? (
-                <>
-                  <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
-                  Génération...
-                </>
-              ) : (
-                <>🔄 Régénérer</>
-              )}
-            </button>
+            <nav className="flex items-center space-x-6">
+              <Link href="/predictions" className="text-gray-600 hover:text-gray-900 font-medium">
+                Toutes les prédictions
+              </Link>
+              <button
+                onClick={refreshPredictions}
+                disabled={refreshing}
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 flex items-center space-x-2"
+              >
+                {refreshing ? (
+                  <>
+                    <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                    <span>Actualisation...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>🔄</span>
+                    <span>Actualiser</span>
+                  </>
+                )}
+              </button>
+            </nav>
           </div>
         </div>
       </div>
 
-      {/* Stats rapides */}
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-8">
-          <div className="bg-white p-4 rounded-lg shadow-sm text-center">
-            <div className="text-2xl font-bold text-blue-600">{data.stats.total_predictions}</div>
-            <div className="text-sm text-gray-600">Prédictions</div>
+      {/* Contenu principal */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Stats Overview */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+          <div className="bg-white p-6 rounded-xl shadow-sm border">
+            <div className="text-3xl font-bold text-blue-600 mb-1">{data.predictions.length}</div>
+            <div className="text-sm text-gray-600">Prédictions actives</div>
           </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm text-center">
-            <div className="text-2xl font-bold text-green-600">{data.stats.avg_confidence}%</div>
-            <div className="text-sm text-gray-600">Confiance</div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border">
+            <div className="text-3xl font-bold text-green-600 mb-1">{data.meta.avgConfidence}%</div>
+            <div className="text-sm text-gray-600">Confiance moyenne</div>
           </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm text-center">
-            <div className="text-2xl font-bold text-blue-500">{data.stats.home_wins}</div>
-            <div className="text-sm text-gray-600">Victoires Dom</div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border">
+            <div className="text-3xl font-bold text-purple-600 mb-1">{data.meta.modelAccuracy}</div>
+            <div className="text-sm text-gray-600">Précision modèle</div>
           </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm text-center">
-            <div className="text-2xl font-bold text-gray-500">{data.stats.draws}</div>
-            <div className="text-sm text-gray-600">Nuls</div>
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm text-center">
-            <div className="text-2xl font-bold text-purple-500">{data.stats.away_wins}</div>
-            <div className="text-sm text-gray-600">Victoires Ext</div>
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm text-center">
-            <div className="text-2xl font-bold text-orange-500">{data.stats.over_2_5_count}</div>
-            <div className="text-sm text-gray-600">Over 2.5</div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border">
+            <div className="text-3xl font-bold text-orange-600 mb-1">
+              {data.predictions.filter(p => p.confidence >= 75).length}
+            </div>
+            <div className="text-sm text-gray-600">Haute confiance</div>
           </div>
         </div>
 
-        {/* Liste des prédictions */}
-        <div className="space-y-6">
-          {data.predictions.map((prediction) => (
-            <div key={prediction.id} className="bg-white rounded-lg shadow-sm border overflow-hidden">
-              {/* En-tête match */}
-              <div className="px-6 py-4 bg-gray-50 border-b">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="text-lg font-semibold">
-                      {prediction.match.home_team} vs {prediction.match.away_team}
-                    </h3>
-                    <p className="text-gray-600">
-                      {formatDate(prediction.match.date)} - {prediction.match.venue}
-                    </p>
-                    <p className="text-sm text-gray-500">{prediction.match.round}</p>
-                  </div>
-                  <div className="text-right">
-                    <div className={`text-lg font-bold ${getConfidenceColor(prediction.analysis.overall_confidence)}`}>
-                      {prediction.analysis.overall_confidence}%
-                    </div>
-                    <div className="text-sm text-gray-500">Confiance</div>
-                  </div>
-                </div>
-              </div>
+        {/* Prédictions highlights */}
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold text-gray-900">Prochains matchs</h2>
+            <Link 
+              href="/predictions"
+              className="text-blue-600 hover:text-blue-700 font-medium flex items-center space-x-1"
+            >
+              <span>Voir tout</span>
+              <span>→</span>
+            </Link>
+          </div>
 
-              {/* Contenu prédictions */}
-              <div className="px-6 py-4">
-                <div className="grid md:grid-cols-3 gap-6">
-                  {/* 1X2 */}
-                  <div>
-                    <h4 className="font-semibold mb-3">Résultat (1X2)</h4>
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span>Victoire domicile</span>
-                        <span className="font-bold text-blue-600">
-                          {prediction.predictions.result_1x2.home_win}%
+          <div className="space-y-4">
+            {data.predictions.slice(0, 5).map((prediction) => (
+              <div key={prediction.id} className="bg-white rounded-xl shadow-sm border overflow-hidden hover:shadow-md transition-shadow">
+                <div className="p-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+                    {/* Match Info */}
+                    <div className="lg:col-span-5">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm text-gray-500">{formatDate(prediction.date)}</span>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getConfidenceColor(prediction.confidence)}`}>
+                          {prediction.confidence}% confiance
                         </span>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <span>Match nul</span>
-                        <span className="font-bold text-gray-600">
-                          {prediction.predictions.result_1x2.draw}%
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span>Victoire extérieur</span>
-                        <span className="font-bold text-purple-600">
-                          {prediction.predictions.result_1x2.away_win}%
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Total buts */}
-                  <div>
-                    <h4 className="font-semibold mb-3">Total Buts</h4>
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span>Over 2.5</span>
-                        <span className="font-bold text-orange-600">
-                          {prediction.predictions.total_goals.over_2_5}%
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span>Under 2.5</span>
-                        <span className="font-bold text-blue-600">
-                          {prediction.predictions.total_goals.under_2_5}%
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span>Over 1.5</span>
-                        <span className="font-bold text-green-600">
-                          {prediction.predictions.total_goals.over_1_5}%
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Analyse */}
-                  <div>
-                    <h4 className="font-semibold mb-3">Analyse</h4>
-                    <div className="space-y-2 text-sm">
-                      <div>
-                        <span className="text-gray-600">Avantage: </span>
-                        <span className={`font-semibold ${getAdvantageColor(prediction.analysis.advantage)}`}>
-                          {prediction.analysis.advantage}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="text-gray-600">Forme: </span>
-                        <span>{prediction.analysis.home_form} vs {prediction.analysis.away_form}</span>
-                      </div>
-                      <div>
-                        <span className="text-gray-600">Style: </span>
-                        <span>{prediction.analysis.home_style} vs {prediction.analysis.away_style}</span>
-                      </div>
-                      {prediction.analysis.upset_potential > 25 && (
-                        <div className="text-orange-600 font-semibold">
-                          ⚠️ Potentiel surprise: {prediction.analysis.upset_potential}%
+                      <div className="flex items-center justify-between">
+                        <div className="text-center flex-1">
+                          <div className="font-semibold text-gray-900">{prediction.homeTeam}</div>
+                          <div className="text-xs text-gray-500">ELO: {prediction.features.homeElo}</div>
                         </div>
-                      )}
+                        <div className="text-center mx-4">
+                          <div className="text-lg font-bold text-gray-800">VS</div>
+                          <div className="text-xs text-gray-500">{formatTime(prediction.date)}</div>
+                        </div>
+                        <div className="text-center flex-1">
+                          <div className="font-semibold text-gray-900">{prediction.awayTeam}</div>
+                          <div className="text-xs text-gray-500">ELO: {prediction.features.awayElo}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Probabilities */}
+                    <div className="lg:col-span-4">
+                      <div className="grid grid-cols-3 gap-2">
+                        <div className="text-center p-2 bg-blue-50 rounded">
+                          <div className="text-lg font-bold text-blue-600">{prediction.probabilities.home}%</div>
+                          <div className="text-xs text-gray-600">Dom.</div>
+                        </div>
+                        <div className="text-center p-2 bg-gray-50 rounded">
+                          <div className="text-lg font-bold text-gray-600">{prediction.probabilities.draw}%</div>
+                          <div className="text-xs text-gray-600">Nul</div>
+                        </div>
+                        <div className="text-center p-2 bg-purple-50 rounded">
+                          <div className="text-lg font-bold text-purple-600">{prediction.probabilities.away}%</div>
+                          <div className="text-xs text-gray-600">Ext.</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prediction */}
+                    <div className="lg:col-span-3">
+                      <div className="text-center">
+                        <div className="text-sm text-gray-600 mb-1">Prédiction :</div>
+                        <div className="font-bold text-gray-900">{getPredictionLabel(prediction.prediction)}</div>
+                        <div className="text-xs text-gray-500 mt-1">{prediction.venue}</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                {/* Facteurs clés */}
-                {prediction.analysis.key_factors.length > 0 && (
-                  <div className="mt-4 pt-4 border-t">
-                    <h5 className="font-semibold text-sm mb-2">Facteurs clés:</h5>
-                    <div className="flex flex-wrap gap-2">
-                      {prediction.analysis.key_factors.map((factor, index) => (
-                        <span
-                          key={index}
-                          className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
-                        >
-                          {factor}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+
+        {/* Call to action */}
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white text-center">
+          <h3 className="text-2xl font-bold mb-4">Découvrez toutes nos prédictions</h3>
+          <p className="text-blue-100 mb-6">
+            Accédez à l'ensemble de nos analyses détaillées et filtres avancés
+          </p>
+          <Link 
+            href="/predictions"
+            className="bg-white text-blue-600 px-8 py-3 rounded-xl hover:bg-gray-50 transition-colors font-semibold inline-flex items-center space-x-2"
+          >
+            <span>📊</span>
+            <span>Voir toutes les prédictions</span>
+          </Link>
         </div>
       </div>
     </div>

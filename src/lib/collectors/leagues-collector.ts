@@ -116,7 +116,7 @@ export class LeaguesCollector extends BaseCollector {
             year: season.year,
             start_date: season.start,
             end_date: season.end,
-            api_id: parseInt(`${apiId}${season.year}`) // Composite ID
+            current: season.current || false
           });
 
         if (seasonError && !seasonError.message.includes('duplicate')) {

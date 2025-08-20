@@ -1,0 +1,118 @@
+{
+  "analysisDate": "2025-08-20T13:06:48.087Z",
+  "summary": {
+    "apiSourcesToExtract": 1,
+    "mlFeaturesToCalculate": 2,
+    "hybridToAnalyze": 2,
+    "totalImpactRecords": 1960
+  },
+  "classification": {
+    "apiSources": [
+      {
+        "table": "matches",
+        "column": "raw_data",
+        "source": "API Football",
+        "status": "NON_EXTRAIT",
+        "priority": "HAUTE",
+        "description": "Données complètes matches: scores détaillés, teams metadata, fixture info",
+        "action": "EXTRAIRE_JSON → colonnes séparées",
+        "collector": "fixtures-collector.ts",
+        "records": 1760
+      },
+      {
+        "table": "match_statistics",
+        "column": "statistics",
+        "source": "API Football",
+        "status": "DÉJÀ_EXTRAIT",
+        "priority": "HAUTE",
+        "description": "Stats matches: possession, shots, passes, xG",
+        "action": "FAIT ✅",
+        "collector": "fixtures-collector.ts",
+        "records": 614
+      },
+      {
+        "table": "match_statistics",
+        "column": "raw_data",
+        "source": "API Football",
+        "status": "METADATA_ONLY",
+        "priority": "BASSE",
+        "description": "Metadata API: team info, API structure",
+        "action": "PAS_PRIORITAIRE",
+        "collector": "fixtures-collector.ts",
+        "records": 614
+      },
+      {
+        "table": "match_players_stats",
+        "column": "raw_stats",
+        "source": "API Football",
+        "status": "DÉJÀ_EXTRAIT",
+        "priority": "HAUTE",
+        "description": "Stats joueurs détaillées: rating, passes, duels, shots",
+        "action": "FAIT ✅",
+        "collector": "players-collector.ts",
+        "records": 12256
+      }
+    ],
+    "mlCalculated": [
+      {
+        "table": "team_features",
+        "column": "ai_features",
+        "source": "NOS_ALGORITHMES",
+        "status": "À_CALCULER",
+        "priority": "MOYENNE",
+        "description": "Features IA: style tactique, profil équipe, confiance",
+        "action": "IMPLÉMENTER context-collector.ts",
+        "script": "scripts/features/calculate-team-ai-features.js",
+        "records": 19
+      },
+      {
+        "table": "team_features",
+        "column": "context_analysis",
+        "source": "NOS_ALGORITHMES",
+        "status": "À_CALCULER",
+        "priority": "MOYENNE",
+        "description": "Analyse contexte: zone (relegation/title), pression, motivation",
+        "action": "IMPLÉMENTER context-collector.ts",
+        "script": "scripts/features/calculate-context-analysis.js",
+        "records": 18
+      }
+    ],
+    "hybridSources": [
+      {
+        "table": "team_features",
+        "column": "raw_stats",
+        "source": "API_FOOTBALL + ML",
+        "status": "PARTIELLEMENT_REMPLI",
+        "priority": "MOYENNE",
+        "description": "Mix données API (form, stats) + nos calculs enrichis",
+        "action": "ANALYSER_CONTENU → décider extraction",
+        "collector": "teams-collector.ts",
+        "records": 99
+      },
+      {
+        "table": "team_features",
+        "column": "standing_data",
+        "source": "API_FOOTBALL",
+        "status": "À_EXTRAIRE",
+        "priority": "BASSE",
+        "description": "Classements détaillés: victoires home/away, form, points",
+        "action": "EXTRAIRE_SI_UTILE",
+        "collector": "leagues-collector.ts",
+        "records": 18
+      }
+    ]
+  },
+  "recommendations": {
+    "immediate": [
+      "EXTRAIRE_JSON → colonnes séparées"
+    ],
+    "nextPhase": [
+      "scripts/features/calculate-team-ai-features.js",
+      "scripts/features/calculate-context-analysis.js"
+    ],
+    "optional": [
+      "ANALYSER_CONTENU → décider extraction",
+      "EXTRAIRE_SI_UTILE"
+    ]
+  }
+}

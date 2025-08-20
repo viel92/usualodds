@@ -1,0 +1,449 @@
+{
+  "auditDate": "2025-08-20T13:02:46.250Z",
+  "tablesAnalyzed": 16,
+  "jsonFindings": [
+    {
+      "table": "matches",
+      "column": "raw_data",
+      "type": "object",
+      "totalRecords": 1760,
+      "jsonRecords": 1760,
+      "coverage": 100,
+      "topFields": [
+        {
+          "field": "goals",
+          "frequency": 20
+        },
+        {
+          "field": "score",
+          "frequency": 20
+        },
+        {
+          "field": "teams",
+          "frequency": 20
+        },
+        {
+          "field": "league",
+          "frequency": 20
+        },
+        {
+          "field": "fixture",
+          "frequency": 20
+        }
+      ]
+    },
+    {
+      "table": "match_statistics",
+      "column": "statistics",
+      "type": "object",
+      "totalRecords": 614,
+      "jsonRecords": 614,
+      "coverage": 100,
+      "topFields": [
+        {
+          "field": "fouls",
+          "frequency": 20
+        },
+        {
+          "field": "offsides",
+          "frequency": 20
+        },
+        {
+          "field": "passes_%",
+          "frequency": 20
+        },
+        {
+          "field": "red_cards",
+          "frequency": 20
+        },
+        {
+          "field": "total_shots",
+          "frequency": 20
+        }
+      ]
+    },
+    {
+      "table": "match_statistics",
+      "column": "raw_data",
+      "type": "object",
+      "totalRecords": 614,
+      "jsonRecords": 614,
+      "coverage": 100,
+      "topFields": [
+        {
+          "field": "team",
+          "frequency": 20
+        },
+        {
+          "field": "statistics",
+          "frequency": 20
+        }
+      ]
+    },
+    {
+      "table": "match_players_stats",
+      "column": "raw_stats",
+      "type": "object",
+      "totalRecords": 12256,
+      "jsonRecords": 12256,
+      "coverage": 100,
+      "topFields": [
+        {
+          "field": "cards",
+          "frequency": 20
+        },
+        {
+          "field": "duels",
+          "frequency": 20
+        },
+        {
+          "field": "fouls",
+          "frequency": 20
+        },
+        {
+          "field": "games",
+          "frequency": 20
+        },
+        {
+          "field": "goals",
+          "frequency": 20
+        }
+      ]
+    },
+    {
+      "table": "team_features",
+      "column": "raw_stats",
+      "type": "object",
+      "totalRecords": 100,
+      "jsonRecords": 99,
+      "coverage": 99,
+      "topFields": [
+        {
+          "field": "team_name",
+          "frequency": 18
+        },
+        {
+          "field": "form",
+          "frequency": 2
+        },
+        {
+          "field": "team",
+          "frequency": 2
+        },
+        {
+          "field": "cards",
+          "frequency": 2
+        },
+        {
+          "field": "goals",
+          "frequency": 2
+        }
+      ]
+    },
+    {
+      "table": "team_features",
+      "column": "ai_features",
+      "type": "object",
+      "totalRecords": 100,
+      "jsonRecords": 19,
+      "coverage": 19,
+      "topFields": [
+        {
+          "field": "tactical_style",
+          "frequency": 18
+        },
+        {
+          "field": "style_confidence",
+          "frequency": 18
+        },
+        {
+          "field": "tactical_profile",
+          "frequency": 18
+        }
+      ]
+    },
+    {
+      "table": "team_features",
+      "column": "context_analysis",
+      "type": "object",
+      "totalRecords": 100,
+      "jsonRecords": 18,
+      "coverage": 18,
+      "topFields": [
+        {
+          "field": "zone",
+          "frequency": 18
+        },
+        {
+          "field": "pressure",
+          "frequency": 18
+        },
+        {
+          "field": "motivation",
+          "frequency": 18
+        },
+        {
+          "field": "expectations",
+          "frequency": 18
+        }
+      ]
+    },
+    {
+      "table": "team_features",
+      "column": "standing_data",
+      "type": "object",
+      "totalRecords": 100,
+      "jsonRecords": 18,
+      "coverage": 18,
+      "topFields": [
+        {
+          "field": "all",
+          "frequency": 18
+        },
+        {
+          "field": "away",
+          "frequency": 18
+        },
+        {
+          "field": "form",
+          "frequency": 18
+        },
+        {
+          "field": "home",
+          "frequency": 18
+        },
+        {
+          "field": "rank",
+          "frequency": 18
+        }
+      ]
+    }
+  ],
+  "priorities": [
+    {
+      "table": "match_players_stats",
+      "column": "raw_stats",
+      "type": "object",
+      "totalRecords": 12256,
+      "jsonRecords": 12256,
+      "coverage": 100,
+      "topFields": [
+        {
+          "field": "cards",
+          "frequency": 20
+        },
+        {
+          "field": "duels",
+          "frequency": 20
+        },
+        {
+          "field": "fouls",
+          "frequency": 20
+        },
+        {
+          "field": "games",
+          "frequency": 20
+        },
+        {
+          "field": "goals",
+          "frequency": 20
+        }
+      ]
+    },
+    {
+      "table": "matches",
+      "column": "raw_data",
+      "type": "object",
+      "totalRecords": 1760,
+      "jsonRecords": 1760,
+      "coverage": 100,
+      "topFields": [
+        {
+          "field": "goals",
+          "frequency": 20
+        },
+        {
+          "field": "score",
+          "frequency": 20
+        },
+        {
+          "field": "teams",
+          "frequency": 20
+        },
+        {
+          "field": "league",
+          "frequency": 20
+        },
+        {
+          "field": "fixture",
+          "frequency": 20
+        }
+      ]
+    },
+    {
+      "table": "match_statistics",
+      "column": "statistics",
+      "type": "object",
+      "totalRecords": 614,
+      "jsonRecords": 614,
+      "coverage": 100,
+      "topFields": [
+        {
+          "field": "fouls",
+          "frequency": 20
+        },
+        {
+          "field": "offsides",
+          "frequency": 20
+        },
+        {
+          "field": "passes_%",
+          "frequency": 20
+        },
+        {
+          "field": "red_cards",
+          "frequency": 20
+        },
+        {
+          "field": "total_shots",
+          "frequency": 20
+        }
+      ]
+    },
+    {
+      "table": "match_statistics",
+      "column": "raw_data",
+      "type": "object",
+      "totalRecords": 614,
+      "jsonRecords": 614,
+      "coverage": 100,
+      "topFields": [
+        {
+          "field": "team",
+          "frequency": 20
+        },
+        {
+          "field": "statistics",
+          "frequency": 20
+        }
+      ]
+    },
+    {
+      "table": "team_features",
+      "column": "raw_stats",
+      "type": "object",
+      "totalRecords": 100,
+      "jsonRecords": 99,
+      "coverage": 99,
+      "topFields": [
+        {
+          "field": "team_name",
+          "frequency": 18
+        },
+        {
+          "field": "form",
+          "frequency": 2
+        },
+        {
+          "field": "team",
+          "frequency": 2
+        },
+        {
+          "field": "cards",
+          "frequency": 2
+        },
+        {
+          "field": "goals",
+          "frequency": 2
+        }
+      ]
+    },
+    {
+      "table": "team_features",
+      "column": "ai_features",
+      "type": "object",
+      "totalRecords": 100,
+      "jsonRecords": 19,
+      "coverage": 19,
+      "topFields": [
+        {
+          "field": "tactical_style",
+          "frequency": 18
+        },
+        {
+          "field": "style_confidence",
+          "frequency": 18
+        },
+        {
+          "field": "tactical_profile",
+          "frequency": 18
+        }
+      ]
+    },
+    {
+      "table": "team_features",
+      "column": "context_analysis",
+      "type": "object",
+      "totalRecords": 100,
+      "jsonRecords": 18,
+      "coverage": 18,
+      "topFields": [
+        {
+          "field": "zone",
+          "frequency": 18
+        },
+        {
+          "field": "pressure",
+          "frequency": 18
+        },
+        {
+          "field": "motivation",
+          "frequency": 18
+        },
+        {
+          "field": "expectations",
+          "frequency": 18
+        }
+      ]
+    },
+    {
+      "table": "team_features",
+      "column": "standing_data",
+      "type": "object",
+      "totalRecords": 100,
+      "jsonRecords": 18,
+      "coverage": 18,
+      "topFields": [
+        {
+          "field": "all",
+          "frequency": 18
+        },
+        {
+          "field": "away",
+          "frequency": 18
+        },
+        {
+          "field": "form",
+          "frequency": 18
+        },
+        {
+          "field": "home",
+          "frequency": 18
+        },
+        {
+          "field": "rank",
+          "frequency": 18
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "totalJsonRecords": 15398,
+    "estimatedFeatures": 34,
+    "criticalTables": [
+      "match_players_stats.raw_stats",
+      "matches.raw_data",
+      "match_statistics.statistics"
+    ]
+  }
+}

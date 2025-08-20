@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import { Menu, X, ChevronDown, Settings, LogOut, User } from 'lucide-react'
+import { Menu, X, ChevronDown, Settings, LogOut, User, Home, BarChart3, Target } from 'lucide-react'
 import { Button } from '@/components/ui/button-premium'
 import { StatusBadge } from '@/components/ui/badge-premium'
 
@@ -15,9 +15,9 @@ import { StatusBadge } from '@/components/ui/badge-premium'
  */
 
 const navItems = [
-  { href: '/', label: 'Accueil', icon: '🏠', description: 'Page d\'accueil' },
-  { href: '/dashboard', label: 'Dashboard', icon: '📊', description: 'Vue d\'ensemble' },
-  { href: '/predictions', label: 'Prédictions', icon: '🔮', description: 'Toutes les prédictions' }
+  { href: '/', label: 'Accueil', icon: Home, description: 'Page d\'accueil' },
+  { href: '/dashboard', label: 'Dashboard', icon: BarChart3, description: 'Vue d\'ensemble' },
+  { href: '/predictions', label: 'Prédictions', icon: Target, description: 'Toutes les prédictions' }
 ]
 
 export default function Navigation() {
@@ -35,7 +35,9 @@ export default function Navigation() {
             {/* Logo et branding */}
             <div className="flex items-center space-x-4">
               <Link href="/" className="flex items-center space-x-3 group">
-                <div className="text-3xl transition-transform group-hover:scale-110">⚽</div>
+                <div className="p-2 bg-primary-50 text-primary-600 rounded-xl transition-all group-hover:scale-110 group-hover:bg-primary-100">
+                  <Target className="w-6 h-6" />
+                </div>
                 <div>
                   <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
                     UsualOdds
@@ -70,8 +72,8 @@ export default function Navigation() {
                       }
                     `}
                   >
-                    <span className="text-base transition-transform group-hover:scale-110">
-                      {item.icon}
+                    <span className="transition-transform group-hover:scale-110">
+                      <item.icon className="w-4 h-4" />
                     </span>
                     <span>{item.label}</span>
                     
@@ -170,7 +172,9 @@ export default function Navigation() {
                       }
                     `}
                   >
-                    <span className="text-lg">{item.icon}</span>
+                    <span className="p-2 bg-primary-50 text-primary-600 rounded-lg">
+                      <item.icon className="w-5 h-5" />
+                    </span>
                     <div>
                       <div className="font-medium">{item.label}</div>
                       <div className="text-xs text-neutral-500">{item.description}</div>

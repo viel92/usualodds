@@ -217,7 +217,7 @@ def main():
                 total_created += records_created
                 
                 if records_created > 0:
-                    print(f"  ✓ {match['home_team_name']} vs {match['away_team_name']}: {records_created} records")
+                    print(f"  [OK] {match['home_team_name']} vs {match['away_team_name']}: {records_created} records")
                 else:
                     print(f"  ✗ Failed: {match['home_team_name']} vs {match['away_team_name']}")
             else:

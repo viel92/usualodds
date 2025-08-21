@@ -1,6 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+
+// Force dynamic rendering to prevent stale static generation
+export const dynamic = 'force-dynamic'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button-premium'
 import { Card } from '@/components/ui/card-premium'

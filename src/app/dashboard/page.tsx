@@ -163,7 +163,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-2xl font-bold text-purple-600">
-                  {data?.predictions?.filter(p => p.predictions?.confidence >= 75).length || 0}
+                  {data?.predictions?.filter(p => p.prediction?.confidence >= 75).length || 0}
                 </div>
                 <div className="text-sm text-gray-500">Haute conf.</div>
               </div>
@@ -230,7 +230,7 @@ export default function DashboardPage() {
                               {prediction.home_team}
                             </span>
                             <span className="text-sm font-bold text-blue-600">
-                              {prediction.predictions?.home_win_prob || 0}%
+                              {prediction.prediction?.home_win_prob || 0}%
                             </span>
                           </div>
                           <div className="flex items-center justify-between">
@@ -238,23 +238,23 @@ export default function DashboardPage() {
                               {prediction.away_team}
                             </span>
                             <span className="text-sm font-bold text-blue-600">
-                              {prediction.predictions?.away_win_prob || 0}%
+                              {prediction.prediction?.away_win_prob || 0}%
                             </span>
                           </div>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className={`px-2 py-1 rounded-full text-xs font-bold ${
-                          (prediction.predictions?.confidence || 0) >= 80 
+                          (prediction.prediction?.confidence || 0) >= 80 
                             ? 'bg-green-50 text-green-600'
-                            : (prediction.predictions?.confidence || 0) >= 65
+                            : (prediction.prediction?.confidence || 0) >= 65
                             ? 'bg-yellow-50 text-yellow-600'
                             : 'bg-gray-50 text-gray-600'
                         }`}>
-                          {prediction.predictions?.confidence || 0}%
+                          {prediction.prediction?.confidence || 0}%
                         </div>
                         <div className="bg-gray-900 text-white px-2 py-1 rounded text-xs font-bold">
-                          {(prediction.predictions?.home_win_prob || 0) > (prediction.predictions?.away_win_prob || 0) ? '1' : '2'}
+                          {(prediction.prediction?.home_win_prob || 0) > (prediction.prediction?.away_win_prob || 0) ? '1' : '2'}
                         </div>
                       </div>
                     </div>
@@ -287,7 +287,7 @@ export default function DashboardPage() {
               </div>
               <div className="p-4 space-y-3">
                 {data?.predictions
-                  ?.sort((a, b) => (b.predictions?.confidence || 0) - (a.predictions?.confidence || 0))
+                  ?.sort((a, b) => (b.prediction?.confidence || 0) - (a.prediction?.confidence || 0))
                   .slice(0, 3)
                   .map((pred, idx) => (
                     <div key={pred.id} className="flex items-center justify-between">
@@ -303,7 +303,7 @@ export default function DashboardPage() {
                         </div>
                       </div>
                       <Badge className="bg-green-50 text-green-600 px-2 py-1 rounded-full text-xs">
-                        {pred.predictions?.confidence || 0}%
+                        {pred.prediction?.confidence || 0}%
                       </Badge>
                     </div>
                   ))}

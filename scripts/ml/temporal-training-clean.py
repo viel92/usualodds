@@ -36,7 +36,7 @@ def load_supabase_data():
         matches_response = supabase.table('matches').select(
             'id, season, date, home_team_id, away_team_id, '
             'home_team_name, away_team_name, home_score, away_score, status'
-        ).in_('status', ['FT', 'AET', 'PEN']).execute()
+        ).eq('status', 'Match Finished').execute()
         
         matches_df = pd.DataFrame(matches_response.data)
         matches_df['date'] = pd.to_datetime(matches_df['date'])

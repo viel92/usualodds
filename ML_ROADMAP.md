@@ -709,7 +709,72 @@ FEATURES_STACK_COMPLET = {
 
 ---
 
-*Dernière mise à jour: 20 Août 2025 - CONSOLIDATION FEATURES & INVESTIGATION XG v6.0*
+## 🔄 **SESSION EN COURS - 21 AOÛT 2025 - DONNÉES PIPELINE BREAKTHROUGH**
+
+### ✅ **POINT D'ÉTAPE - EXTRACTION API FOOTBALL MASSIVE TERMINÉE**
+**Objectif Session:** Extraire toutes les statistiques manquantes pour améliorer ML de 54.1% vers 55-60%
+**Durée:** 3 heures intensives
+
+#### **🎯 ACCOMPLISSEMENTS MAJEURS:**
+1. **✅ EXTRACTION API FOOTBALL RÉUSSIE** 
+   - **614 match_statistics** extraites depuis JSON avec types corrects
+   - **16 colonnes populées**: corner_kicks (100%), expected_goals (99.7%), yellow_cards (96.4%)
+   - **0 erreurs** après correction types INTEGER/FLOAT
+   - **18 team_features** recalculées avec nouvelles moyennes d'équipe
+
+2. **✅ INVESTIGATION PIPELINE DONNÉES COMPLÈTE**
+   - **Problème identifié**: Seulement 231 matches (2024) avec stats vs 2057 matches totaux
+   - **Couverture**: 23.1% seulement - énorme gap de données
+   - **Cause**: Pipeline extraction non exécuté pour saisons 2020-2023
+   - **Raw_data**: 0% matches ont 'statistics' dans raw_data
+
+3. **✅ ANALYSE PAGINATION & ARCHITECTURE SUPABASE**
+   - **2057 matches** identifiés (pas 1760 estimé)
+   - **Pagination parfaite**: Aucun problème technique
+   - **Match_statistics source**: Stockées dans champ 'statistics' JSON, pas raw_data
+   - **API Football credentials**: Trouvées et validées
+
+#### **🔍 DÉCOUVERTE CRITIQUE:**
+**Les 614 match_statistics existants proviennent d'appels API Football DIRECTS, pas de raw_data !**
+- Raw_data contient seulement: `['goals', 'score', 'teams', 'league', 'fixture']`
+- Statistics réelles dans: `match_statistics.statistics` JSON
+- Pattern: 307 matches × 2 équipes = 614 records ✅
+- Création: Tous le 2025-08-19 (récent script)
+
+#### **🚀 PIPELINE IDENTIFIÉ POUR EXPANSION:**
+**Pour passer de 231 matches (2024) → 1500+ matches (toutes saisons):**
+1. **Script préparé**: `extract-all-seasons-comprehensive.py` 
+2. **API Football Direct**: Appel endpoint statistics pour matches manquants
+3. **Credentials disponibles**: API_FOOTBALL_KEY trouvée dans .env
+4. **Target**: ~1500 matches supplémentaires avec statistiques complètes
+
+#### **📊 IMPACT ATTENDU EXPANSION DONNÉES:**
+```python
+PROJECTION_IMPACT_ML = {
+    'dataset_actuel': '231 matches avec stats (2024)',
+    'dataset_cible': '1500+ matches multi-saisons',
+    'features_nouvelles': '16 colonnes API Football complètes',
+    'amélioration_attendue': '+3-5% accuracy (54.1% → 57-60%)',
+    'coverage_timeline': '2020-2025 au lieu de 2024 seulement'
+}
+```
+
+### 📋 **STATUT FIN SESSION:**
+- **✅ EXTRACTION 2024**: Terminée avec succès (614 records)
+- **🔄 INVESTIGATION**: Pipeline source identifié 
+- **📋 READY**: Script expansion toutes saisons préparé
+- **🎯 NEXT**: Exécuter extraction API Football comprehensive
+
+### 🚀 **ACTIONS POUR DEMAIN:**
+1. **PRIORITÉ 1**: Exécuter `extract-all-seasons-comprehensive.py` avec API Football
+2. **PRIORITÉ 2**: Valider extraction ~1500 matches supplémentaires  
+3. **PRIORITÉ 3**: Recalculer team_features avec dataset complet
+4. **PRIORITÉ 4**: Tester ML avec données 5x plus importantes
+5. **OBJECTIF**: Mesurer impact sur accuracy 54.1% → 57-60%
+
+---
+
+*Dernière mise à jour: 21 Août 2025 - EXTRACTION API FOOTBALL COMPREHENSIVE READY v6.1*
 
 ---
 
@@ -721,8 +786,8 @@ FEATURES_STACK_COMPLET = {
 - **Performance corrigée:** 45.8% accuracy (réaliste vs 100% impossible)
 - **Système propre:** scripts/ml/temporal-training-clean.py opérationnel
 
-### 🎯 **PROCHAINE PHASE: AMÉLIORATION 45.8% → 55-60%**
-- **Stratégie:** Features engineering avancées sans data leakage
-- **Techniques:** ELO dynamique, forme pondérée, patterns tactiques
-- **Validation:** Walk-forward validation stricte
-- **Objectif réaliste:** Dépasser 50% (hasard) vers 55-60%
+### 🎯 **PROCHAINE PHASE: AMÉLIORATION 54.1% → 57-60%**
+- **Stratégie:** Expansion massive données API Football (231 → 1500+ matches)
+- **Techniques:** Extraction comprehensive multi-saisons + Features engineering
+- **Validation:** Walk-forward validation avec dataset 5x plus large
+- **Objectif réaliste:** Impact +3-5% accuracy avec vraies données football

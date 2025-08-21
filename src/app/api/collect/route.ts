@@ -1,33 +1,16 @@
 // @ts-nocheck
+// DEPRECATED: TypeScript collectors disabled - Use Python pipeline instead
+// See: scripts/python_pipeline/main_collector.py
+
 import { NextRequest, NextResponse } from 'next/server';
-import { CollectionOrchestrator } from '@/lib/collectors';
 
 export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const { action, seasons, window } = body;
-
-    const orchestrator = new CollectionOrchestrator();
-
-    console.log(`[API] Starting collection action: ${action}`);
-
-    switch (action) {
-      case 'initialize':
-        console.log('[API] Initializing database...');
-        await orchestrator.initializeDatabase();
-        return NextResponse.json({ 
-          success: true, 
-          message: 'Database initialization completed',
-          timestamp: new Date().toISOString()
-        });
-
-      case 'daily':
-        console.log('[API] Collecting daily data...');
-        await orchestrator.collectDailyData();
-        return NextResponse.json({ 
-          success: true, 
-          message: 'Daily data collection completed',
-          timestamp: new Date().toISOString()
+  return NextResponse.json({ 
+    success: false,
+    message: 'TypeScript collectors deprecated. Use Python pipeline: python scripts/python_pipeline/main_collector.py',
+    redirect: '/admin/python-collector',
+    timestamp: new Date().toISOString()
+  }, { status: 410 }); // Gone
         });
 
       case 'historical':

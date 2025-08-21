@@ -163,7 +163,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-2xl font-bold text-purple-600">
-                  {data?.predictions?.filter(p => p.prediction?.confidence >= 75).length || 0}
+                  {data?.predictions?.filter(p => p.confidence >= 75).length || 0}
                 </div>
                 <div className="text-sm text-gray-500">Haute conf.</div>
               </div>
@@ -177,7 +177,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-2xl font-bold text-orange-600">
-                  {data?.stats?.avg_confidence ? Math.round(data.stats.avg_confidence) : 0}%
+                  {data?.meta?.avgConfidence ? Math.round(data.meta.avgConfidence) : 0}%
                 </div>
                 <div className="text-sm text-gray-500">Conf. moy.</div>
               </div>
@@ -211,14 +211,14 @@ export default function DashboardPage() {
                       <div className="flex items-center space-x-3">
                         <div className="text-center min-w-[60px]">
                           <div className="text-xs text-gray-500">
-                            {new Date(prediction.match_date).toLocaleDateString('fr-FR', { 
+                            {new Date(prediction.date).toLocaleDateString('fr-FR', { 
                               weekday: 'short', 
                               day: '2-digit', 
                               month: 'short' 
                             })}
                           </div>
                           <div className="text-sm font-semibold text-gray-900">
-                            {new Date(prediction.match_date).toLocaleTimeString('fr-FR', {
+                            {new Date(prediction.date).toLocaleTimeString('fr-FR', {
                               hour: '2-digit',
                               minute: '2-digit'
                             })}
@@ -227,34 +227,34 @@ export default function DashboardPage() {
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-1">
                             <span className="text-sm font-medium text-gray-900">
-                              {prediction.home_team}
+                              {prediction.homeTeam}
                             </span>
                             <span className="text-sm font-bold text-blue-600">
-                              {prediction.prediction?.home_win_prob || 0}%
+                              {prediction.probabilities?.home || 0}%
                             </span>
                           </div>
                           <div className="flex items-center justify-between">
                             <span className="text-sm font-medium text-gray-900">
-                              {prediction.away_team}
+                              {prediction.awayTeam}
                             </span>
                             <span className="text-sm font-bold text-blue-600">
-                              {prediction.prediction?.away_win_prob || 0}%
+                              {prediction.probabilities?.away || 0}%
                             </span>
                           </div>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className={`px-2 py-1 rounded-full text-xs font-bold ${
-                          (prediction.prediction?.confidence || 0) >= 80 
+                          (prediction.confidence || 0) >= 80 
                             ? 'bg-green-50 text-green-600'
-                            : (prediction.prediction?.confidence || 0) >= 65
+                            : (prediction.confidence || 0) >= 65
                             ? 'bg-yellow-50 text-yellow-600'
                             : 'bg-gray-50 text-gray-600'
                         }`}>
-                          {prediction.prediction?.confidence || 0}%
+                          {prediction.confidence || 0}%
                         </div>
                         <div className="bg-gray-900 text-white px-2 py-1 rounded text-xs font-bold">
-                          {(prediction.prediction?.home_win_prob || 0) > (prediction.prediction?.away_win_prob || 0) ? '1' : '2'}
+                          {(prediction.probabilities?.home || 0) > (prediction.probabilities?.away || 0) ? '1' : '2'}
                         </div>
                       </div>
                     </div>
@@ -287,7 +287,7 @@ export default function DashboardPage() {
               </div>
               <div className="p-4 space-y-3">
                 {data?.predictions
-                  ?.sort((a, b) => (b.prediction?.confidence || 0) - (a.prediction?.confidence || 0))
+                  ?.sort((a, b) => (b.confidence || 0) - (a.confidence || 0))
                   .slice(0, 3)
                   .map((pred, idx) => (
                     <div key={pred.id} className="flex items-center justify-between">
@@ -295,15 +295,15 @@ export default function DashboardPage() {
                         <span className="text-xs font-bold text-gray-500">#{idx + 1}</span>
                         <div>
                           <div className="text-sm font-medium text-gray-900">
-                            {pred.home_team} vs {pred.away_team}
+                            {pred.homeTeam} vs {pred.awayTeam}
                           </div>
                           <div className="text-xs text-gray-500">
-                            {new Date(pred.match_date).toLocaleDateString('fr-FR')}
+                            {new Date(pred.date).toLocaleDateString('fr-FR')}
                           </div>
                         </div>
                       </div>
                       <Badge className="bg-green-50 text-green-600 px-2 py-1 rounded-full text-xs">
-                        {pred.prediction?.confidence || 0}%
+                        {pred.confidence || 0}%
                       </Badge>
                     </div>
                   ))}

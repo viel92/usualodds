@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 API FOOTBALL DIRECT EXTRACTION - USUALODDS 2025
 ================================================
@@ -219,9 +220,9 @@ def main():
                 if records_created > 0:
                     print(f"  [OK] {match['home_team_name']} vs {match['away_team_name']}: {records_created} records")
                 else:
-                    print(f"  ✗ Failed: {match['home_team_name']} vs {match['away_team_name']}")
+                    print(f"  [FAILED] {match['home_team_name']} vs {match['away_team_name']}")
             else:
-                print(f"  ✗ No data: {match['home_team_name']} vs {match['away_team_name']}")
+                print(f"  [NO DATA] {match['home_team_name']} vs {match['away_team_name']}")
             
             total_processed += 1
             

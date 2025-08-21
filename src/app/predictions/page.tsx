@@ -165,7 +165,7 @@ export default function PredictionsPage() {
                 <div className="flex items-center space-x-2 text-xs text-gray-500">
                   <span className="flex items-center">
                     <Activity className="w-3 h-3 mr-1 text-green-500" />
-                    Live
+                    En direct
                   </span>
                   <span>•</span>
                   <span>{filteredPredictions.length} matchs</span>

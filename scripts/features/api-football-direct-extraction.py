@@ -120,16 +120,16 @@ def parse_team_statistics(team_stats):
                 parsed_stats[field_name] = None
             elif isinstance(stat_value, str):
                 if '%' in stat_value:
-                    parsed_stats[field_name] = float(stat_value.replace('%', ''))
+                    parsed_stats[field_name] = int(float(stat_value.replace('%', '')))
                 elif stat_value.isdigit():
                     parsed_stats[field_name] = int(stat_value)
                 else:
                     try:
-                        parsed_stats[field_name] = float(stat_value)
+                        parsed_stats[field_name] = int(float(stat_value))
                     except:
                         parsed_stats[field_name] = stat_value
             else:
-                parsed_stats[field_name] = stat_value
+                parsed_stats[field_name] = int(stat_value) if isinstance(stat_value, (int, float)) else stat_value
     
     return parsed_stats
 

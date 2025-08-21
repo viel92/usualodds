@@ -52,26 +52,26 @@ export default function PredictionsPage() {
       setLoading(true)
       setError(null)
       
-      const response = await fetch('/api/dashboard/predictions')
+      const response = await fetch('/api/predictions')
       const result = await response.json()
       
       if (result.success && result.data.predictions) {
         const transformedPredictions = result.data.predictions.map((pred: any) => ({
           id: pred.id.toString(),
-          homeTeam: pred.match.home_team,
-          awayTeam: pred.match.away_team,
-          matchDate: pred.match.date,
-          venue: pred.match.venue || 'Stade à confirmer',
+          homeTeam: pred.homeTeam,
+          awayTeam: pred.awayTeam,
+          matchDate: pred.date,
+          venue: pred.venue || 'Stade à confirmer',
           competition: 'Ligue 1',
           predictions: {
-            homeWin: pred.predictions.result_1x2.home_win,
-            draw: pred.predictions.result_1x2.draw,
-            awayWin: pred.predictions.result_1x2.away_win,
-            confidence: pred.analysis.overall_confidence
+            homeWin: pred.probabilities.home,
+            draw: pred.probabilities.draw,
+            awayWin: pred.probabilities.away,
+            confidence: pred.confidence
           },
           status: 'scheduled' as const,
-          homeForm: pred.ml_features?.home_form || 0,
-          awayForm: pred.ml_features?.away_form || 0
+          homeForm: pred.features?.homeForm || 0,
+          awayForm: pred.features?.awayForm || 0
         }))
         
         setPredictions(transformedPredictions)

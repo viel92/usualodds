@@ -10,14 +10,14 @@ import { Card } from '@/components/ui/card-premium'
 import { Badge, ConfidenceBadge, StatusBadge } from '@/components/ui/badge-premium'
 import { 
   TrendingUp, Target, Zap, Users, RefreshCw, Calendar, 
-  MapPin, BarChart3, Eye, ArrowLeft, Gamepad2, Rocket,
+  MapPin, BarChart3, Eye, ArrowLeft, Filter, Search, 
   Crown, Clock, Home, Shield, Trophy, Star, ChevronRight,
-  Flame, Activity, Info, MoreVertical, Sparkles, Cpu
+  Flame, Activity, Info, MoreVertical
 } from 'lucide-react'
 
 /**
- * 🚀 NOUVELLE INTERFACE DARK MODE GAMING 🚀
- * Style cyberpunk/gaming ultra-reconnaissable pour test
+ * PAGE PRÉDICTIONS STYLE SOFASCORE
+ * Interface ultra-compacte et moderne
  */
 
 interface SimplePrediction {
@@ -43,6 +43,7 @@ export default function PredictionsPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'today' | 'tomorrow' | 'high'>('all')
+  const [viewMode, setViewMode] = useState<'compact' | 'detailed'>('compact')
 
   useEffect(() => {
     loadPredictions()
@@ -102,9 +103,9 @@ export default function PredictionsPage() {
   }
 
   const getConfidenceColor = (confidence: number) => {
-    if (confidence >= 80) return 'from-green-400 to-emerald-600'
-    if (confidence >= 65) return 'from-yellow-400 to-orange-500'
-    return 'from-gray-400 to-gray-600'
+    if (confidence >= 80) return 'text-green-600 bg-green-50'
+    if (confidence >= 65) return 'text-yellow-600 bg-yellow-50'
+    return 'text-gray-600 bg-gray-50'
   }
 
   const filteredPredictions = predictions.filter(pred => {
@@ -123,12 +124,26 @@ export default function PredictionsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-500 mx-auto mb-4"></div>
-            <h2 className="text-2xl font-bold text-white mb-2">🚀 LOADING GAMING MODE 🚀</h2>
-            <p className="text-purple-300">Chargement des prédictions...</p>
+      <div className="min-h-screen bg-gray-50">
+        <div className="bg-white border-b">
+          <div className="max-w-7xl mx-auto px-4 py-4">
+            <div className="animate-pulse">
+              <div className="h-8 bg-gray-200 rounded w-48 mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded w-32"></div>
+            </div>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="space-y-2">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="bg-white rounded-lg p-4 animate-pulse">
+                <div className="flex items-center justify-between">
+                  <div className="h-4 bg-gray-200 rounded w-24"></div>
+                  <div className="h-6 bg-gray-200 rounded w-32"></div>
+                  <div className="h-4 bg-gray-200 rounded w-24"></div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -136,191 +151,440 @@ export default function PredictionsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* 🎮 HEADER GAMING STYLE CYBERPUNK 🎮 */}
-      <div className="bg-black/90 backdrop-blur-xl border-b border-purple-500/50 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
+    <div className="min-h-screen bg-gray-50">
+      {/* Header Compact Style SofaScore */}
+      <div className="bg-white border-b sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between py-3">
+            <div className="flex items-center space-x-4">
               <Link href="/dashboard">
-                <Button variant="ghost" className="text-purple-400 hover:text-purple-300 hover:bg-purple-500/20">
-                  <ArrowLeft className="w-5 h-5 mr-2" />
-                  Retour
+                <Button variant="ghost" size="sm" className="px-2">
+                  <ArrowLeft className="w-4 h-4" />
                 </Button>
               </Link>
               <div>
-                <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
-                  🎮 PRÉDICTIONS GAMING MODE 🎮
-                </h1>
-                <div className="flex items-center space-x-3 text-sm text-purple-300 mt-1">
+                <h1 className="text-xl font-bold text-gray-900">Prédictions Football</h1>
+                <div className="flex items-center space-x-2 text-xs text-gray-500">
                   <span className="flex items-center">
-                    <Cpu className="w-4 h-4 mr-1 text-green-400 animate-pulse" />
-                    IA EN LIGNE
+                    <Activity className="w-3 h-3 mr-1 text-green-500" />
+                    En direct
                   </span>
-                  <span className="text-purple-500">•</span>
-                  <span>{filteredPredictions.length} matchs détectés</span>
-                  <span className="text-purple-500">•</span>
-                  <span className="flex items-center">
-                    <Sparkles className="w-4 h-4 mr-1 text-yellow-400" />
-                    Mode Test Déploiement
-                  </span>
+                  <span>•</span>
+                  <span>{filteredPredictions.length} matchs</span>
+                  <span>•</span>
+                  <span>Ligue 1 2024-25</span>
                 </div>
               </div>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2">
+              <Button
+                variant={viewMode === 'compact' ? 'primary' : 'ghost'}
+                size="sm"
+                onClick={() => setViewMode('compact')}
+                className="px-3"
+              >
+                Compact
+              </Button>
+              <Button
+                variant={viewMode === 'detailed' ? 'primary' : 'ghost'}
+                size="sm"
+                onClick={() => setViewMode('detailed')}
+                className="px-3"
+              >
+                Détaillé
+              </Button>
               <Button
                 onClick={loadPredictions}
-                className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-bold"
+                variant="ghost"
+                size="sm"
+                className="px-3"
               >
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Actualiser
+                <RefreshCw className="w-4 h-4" />
               </Button>
             </div>
           </div>
 
-          {/* 🔥 FILTRES GAMING STYLE 🔥 */}
-          <div className="flex items-center space-x-3 mt-4">
-            <Gamepad2 className="w-5 h-5 text-purple-400" />
-            {[
-              { key: 'all', label: '🎯 Tous les matchs', icon: Target },
-              { key: 'today', label: '⚡ Aujourd\'hui', icon: Zap },
-              { key: 'tomorrow', label: '🚀 Demain', icon: Rocket },
-              { key: 'high', label: '👑 Haute confiance', icon: Crown }
-            ].map(({ key, label, icon: Icon }) => (
-              <button
-                key={key}
-                onClick={() => setSelectedFilter(key as any)}
-                className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 flex items-center space-x-2 ${
-                  selectedFilter === key
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-lg shadow-purple-500/50'
-                    : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white border border-gray-600'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                <span>{label}</span>
-              </button>
-            ))}
+          {/* Filtres rapides */}
+          <div className="flex items-center space-x-2 pb-3 overflow-x-auto">
+            <button
+              onClick={() => setSelectedFilter('all')}
+              className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
+                selectedFilter === 'all' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              Tous les matchs
+            </button>
+            <button
+              onClick={() => setSelectedFilter('today')}
+              className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
+                selectedFilter === 'today' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              Aujourd'hui
+            </button>
+            <button
+              onClick={() => setSelectedFilter('tomorrow')}
+              className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
+                selectedFilter === 'tomorrow' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              Demain
+            </button>
+            <button
+              onClick={() => setSelectedFilter('high')}
+              className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-colors flex items-center ${
+                selectedFilter === 'high' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              <Flame className="w-3 h-3 mr-1" />
+              Haute confiance
+            </button>
           </div>
         </div>
       </div>
 
-      {/* 🎯 CONTENU PRINCIPAL GAMING 🎯 */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Stats Gaming */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          {[
-            { label: "Matchs Détectés", value: filteredPredictions.length, icon: Target, color: "from-blue-500 to-cyan-600" },
-            { label: "Haute Confiance", value: filteredPredictions.filter(p => p.predictions.confidence >= 75).length, icon: Flame, color: "from-red-500 to-orange-600" },
-            { label: "Précision IA", value: "54.2%", icon: Cpu, color: "from-green-500 to-emerald-600" },
-            { label: "Confiance Moy.", value: Math.round(filteredPredictions.reduce((sum, p) => sum + p.predictions.confidence, 0) / filteredPredictions.length || 0) + "%", icon: Star, color: "from-purple-500 to-pink-600" }
-          ].map((stat, idx) => (
-            <div key={idx} className="bg-black/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 text-center group hover:border-purple-500/50 transition-all duration-300">
-              <div className={`w-12 h-12 bg-gradient-to-r ${stat.color} rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform`}>
-                <stat.icon className="w-6 h-6 text-white" />
+      {/* Layout 2 colonnes */}
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {/* Colonne principale - Prédictions */}
+          <div className="lg:col-span-2">
+            {/* Stats rapides */}
+            <div className="grid grid-cols-4 gap-2 mb-4">
+              <div className="bg-white rounded-lg p-3 text-center">
+                <div className="text-2xl font-bold text-gray-900">
+                  {filteredPredictions.length}
+                </div>
+                <div className="text-xs text-gray-500">Matchs</div>
               </div>
-              <div className="text-3xl font-black text-white mb-1">{stat.value}</div>
-              <div className="text-sm text-gray-400 font-medium">{stat.label}</div>
+              <div className="bg-white rounded-lg p-3 text-center">
+                <div className="text-2xl font-bold text-green-600">
+                  {filteredPredictions.filter(p => p.predictions.confidence >= 75).length}
+                </div>
+                <div className="text-xs text-gray-500">Haute conf.</div>
+              </div>
+              <div className="bg-white rounded-lg p-3 text-center">
+                <div className="text-2xl font-bold text-blue-600">
+                  54.2%
+                </div>
+                <div className="text-xs text-gray-500">Précision</div>
+              </div>
+              <div className="bg-white rounded-lg p-3 text-center">
+                <div className="text-2xl font-bold text-purple-600">
+                  {Math.round(filteredPredictions.reduce((sum, p) => sum + p.predictions.confidence, 0) / filteredPredictions.length || 0)}%
+                </div>
+                <div className="text-xs text-gray-500">Conf. moy.</div>
+              </div>
             </div>
-          ))}
-        </div>
 
-        {/* 🎮 LISTE DES PRÉDICTIONS GAMING 🎮 */}
-        {filteredPredictions.length === 0 ? (
-          <div className="bg-black/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-12 text-center">
-            <Gamepad2 className="w-16 h-16 text-gray-500 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-white mb-2">🎯 Aucun Match Trouvé</h3>
-            <p className="text-gray-400">Modifiez les filtres ou actualisez la page</p>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {filteredPredictions.map((prediction) => {
-              const { time, day } = formatDate(prediction.matchDate)
-              const result = getPredictedResult(prediction)
-              const confidenceGradient = getConfidenceColor(prediction.predictions.confidence)
-              
-              return (
-                <div key={prediction.id} className="bg-black/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-300 group">
-                  <div className="p-6">
-                    <div className="flex items-center justify-between">
-                      {/* Date/Heure Gaming */}
-                      <div className="text-center min-w-[80px]">
-                        <div className="text-xs text-purple-400 font-bold uppercase tracking-wide">{day}</div>
-                        <div className="text-lg font-black text-white">{time}</div>
-                      </div>
-
-                      {/* Équipes Gaming Style */}
-                      <div className="flex-1 mx-6">
-                        <div className="grid grid-cols-3 gap-4 items-center">
-                          {/* Équipe Domicile */}
-                          <div className="text-right">
-                            <div className="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
-                              {prediction.homeTeam}
-                            </div>
-                            <div className={`text-2xl font-black bg-gradient-to-r ${confidenceGradient} bg-clip-text text-transparent`}>
-                              {prediction.predictions.homeWin}%
-                            </div>
-                            {result === '1' && (
-                              <div className="flex items-center justify-end mt-1">
-                                <Crown className="w-4 h-4 text-yellow-400 mr-1" />
-                                <span className="text-xs text-yellow-400 font-bold">FAVORI</span>
-                              </div>
-                            )}
+            {/* Liste des prédictions compactes */}
+            {filteredPredictions.length === 0 ? (
+              <div className="bg-white rounded-lg p-8 text-center">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <BarChart3 className="w-8 h-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Aucune prédiction</h3>
+                <p className="text-sm text-gray-500">Modifiez les filtres ou actualisez la page</p>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {filteredPredictions.map((prediction) => {
+                  const { time, day } = formatDate(prediction.matchDate)
+                  const result = getPredictedResult(prediction)
+                  const confidenceClass = getConfidenceColor(prediction.predictions.confidence)
+                  
+                  return viewMode === 'compact' ? (
+                    // Vue compacte style SofaScore
+                    <div key={prediction.id} className="bg-white rounded-lg hover:shadow-md transition-shadow">
+                      <div className="p-3">
+                        <div className="flex items-center justify-between">
+                          {/* Date/Heure */}
+                          <div className="w-16 text-center flex-shrink-0">
+                            <div className="text-xs text-gray-500">{day}</div>
+                            <div className="text-sm font-semibold text-gray-900">{time}</div>
                           </div>
 
-                          {/* VS Central */}
-                          <div className="text-center">
-                            <div className="text-2xl font-black text-purple-400 mb-2">VS</div>
-                            <div className="text-lg font-bold text-gray-400">
-                              Nul {prediction.predictions.draw}%
-                            </div>
-                            {result === 'X' && (
-                              <div className="flex items-center justify-center mt-1">
-                                <Crown className="w-4 h-4 text-yellow-400 mr-1" />
-                                <span className="text-xs text-yellow-400 font-bold">PRÉDICTION</span>
+                          {/* Équipes */}
+                          <div className="flex-1 mx-3">
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-sm font-medium text-gray-900 truncate max-w-[140px]">
+                                {prediction.homeTeam}
+                              </span>
+                              <div className="flex items-center space-x-2">
+                                <span className="text-sm font-bold text-blue-600">
+                                  {prediction.predictions.homeWin}%
+                                </span>
+                                {result === '1' && <Crown className="w-3 h-3 text-yellow-500" />}
                               </div>
-                            )}
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm font-medium text-gray-900 truncate max-w-[140px]">
+                                {prediction.awayTeam}
+                              </span>
+                              <div className="flex items-center space-x-2">
+                                <span className="text-sm font-bold text-blue-600">
+                                  {prediction.predictions.awayWin}%
+                                </span>
+                                {result === '2' && <Crown className="w-3 h-3 text-yellow-500" />}
+                              </div>
+                            </div>
+                            <div className="flex items-center justify-between mt-1 pt-1 border-t border-gray-100">
+                              <span className="text-xs text-gray-400 flex items-center">
+                                <MapPin className="w-3 h-3 mr-1" />
+                                {prediction.venue}
+                              </span>
+                              {result === 'X' && (
+                                <span className="text-xs text-gray-500 flex items-center">
+                                  Nul {prediction.predictions.draw}%
+                                  <Crown className="w-3 h-3 text-yellow-500 ml-1" />
+                                </span>
+                              )}
+                            </div>
                           </div>
 
-                          {/* Équipe Extérieur */}
-                          <div className="text-left">
-                            <div className="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
-                              {prediction.awayTeam}
+                          {/* Prédiction et confiance */}
+                          <div className="flex items-center space-x-2 flex-shrink-0">
+                            <div className={`px-3 py-1 rounded-full text-xs font-bold ${confidenceClass}`}>
+                              {prediction.predictions.confidence}%
                             </div>
-                            <div className={`text-2xl font-black bg-gradient-to-r ${confidenceGradient} bg-clip-text text-transparent`}>
-                              {prediction.predictions.awayWin}%
+                            <div className="bg-gray-900 text-white px-2 py-1 rounded text-xs font-bold">
+                              {result}
                             </div>
-                            {result === '2' && (
-                              <div className="flex items-center justify-start mt-1">
-                                <Crown className="w-4 h-4 text-yellow-400 mr-1" />
-                                <span className="text-xs text-yellow-400 font-bold">FAVORI</span>
-                              </div>
-                            )}
+                            <button className="p-1 hover:bg-gray-100 rounded">
+                              <ChevronRight className="w-4 h-4 text-gray-400" />
+                            </button>
                           </div>
-                        </div>
-
-                        {/* Stade Info */}
-                        <div className="flex items-center justify-center mt-3 text-sm text-gray-500">
-                          <MapPin className="w-4 h-4 mr-1" />
-                          {prediction.venue}
-                        </div>
-                      </div>
-
-                      {/* Confiance Gaming */}
-                      <div className="text-center min-w-[120px]">
-                        <div className={`bg-gradient-to-r ${confidenceGradient} text-white px-4 py-2 rounded-xl font-black text-lg mb-2`}>
-                          {prediction.predictions.confidence}%
-                        </div>
-                        <div className="bg-gray-800 text-white px-3 py-1 rounded-lg text-sm font-bold">
-                          PRÉDICTION: {result}
                         </div>
                       </div>
                     </div>
+                  ) : (
+                    // Vue détaillée
+                    <Card key={prediction.id} variant="elevated" className="overflow-hidden hover:shadow-lg transition-shadow">
+                      <div className="p-4">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex items-center space-x-2">
+                            <Badge variant="outline" size="sm">
+                              {prediction.competition}
+                            </Badge>
+                            <span className="text-xs text-gray-500">
+                              {day} • {time}
+                            </span>
+                            {prediction.predictions.confidence >= 75 && (
+                              <Badge variant="success" size="sm">
+                                <Flame className="w-3 h-3 mr-1" />
+                                Hot Pick
+                              </Badge>
+                            )}
+                          </div>
+                          <ConfidenceBadge confidence={prediction.predictions.confidence} />
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-4 mb-3">
+                          <div className="text-center">
+                            <div className="font-semibold text-gray-900 mb-1">
+                              {prediction.homeTeam}
+                            </div>
+                            <div className="text-2xl font-bold text-blue-600">
+                              {prediction.predictions.homeWin}%
+                            </div>
+                            {result === '1' && (
+                              <Badge variant="gold" size="sm" className="mt-1">
+                                <Crown className="w-3 h-3 mr-1" />
+                                Favori
+                              </Badge>
+                            )}
+                          </div>
+                          
+                          <div className="text-center">
+                            <div className="text-gray-500 mb-1">Nul</div>
+                            <div className="text-2xl font-bold text-gray-600">
+                              {prediction.predictions.draw}%
+                            </div>
+                            {result === 'X' && (
+                              <Badge variant="outline" size="sm" className="mt-1">
+                                Prédiction
+                              </Badge>
+                            )}
+                          </div>
+                          
+                          <div className="text-center">
+                            <div className="font-semibold text-gray-900 mb-1">
+                              {prediction.awayTeam}
+                            </div>
+                            <div className="text-2xl font-bold text-purple-600">
+                              {prediction.predictions.awayWin}%
+                            </div>
+                            {result === '2' && (
+                              <Badge variant="gold" size="sm" className="mt-1">
+                                <Crown className="w-3 h-3 mr-1" />
+                                Favori
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                          <span className="text-xs text-gray-500 flex items-center">
+                            <MapPin className="w-3 h-3 mr-1" />
+                            {prediction.venue}
+                          </span>
+                          <Button variant="ghost" size="sm">
+                            <Eye className="w-3 h-3 mr-1" />
+                            Détails
+                          </Button>
+                        </div>
+                      </div>
+                    </Card>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Sidebar - Widgets premium */}
+          <div className="space-y-4">
+            {/* Widget Top Predictions */}
+            <Card variant="elevated" className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-semibold text-gray-900 flex items-center">
+                  <Trophy className="w-4 h-4 mr-2 text-yellow-500" />
+                  Top Confiance
+                </h3>
+                <Badge variant="primary" size="sm">Live</Badge>
+              </div>
+              <div className="space-y-2">
+                {predictions
+                  .sort((a, b) => b.predictions.confidence - a.predictions.confidence)
+                  .slice(0, 3)
+                  .map((pred, idx) => (
+                    <div key={pred.id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-xs font-bold text-gray-500">#{idx + 1}</span>
+                        <div>
+                          <div className="text-xs font-medium text-gray-900">
+                            {pred.homeTeam} vs {pred.awayTeam}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            Résultat: {getPredictedResult(pred)}
+                          </div>
+                        </div>
+                      </div>
+                      <Badge variant="success" size="sm">
+                        {pred.predictions.confidence}%
+                      </Badge>
+                    </div>
+                  ))}
+              </div>
+            </Card>
+
+            {/* Widget Stats */}
+            <Card variant="elevated" className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-semibold text-gray-900 flex items-center">
+                  <BarChart3 className="w-4 h-4 mr-2 text-blue-500" />
+                  Statistiques
+                </h3>
+                <button className="text-gray-400 hover:text-gray-600">
+                  <Info className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="space-y-3">
+                <div>
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="text-gray-600">Victoires domicile</span>
+                    <span className="font-semibold">
+                      {Math.round((predictions.filter(p => getPredictedResult(p) === '1').length / predictions.length) * 100)}%
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div 
+                      className="bg-blue-600 h-2 rounded-full"
+                      style={{ width: `${(predictions.filter(p => getPredictedResult(p) === '1').length / predictions.length) * 100}%` }}
+                    />
                   </div>
                 </div>
-              )
-            })}
+                <div>
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="text-gray-600">Matchs nuls</span>
+                    <span className="font-semibold">
+                      {Math.round((predictions.filter(p => getPredictedResult(p) === 'X').length / predictions.length) * 100)}%
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div 
+                      className="bg-gray-600 h-2 rounded-full"
+                      style={{ width: `${(predictions.filter(p => getPredictedResult(p) === 'X').length / predictions.length) * 100}%` }}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="text-gray-600">Victoires extérieur</span>
+                    <span className="font-semibold">
+                      {Math.round((predictions.filter(p => getPredictedResult(p) === '2').length / predictions.length) * 100)}%
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div 
+                      className="bg-purple-600 h-2 rounded-full"
+                      style={{ width: `${(predictions.filter(p => getPredictedResult(p) === '2').length / predictions.length) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Widget Info Système */}
+            <Card variant="gradient" className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-semibold text-gray-900 flex items-center">
+                  <Shield className="w-4 h-4 mr-2 text-green-500" />
+                  Système ML
+                </h3>
+                <StatusBadge status="online" />
+              </div>
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Modèle</span>
+                  <span className="font-medium">XGBoost v2.1</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Précision</span>
+                  <span className="font-medium text-green-600">54.2%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Dernière MAJ</span>
+                  <span className="font-medium">Il y a 2h</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Données</span>
+                  <span className="font-medium">5 saisons</span>
+                </div>
+              </div>
+            </Card>
+
+            {/* CTA Premium */}
+            <Card variant="elevated" className="p-4 bg-gradient-to-br from-blue-50 to-purple-50">
+              <div className="text-center">
+                <Star className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
+                <h3 className="font-semibold text-gray-900 mb-1">Version Premium</h3>
+                <p className="text-xs text-gray-600 mb-3">
+                  Débloquez plus de fonctionnalités
+                </p>
+                <Button variant="primary" size="sm" className="w-full">
+                  Découvrir
+                </Button>
+              </div>
+            </Card>
           </div>
-        )}
+        </div>
       </div>
     </div>
   )

@@ -394,14 +394,14 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
         if (stats.length === 0) return null;
         
         return {
-          avgPossession: stats.reduce((sum, s) => sum + (s.ball_possession || 50), 0) / stats.length,
-          avgShots: stats.reduce((sum, s) => sum + (s.total_shots || 10), 0) / stats.length,
-          avgShotsOnTarget: stats.reduce((sum, s) => sum + (s.shots_on_goal || 3), 0) / stats.length,
-          avgCorners: stats.reduce((sum, s) => sum + (s.corner_kicks || 5), 0) / stats.length,
-          avgFouls: stats.reduce((sum, s) => sum + (s.fouls || 10), 0) / stats.length,
-          avgPasses: stats.reduce((sum, s) => sum + (s.total_passes || 400), 0) / stats.length,
-          avgPassAccuracy: stats.reduce((sum, s) => sum + (s.passes_percentage || 80), 0) / stats.length,
-          avgXG: stats.reduce((sum, s) => sum + (s.expected_goals || 1.2), 0) / stats.length,
+          avgPossession: stats.reduce((sum: number, s: any) => sum + (s.ball_possession || 50), 0) / stats.length,
+          avgShots: stats.reduce((sum: number, s: any) => sum + (s.total_shots || 10), 0) / stats.length,
+          avgShotsOnTarget: stats.reduce((sum: number, s: any) => sum + (s.shots_on_goal || 3), 0) / stats.length,
+          avgCorners: stats.reduce((sum: number, s: any) => sum + (s.corner_kicks || 5), 0) / stats.length,
+          avgFouls: stats.reduce((sum: number, s: any) => sum + (s.fouls || 10), 0) / stats.length,
+          avgPasses: stats.reduce((sum: number, s: any) => sum + (s.total_passes || 400), 0) / stats.length,
+          avgPassAccuracy: stats.reduce((sum: number, s: any) => sum + (s.passes_percentage || 80), 0) / stats.length,
+          avgXG: stats.reduce((sum: number, s: any) => sum + (s.expected_goals || 1.2), 0) / stats.length,
           recentForm: stats.length // Nombre de matchs récents avec données
         };
       }

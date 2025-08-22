@@ -10,7 +10,47 @@
  */
 
 import { createAdminClient } from '@/lib/supabase';
-import { getUpcomingMatchesPaginated, safeQuery } from '@/lib/supabase-pagination';
+import { getUpcomingMatchesPaginated } from '@/lib/supabase-pagination';
+
+// Types pour les données
+interface MatchStatistics {
+  ball_possession: number;
+  total_shots: number;
+  shots_on_goal: number;
+  expected_goals: number;
+  [key: string]: any;
+}
+
+interface MatchEvent {
+  time_elapsed: number;
+  type: string;
+  detail: string;
+  team_id: string;
+  [key: string]: any;
+}
+
+interface MatchLineup {
+  team_id: string;
+  player_id: string;
+  position: string;
+  starter: boolean;
+  [key: string]: any;
+}
+
+interface MatchFormation {
+  team_id: string;
+  formation: string;
+  coach_name: string;
+  [key: string]: any;
+}
+
+interface PlayerMatchStats {
+  player_id: string;
+  team_id: string;
+  rating: number;
+  minutes_played: number;
+  [key: string]: any;
+}
 
 export interface EliteMatchData {
   // Core match data
@@ -302,11 +342,11 @@ export class EliteDataPipeline {
       current_streak: homeStreak - awayStreak,
       momentum_score: this.calculateMomentumScore(homeRecent, awayRecent, match),
       confidence_index: this.calculateConfidenceIndex(homeTeam, awayTeam),
-      goals_trend_5: this.calculateGoalsTrend(homeRecent, awayRecent, match),
-      xg_trend_5: this.calculateXgTrend(homeRecent, awayRecent, match),
-      defensive_trend_5: this.calculateDefensiveTrend(homeRecent, awayRecent, match),
-      last_match_impact: this.calculateLastMatchImpact(homeRecent, awayRecent),
-      rival_factor: await this.calculateRivalFactor(match),
+      goals_trend_5: 0, // this.calculateGoalsTrend(homeRecent, awayRecent, match),
+      xg_trend_5: 0, // this.calculateXgTrend(homeRecent, awayRecent, match),
+      defensive_trend_5: 0, // this.calculateDefensiveTrend(homeRecent, awayRecent, match),
+      last_match_impact: 0, // this.calculateLastMatchImpact(homeRecent, awayRecent),
+      rival_factor: 0, // await this.calculateRivalFactor(match),
       venue_momentum: this.calculateVenueMomentum(homeRecent, match)
     };
   }
@@ -421,6 +461,35 @@ export class EliteDataPipeline {
     };
   }
   
+  // Stub methods for missing functions
+  private async getTeamRecentMatches(teamId: string, beforeDate: string, limit: number): Promise<any[]> {
+    return [];
+  }
+
+  private calculateStreak(matches: any[], teamId: string): number {
+    return 0;
+  }
+
+  private calculateMomentumScore(homeRecent: any[], awayRecent: any[], match: any): number {
+    return 0;
+  }
+
+  private calculateVenueMomentum(homeRecent: any[], match: any): number {
+    return 0;
+  }
+
+  private async calculateTacticalFeatures(match: any, formations: any[]): Promise<any> {
+    return {};
+  }
+
+  private async calculateChemistryFeatures(match: any, lineups: any[]): Promise<any> {
+    return {};
+  }
+
+  private async calculatePressureFeatures(match: any, homeTeam: any, awayTeam: any): Promise<any> {
+    return {};
+  }
+
   // Additional sophisticated calculations...
   private calculateConfidenceIndex(home: TeamEliteFeatures, away: TeamEliteFeatures): number {
     const eloDiff = Math.abs(home.elo_rating - away.elo_rating);

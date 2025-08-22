@@ -319,7 +319,7 @@ export async function GET(): Promise<NextResponse<DashboardResponse>> {
   }
 }
 
-export async function POST(request: NextRequest): Promise<NextResponse<DashboardResponse>> {
+export async function POST(): Promise<NextResponse<DashboardResponse>> {
   try {
     console.log('🔄 Régénération forcée des prédictions...');
     
@@ -327,7 +327,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<Dashboard
     predictionsCache = null;
     
     // Relancer la génération
-    return GET(request);
+    return GET();
     
   } catch (error) {
     console.error('❌ Erreur régénération:', error);

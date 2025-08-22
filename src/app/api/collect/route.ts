@@ -2,9 +2,9 @@
 // DEPRECATED: TypeScript collectors disabled - Use Python pipeline instead
 // See: scripts/python_pipeline/main_collector.py
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   return NextResponse.json({ 
     success: false,
     message: 'TypeScript collectors deprecated. Use Python pipeline: python scripts/python_pipeline/main_collector.py',

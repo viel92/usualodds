@@ -52,16 +52,6 @@ interface PlayerMatchStats {
   [key: string]: any;
 }
 
-interface TacticalFeatures {
-  formation_matchup_score: number;
-  tactical_advantage: number;
-  coach_experience_vs_opponent: number;
-  possession_style_clash: number;
-  pressing_vs_buildup: number;
-  pace_mismatch: number;
-  corner_threat_vs_defense: number;
-  free_kick_danger: number;
-}
 
 export interface EliteMatchData {
   // Core match data
@@ -472,30 +462,33 @@ export class EliteDataPipeline {
     };
   }
   
-  // Stub methods for missing functions
-  private async getTeamRecentMatches(teamId: string, beforeDate: string, limit: number): Promise<any[]> {
-    return [];
-  }
-
-  private calculateStreak(matches: any[], teamId: string): number {
-    return 0;
-  }
-
-  private calculateMomentumScore(homeRecent: any[], awayRecent: any[], match: any): number {
-    return 0;
-  }
-
   private calculateVenueMomentum(homeRecent: any[], match: any): number {
     return 0;
   }
 
 
-  private async calculateChemistryFeatures(match: any, lineups: any[]): Promise<any> {
-    return {};
+  private async calculateChemistryFeatures(match: any, lineups: any[]): Promise<ChemistryFeatures> {
+    return {
+      lineup_familiarity: 0,
+      player_combinations_score: 0,
+      new_signings_impact: 0,
+      key_player_absences: 0,
+      replacement_quality_drop: 0,
+      formation_disruption: 0
+    };
   }
 
-  private async calculatePressureFeatures(match: any, homeTeam: any, awayTeam: any): Promise<any> {
-    return {};
+  private async calculatePressureFeatures(match: any, homeTeam: any, awayTeam: any): Promise<PressureFeatures> {
+    return {
+      media_pressure: 0,
+      fan_expectation: 0,
+      manager_pressure: 0,
+      title_race_pressure: 0,
+      relegation_pressure: 0,
+      european_qualification_pressure: 0,
+      head_to_head_psychology: 0,
+      venue_intimidation: 0
+    };
   }
 
   // Tactical helper methods (stubs)

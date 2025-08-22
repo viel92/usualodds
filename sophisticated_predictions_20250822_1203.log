@@ -1,0 +1,235 @@
+2025-08-22 12:03:49,853 - INFO - === GENERATION PREDICTIONS SOPHISTIQUEES ===
+2025-08-22 12:03:49,852 - INFO - === GENERATION PREDICTIONS SOPHISTIQUEES ===
+2025-08-22 12:03:49,853 - INFO - Limite matches: 10
+2025-08-22 12:03:49,854 - INFO - Limite matches: 20
+2025-08-22 12:03:49,854 - INFO - Initialisation Ultra Sophisticated ML System...
+2025-08-22 12:03:49,854 - INFO - Initialisation Ultra Sophisticated ML System...
+2025-08-22 12:03:50,777 - INFO - Gestionnaire pagination Supabase initialise
+2025-08-22 12:03:50,777 - INFO - Calculateur intelligent des features initialise
+2025-08-22 12:03:50,778 - INFO - Feature Engineer avance initialise
+2025-08-22 12:03:50,778 - INFO - Architecture ML hybride initialisee
+2025-08-22 12:03:50,778 - INFO - Moteur d'explainabilite initialise
+2025-08-22 12:03:50,778 - INFO - SYSTEME ML ULTRA SOPHISTIQUE INITIALISE
+2025-08-22 12:03:50,778 - INFO - Aucun modele trouve, entrainement necessaire...
+2025-08-22 12:03:50,778 - INFO - DEMARRAGE PIPELINE COMPLET
+2025-08-22 12:03:50,779 - INFO - Debut: 2025-08-22 12:03:50
+2025-08-22 12:03:50,779 - INFO - 
+PHASE 1: EXTRACTION DONNEES INTELLIGENTE
+2025-08-22 12:03:50,779 - INFO - Extraction donnees depuis Supabase...
+2025-08-22 12:03:50,779 - INFO - Recuperation parallele de 6 tables...
+2025-08-22 12:03:50,780 - INFO - Recuperation donnees matches...
+2025-08-22 12:03:50,781 - INFO - Recuperation donnees match_statistics...
+2025-08-22 12:03:50,782 - INFO - Recuperation donnees team_features...
+2025-08-22 12:03:50,784 - INFO - Recuperation donnees player_features...
+2025-08-22 12:03:50,785 - INFO - Recuperation donnees match_events...
+2025-08-22 12:03:50,788 - INFO - Gestionnaire pagination Supabase initialise
+2025-08-22 12:03:50,789 - INFO - Calculateur intelligent des features initialise
+2025-08-22 12:03:50,789 - INFO - Feature Engineer avance initialise
+2025-08-22 12:03:50,789 - INFO - Architecture ML hybride initialisee
+2025-08-22 12:03:50,789 - INFO - Moteur d'explainabilite initialise
+2025-08-22 12:03:50,789 - INFO - SYSTEME ML ULTRA SOPHISTIQUE INITIALISE
+2025-08-22 12:03:50,790 - INFO - Aucun modele trouve, entrainement necessaire...
+2025-08-22 12:03:50,790 - INFO - DEMARRAGE PIPELINE COMPLET
+2025-08-22 12:03:50,790 - INFO - Debut: 2025-08-22 12:03:50
+2025-08-22 12:03:50,790 - INFO - 
+PHASE 1: EXTRACTION DONNEES INTELLIGENTE
+2025-08-22 12:03:50,790 - INFO - Extraction donnees depuis Supabase...
+2025-08-22 12:03:50,790 - INFO - Recuperation parallele de 6 tables...
+2025-08-22 12:03:50,791 - INFO - Recuperation donnees matches...
+2025-08-22 12:03:50,792 - INFO - Recuperation donnees match_statistics...
+2025-08-22 12:03:50,793 - INFO - Recuperation donnees team_features...
+2025-08-22 12:03:50,795 - INFO - Recuperation donnees player_features...
+2025-08-22 12:03:50,796 - INFO - Recuperation donnees match_events...
+2025-08-22 12:03:51,858 - ERROR - Erreur recuperation matches page 0: [Errno 11001] getaddrinfo failed
+iled
+2025-08-22 12:03:51,859 - ERROR - Erreur recuperation match_events page 0: [Errno 11001] getaddrinfo failed
+2025-08-22 12:03:51,859 - ERROR - Erreur recuperation player_features page 0: [Errno 11001] getaddrinfo failed
+2025-08-22 12:03:51,859 - ERROR - Erreur recuperation match_statistics page 0: [Errno 11001] getaddrinfo failed
+2025-08-22 12:03:51,859 - ERROR - Erreur recuperation match_statistics page 0: [Errno 11001] getaddrinfo failed
+2025-08-22 12:03:51,859 - ERROR - Erreur recuperation player_features page 0: [Errno 11001] getaddrinfo failed
+2025-08-22 12:03:51,859 - ERROR - Erreur recuperation team_features page 0: [Errno 11001] getaddrinfo failed
+2025-08-22 12:03:51,859 - INFO - team_features: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:03:51,859 - INFO - matches: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:03:51,859 - INFO - match_events: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:03:51,859 - INFO - match_events: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:03:51,860 - INFO - match_statistics: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:03:51,860 - INFO - player_features: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:03:51,860 - INFO - player_features: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:03:51,860 - INFO - team_features: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:03:51,861 - INFO - Recuperation donnees lineups...
+ requêtes
+2025-08-22 12:03:51,861 - INFO - matches: 0 lignes
+2025-08-22 12:03:51,860 - INFO - match_statistics: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:03:51,861 - INFO - Recuperation donnees lineups...
+2025-08-22 12:03:51,861 - INFO - team_features: 0 lignes
+2025-08-22 12:03:51,862 - INFO - match_events: 0 lignes
+2025-08-22 12:03:51,862 - INFO - match_events: 0 lignes
+2025-08-22 12:03:51,862 - INFO - player_features: 0 lignes
+2025-08-22 12:03:51,863 - INFO - match_statistics: 0 lignes
+2025-08-22 12:03:51,863 - INFO - matches: 0 lignes
+2025-08-22 12:03:51,863 - INFO - match_statistics: 0 lignes
+2025-08-22 12:03:51,863 - INFO - player_features: 0 lignes
+2025-08-22 12:03:51,863 - INFO - team_features: 0 lignes
+2025-08-22 12:03:51,871 - ERROR - Erreur recuperation lineups page 0: [Errno 11001] getaddrinfo failed
+2025-08-22 12:03:51,871 - INFO - lineups: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:03:51,871 - INFO - lineups: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:03:51,872 - INFO - lineups: 0 lignes
+2025-08-22 12:03:51,873 - INFO -   team_features: 0 lignes
+2025-08-22 12:03:51,873 - INFO -   match_events: 0 lignes
+2025-08-22 12:03:51,873 - INFO -   matches: 0 lignes
+2025-08-22 12:03:51,874 - INFO -   match_events: 0 lignes
+s
+2025-08-22 12:03:51,874 - INFO -   matches: 0 lignes
+ lignes
+2025-08-22 12:03:51,874 - INFO -   player_features: 0 lignes
+
+2025-08-22 12:03:51,874 - INFO -   lineups: 0 lignes
+gnes
+2025-08-22 12:03:51,874 - INFO - 
+PHASE 2: CALCUL FEATURES MANQUANTES
+2025-08-22 12:03:51,874 - INFO -   lineups: 0 lignes
+2025-08-22 12:03:51,874 - INFO - Calcul intelligent des features...
+2025-08-22 12:03:51,874 - INFO - 
+PHASE 2: CALCUL FEATURES MANQUANTES
+2025-08-22 12:03:51,874 - INFO - Calcul intelligent des features...
+2025-08-22 12:03:51,875 - ERROR - ❌ ERREUR PIPELINE: No objects to concatenate
+2025-08-22 12:03:51,885 - INFO - Generation predictions avec features sophistiquees...
+2025-08-22 12:03:51,885 - INFO - Generation predictions avec features sophistiquees...
+2025-08-22 12:03:51,885 - INFO - Generation predictions sophistiquees pour 10 matches...
+2025-08-22 12:03:51,885 - INFO - Generation predictions sophistiquees pour 20 matches...
+2025-08-22 12:03:51,885 - WARNING - Modele non entraine, entrainement automatique...
+2025-08-22 12:03:51,885 - INFO - DEMARRAGE PIPELINE COMPLET
+ainement automatique...
+2025-08-22 12:03:51,885 - INFO - Debut: 2025-08-22 12:03:51
+2025-08-22 12:03:51,885 - INFO - DEMARRAGE PIPELINE COMPLET
+2025-08-22 12:03:51,885 - INFO - 
+PHASE 1: EXTRACTION DONNEES INTELLIGENTE
+2025-08-22 12:03:51,885 - INFO - Debut: 2025-08-22 12:03:51
+2025-08-22 12:03:51,885 - INFO - Extraction donnees depuis Supabase...
+2025-08-22 12:03:51,886 - INFO - 
+PHASE 1: EXTRACTION DONNEES INTELLIGENTE
+2025-08-22 12:03:51,886 - INFO - Recuperation parallele de 6 tables...
+2025-08-22 12:03:51,886 - INFO - Recuperation parallele de 6 tables...
+2025-08-22 12:03:51,887 - INFO - Cache hit pour matches
+2025-08-22 12:03:51,887 - INFO - Cache hit pour match_statistics
+2025-08-22 12:03:51,887 - INFO - Cache hit pour team_features
+2025-08-22 12:03:51,887 - INFO - Cache hit pour player_features
+2025-08-22 12:03:51,888 - INFO - Cache hit pour match_events
+2025-08-22 12:03:51,888 - INFO - Cache hit pour match_events
+2025-08-22 12:03:51,888 - INFO - matches: 0 lignes
+2025-08-22 12:03:51,888 - INFO - matches: 0 lignes
+2025-08-22 12:03:51,888 - INFO - Cache hit pour lineups
+2025-08-22 12:03:51,888 - INFO - Cache hit pour lineups
+2025-08-22 12:03:51,889 - INFO - team_features: 0 lignes
+2025-08-22 12:03:51,888 - INFO - team_features: 0 lignes
+2025-08-22 12:03:51,889 - INFO - match_statistics: 0 lignes
+2025-08-22 12:03:51,889 - INFO - player_features: 0 lignes
+2025-08-22 12:03:51,889 - INFO - match_events: 0 lignes
+2025-08-22 12:03:51,889 - INFO - lineups: 0 lignes
+2025-08-22 12:03:51,889 - INFO - lineups: 0 lignes
+2025-08-22 12:03:51,890 - INFO -   matches: 0 lignes
+2025-08-22 12:03:51,890 - INFO -   matches: 0 lignes
+2025-08-22 12:03:51,890 - INFO -   team_features: 0 lignes
+2025-08-22 12:03:51,890 - INFO -   team_features: 0 lignes
+2025-08-22 12:03:51,891 - INFO -   match_statistics: 0 lignes
+2025-08-22 12:03:51,891 - INFO -   match_statistics: 0 lignes
+2025-08-22 12:03:51,891 - INFO -   player_features: 0 lignes
+2025-08-22 12:03:51,891 - INFO -   player_features: 0 lignes
+2025-08-22 12:03:51,891 - INFO -   match_events: 0 lignes
+2025-08-22 12:03:51,891 - INFO -   match_events: 0 lignes
+2025-08-22 12:03:51,891 - INFO -   lineups: 0 lignes
+2025-08-22 12:03:51,891 - INFO - 
+PHASE 2: CALCUL FEATURES MANQUANTES
+2025-08-22 12:03:51,891 - INFO - 
+PHASE 2: CALCUL FEATURES MANQUANTES
+2025-08-22 12:03:51,891 - INFO - Calcul intelligent des features...
+2025-08-22 12:03:51,891 - INFO - Calcul intelligent des features...
+2025-08-22 12:03:51,892 - ERROR - ❌ ERREUR PIPELINE: No objects to concatenate
+2025-08-22 12:03:51,892 - ERROR - ❌ ERREUR PIPELINE: No objects to concatenate
+2025-08-22 12:03:51,911 - ERROR - Erreur generation predictions: [Errno 11001] getaddrinfo failed
+2025-08-22 12:03:51,911 - ERROR - Erreur generation predictions: [Errno 11001] getaddrinfo failed
+2025-08-22 12:03:51,911 - ERROR - Aucune prediction generee!
+2025-08-22 12:03:51,911 - ERROR - Aucune prediction generee!
+2025-08-22 12:03:58,844 - INFO - === GENERATION PREDICTIONS SOPHISTIQUEES ===
+2025-08-22 12:03:58,845 - INFO - Limite matches: 20
+2025-08-22 12:03:58,845 - INFO - Initialisation Ultra Sophisticated ML System...
+2025-08-22 12:03:59,558 - INFO - Gestionnaire pagination Supabase initialise
+2025-08-22 12:03:59,558 - INFO - Calculateur intelligent des features initialise
+2025-08-22 12:03:59,558 - INFO - Feature Engineer avance initialise
+2025-08-22 12:03:59,558 - INFO - Architecture ML hybride initialisee
+2025-08-22 12:03:59,558 - INFO - Moteur d'explainabilite initialise
+2025-08-22 12:03:59,559 - INFO - SYSTEME ML ULTRA SOPHISTIQUE INITIALISE
+2025-08-22 12:03:59,559 - INFO - Aucun modele trouve, entrainement necessaire...
+2025-08-22 12:03:59,559 - INFO - DEMARRAGE PIPELINE COMPLET
+2025-08-22 12:03:59,559 - INFO - Debut: 2025-08-22 12:03:59
+2025-08-22 12:03:59,560 - INFO - 
+PHASE 1: EXTRACTION DONNEES INTELLIGENTE
+2025-08-22 12:03:59,560 - INFO - Extraction donnees depuis Supabase...
+2025-08-22 12:03:59,560 - INFO - Recuperation parallele de 6 tables...
+2025-08-22 12:03:59,561 - INFO - Recuperation donnees matches...
+2025-08-22 12:03:59,562 - INFO - Recuperation donnees match_statistics...
+2025-08-22 12:03:59,563 - INFO - Recuperation donnees team_features...
+2025-08-22 12:03:59,565 - INFO - Recuperation donnees player_features...
+2025-08-22 12:03:59,566 - INFO - Recuperation donnees match_events...
+2025-08-22 12:04:00,349 - ERROR - Erreur recuperation matches page 0: [Errno 11001] getaddrinfo failed
+2025-08-22 12:04:00,350 - ERROR - Erreur recuperation match_statistics page 0: [Errno 11001] getaddrinfo failed
+2025-08-22 12:04:00,350 - ERROR - Erreur recuperation player_features page 0: [Errno 11001] getaddrinfo failed
+2025-08-22 12:04:00,350 - ERROR - Erreur recuperation match_events page 0: [Errno 11001] getaddrinfo failed
+2025-08-22 12:04:00,350 - ERROR - Erreur recuperation team_features page 0: [Errno 11001] getaddrinfo failed
+2025-08-22 12:04:00,351 - INFO - matches: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:04:00,351 - INFO - match_statistics: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:04:00,351 - INFO - player_features: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:04:00,351 - INFO - match_events: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:04:00,352 - INFO - team_features: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:04:00,352 - INFO - Recuperation donnees lineups...
+2025-08-22 12:04:00,352 - INFO - matches: 0 lignes
+2025-08-22 12:04:00,353 - INFO - match_statistics: 0 lignes
+2025-08-22 12:04:00,354 - INFO - player_features: 0 lignes
+2025-08-22 12:04:00,354 - INFO - match_events: 0 lignes
+2025-08-22 12:04:00,354 - INFO - team_features: 0 lignes
+2025-08-22 12:04:00,369 - ERROR - Erreur recuperation lineups page 0: [Errno 11001] getaddrinfo failed
+2025-08-22 12:04:00,369 - INFO - lineups: 0 lignes recuperees en 0 requêtes
+2025-08-22 12:04:00,369 - INFO - lineups: 0 lignes
+2025-08-22 12:04:00,371 - INFO -   matches: 0 lignes
+2025-08-22 12:04:00,372 - INFO -   match_statistics: 0 lignes
+2025-08-22 12:04:00,372 - INFO -   player_features: 0 lignes
+2025-08-22 12:04:00,372 - INFO -   match_events: 0 lignes
+2025-08-22 12:04:00,372 - INFO -   team_features: 0 lignes
+2025-08-22 12:04:00,372 - INFO -   lineups: 0 lignes
+2025-08-22 12:04:00,372 - INFO - 
+PHASE 2: CALCUL FEATURES MANQUANTES
+2025-08-22 12:04:00,372 - INFO - Calcul intelligent des features...
+2025-08-22 12:04:00,372 - ERROR - ❌ ERREUR PIPELINE: No objects to concatenate
+2025-08-22 12:04:00,378 - INFO - Generation predictions avec features sophistiquees...
+2025-08-22 12:04:00,378 - INFO - Generation predictions sophistiquees pour 20 matches...
+2025-08-22 12:04:00,379 - WARNING - Modele non entraine, entrainement automatique...
+2025-08-22 12:04:00,379 - INFO - DEMARRAGE PIPELINE COMPLET
+2025-08-22 12:04:00,379 - INFO - Debut: 2025-08-22 12:04:00
+2025-08-22 12:04:00,379 - INFO - 
+PHASE 1: EXTRACTION DONNEES INTELLIGENTE
+2025-08-22 12:04:00,379 - INFO - Extraction donnees depuis Supabase...
+2025-08-22 12:04:00,379 - INFO - Recuperation parallele de 6 tables...
+2025-08-22 12:04:00,380 - INFO - Cache hit pour matches
+2025-08-22 12:04:00,381 - INFO - Cache hit pour match_statistics
+2025-08-22 12:04:00,381 - INFO - Cache hit pour team_features
+2025-08-22 12:04:00,381 - INFO - Cache hit pour player_features
+2025-08-22 12:04:00,382 - INFO - Cache hit pour match_events
+2025-08-22 12:04:00,382 - INFO - matches: 0 lignes
+2025-08-22 12:04:00,382 - INFO - Cache hit pour lineups
+2025-08-22 12:04:00,383 - INFO - match_statistics: 0 lignes
+2025-08-22 12:04:00,383 - INFO - player_features: 0 lignes
+2025-08-22 12:04:00,383 - INFO - match_events: 0 lignes
+2025-08-22 12:04:00,383 - INFO - team_features: 0 lignes
+2025-08-22 12:04:00,383 - INFO - lineups: 0 lignes
+2025-08-22 12:04:00,384 - INFO -   matches: 0 lignes
+2025-08-22 12:04:00,384 - INFO -   match_statistics: 0 lignes
+2025-08-22 12:04:00,384 - INFO -   player_features: 0 lignes
+2025-08-22 12:04:00,384 - INFO -   match_events: 0 lignes
+2025-08-22 12:04:00,384 - INFO -   team_features: 0 lignes
+2025-08-22 12:04:00,384 - INFO -   lineups: 0 lignes
+2025-08-22 12:04:00,384 - INFO - 
+PHASE 2: CALCUL FEATURES MANQUANTES
+2025-08-22 12:04:00,385 - INFO - Calcul intelligent des features...
+2025-08-22 12:04:00,385 - ERROR - ❌ ERREUR PIPELINE: No objects to concatenate
+2025-08-22 12:04:00,401 - ERROR - Erreur generation predictions: [Errno 11001] getaddrinfo failed
+2025-08-22 12:04:00,401 - ERROR - Aucune prediction generee!

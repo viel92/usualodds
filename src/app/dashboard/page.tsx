@@ -9,9 +9,9 @@ import { PredictionCardSkeleton } from '@/components/ui/loading-states'
 import { LazyStatsGrid } from '@/components/dashboard/lazy-stats'
 import { usePredictions, useRefreshPredictions } from '@/lib/hooks/use-predictions'
 import { 
-  TrendingUp, Target, RefreshCw, Calendar, MapPin, BarChart3, 
-  Eye, ArrowRight, Activity, Play, Crown, Flame, Trophy,
-  Star, Clock, Shield, Users, Zap, ChevronRight
+  TrendingUp, Target, RefreshCw, MapPin, BarChart3, 
+  Eye, ArrowRight, Activity, Flame, Trophy,
+  Shield, ChevronRight
 } from 'lucide-react'
 
 /**

@@ -12,6 +12,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase';
+import { spawn } from 'child_process';
+import * as path from 'path';
 
 // Types pour l'API unifiée
 interface Prediction {
@@ -56,10 +58,97 @@ interface APIResponse {
 }
 
 /**
- * Récupère les matches à venir depuis Supabase
+ * NOUVEAU: Calcule prédictions en temps réel avec Ultra Sophisticated ML System
+ */
+async function calculateRealTimePredictions(limit: number = 20): Promise<Prediction[]> {
+  console.log('🧠 Calcul prédictions temps réel Ultra Sophisticated...');
+  
+  try {
+    // Exécuter le système Python Ultra Sophisticated
+    const pythonScript = path.join(process.cwd(), 'generate_sophisticated_predictions.py');
+    
+    const pythonProcess = spawn('python', [pythonScript, '--matches', limit.toString()], {
+      cwd: process.cwd(),
+      env: { ...process.env }
+    });
+    
+    let output = '';
+    let error = '';
+    
+    pythonProcess.stdout?.on('data', (data) => {
+      output += data.toString();
+    });
+    
+    pythonProcess.stderr?.on('data', (data) => {
+      error += data.toString();
+    });
+    
+    // Attendre la fin du processus
+    await new Promise((resolve, reject) => {
+      pythonProcess.on('close', (code) => {
+        if (code === 0) {
+          resolve(code);
+        } else {
+          reject(new Error(`Python script failed with code ${code}: ${error}`));
+        }
+      });
+    });
+    
+    // Charger le cache généré
+    return await loadSophisticatedPredictions();
+    
+  } catch (error) {
+    console.error('❌ Erreur calcul temps réel:', error);
+    throw error;
+  }
+}
+
+/**
+ * Charge prédictions depuis cache Ultra Sophisticated ML System
+ */
+async function loadSophisticatedPredictions(): Promise<Prediction[]> {
+  console.log('🧠 Chargement prédictions Ultra Sophisticated...');
+  
+  try {
+    const fs = await import('fs').then(m => m.promises);
+    const path = await import('path');
+    
+    // Chercher cache API sophistiqué
+    const cacheFile = path.join(process.cwd(), 'predictions_cache_api_sophisticated.json');
+    
+    try {
+      const cacheData = await fs.readFile(cacheFile, 'utf-8');
+      const cache = JSON.parse(cacheData);
+      
+      // Vérifier fraîcheur du cache (max 2h)
+      const generated = new Date(cache.generated_at);
+      const now = new Date();
+      const ageHours = (now.getTime() - generated.getTime()) / (1000 * 60 * 60);
+      
+      if (ageHours > 2) {
+        console.log(`⚠️ Cache obsolète (${ageHours.toFixed(1)}h), fallback...`);
+        return [];
+      }
+      
+      console.log(`✅ Cache sophistiqué chargé: ${cache.total} prédictions (${cache.model_version})`);
+      return cache.predictions || [];
+      
+    } catch (fileError) {
+      console.log('📝 Cache sophistiqué non trouvé, fallback...');
+      return [];
+    }
+    
+  } catch (error) {
+    console.error('❌ Erreur chargement cache sophistiqué:', error);
+    return [];
+  }
+}
+
+/**
+ * Récupère les matches à venir depuis Supabase (fallback)
  */
 async function getUpcomingMatches(limit: number = 20) {
-  console.log('📊 Récupération matches à venir...');
+  console.log('📊 Récupération matches à venir (fallback)...');
   
   const supabase = createAdminClient();
   
@@ -91,7 +180,54 @@ async function getUpcomingMatches(limit: number = 20) {
 }
 
 /**
- * Génère prédictions basées sur ELO + forme
+ * NOUVEAU: Déclenche l'apprentissage continu du modèle
+ */
+async function triggerContinuousLearning(): Promise<void> {
+  console.log('📚 Déclenchement apprentissage continu...');
+  
+  try {
+    // Vérifier s'il y a de nouveaux résultats à apprendre
+    const supabase = createAdminClient();
+    
+    // Récupérer matches récents avec résultats
+    const { data: recentMatches, error } = await supabase
+      .from('matches')
+      .select('id, home_score, away_score, date, status')
+      .eq('status', 'Match Finished')
+      .not('home_score', 'is', null)
+      .not('away_score', 'is', null)
+      .gte('date', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()) // 7 derniers jours
+      .order('date', { ascending: false });
+    
+    if (error || !recentMatches || recentMatches.length === 0) {
+      console.log('📝 Pas de nouveaux résultats à apprendre');
+      return;
+    }
+    
+    console.log(`🔄 ${recentMatches.length} nouveaux résultats détectés`);
+    
+    // Déclencher re-entraînement en arrière-plan (sans attendre)
+    const retrainScript = path.join(process.cwd(), 'retrain_ultra_sophisticated.py');
+    
+    const retrainProcess = spawn('python', [retrainScript, '--new-results', recentMatches.length.toString()], {
+      cwd: process.cwd(),
+      env: { ...process.env },
+      detached: true,
+      stdio: 'ignore'
+    });
+    
+    retrainProcess.unref(); // Permet au processus parent de se terminer
+    
+    console.log('✅ Apprentissage continu démarré en arrière-plan');
+    
+  } catch (error) {
+    console.warn('⚠️ Erreur apprentissage continu:', error);
+    // Ne pas faire échouer l'API pour autant
+  }
+}
+
+/**
+ * Génère prédictions basées sur ELO + forme (FALLBACK)
  */
 async function generatePredictions(matches: any[]): Promise<Prediction[]> {
   console.log('🎲 Génération prédictions...');
@@ -197,32 +333,63 @@ export async function GET(request: NextRequest): Promise<NextResponse<APIRespons
     const confidenceMin = parseInt(searchParams.get('confidence_min') || '0');
     const page = Math.max(parseInt(searchParams.get('page') || '1'), 1);
     
-    // Récupérer matches à venir
-    const upcomingMatches = await getUpcomingMatches(limit * 2); // Plus de marge
+    // NOUVEAU: Déclencher apprentissage continu en arrière-plan
+    triggerContinuousLearning().catch(err => 
+      console.warn('Apprentissage continu échoué:', err)
+    );
     
-    if (upcomingMatches.length === 0) {
-      return NextResponse.json({
-        success: true,
-        data: {
-          predictions: [],
-          pagination: {
-            total: 0,
-            page: 1,
-            perPage: limit,
-            hasMore: false
-          },
-          meta: {
-            avgConfidence: 0,
-            modelAccuracy: '54.2%',
-            lastUpdate: new Date().toISOString(),
-            generated: 0
-          }
-        }
-      });
+    // PRIORITÉ 1: Calcul prédictions temps réel Ultra Sophisticated
+    let allPredictions: Prediction[] = [];
+    
+    try {
+      console.log('🚀 Tentative calcul temps réel Ultra Sophisticated...');
+      allPredictions = await calculateRealTimePredictions(limit);
+      console.log(`✅ ${allPredictions.length} prédictions temps réel générées`);
+    } catch (error) {
+      console.log('⚠️ Échec calcul temps réel, tentative cache...');
+      
+      // FALLBACK 1: Charger cache sophistiqué existant
+      try {
+        allPredictions = await loadSophisticatedPredictions();
+        console.log(`📦 ${allPredictions.length} prédictions depuis cache`);
+      } catch (cacheError) {
+        console.log('⚠️ Échec cache, génération basique...');
+        allPredictions = [];
+      }
     }
     
-    // Générer prédictions
-    const allPredictions = await generatePredictions(upcomingMatches);
+    if (allPredictions.length === 0) {
+      console.log('🔄 Fallback vers génération basique...');
+      
+      // FALLBACK 2: Générer avec algorithme basique
+      const upcomingMatches = await getUpcomingMatches(limit * 2);
+      
+      if (upcomingMatches.length === 0) {
+        return NextResponse.json({
+          success: true,
+          data: {
+            predictions: [],
+            pagination: {
+              total: 0,
+              page: 1,
+              perPage: limit,
+              hasMore: false
+            },
+            meta: {
+              avgConfidence: 0,
+              modelAccuracy: '54.2%',
+              lastUpdate: new Date().toISOString(),
+              generated: 0
+            }
+          }
+        });
+      }
+      
+      // Générer prédictions fallback
+      allPredictions = await generatePredictions(upcomingMatches);
+    } else {
+      console.log(`🧠 Prédictions sophistiquées utilisées: ${allPredictions.length}`);
+    }
     
     // Filtrer par confiance
     const filteredPredictions = allPredictions

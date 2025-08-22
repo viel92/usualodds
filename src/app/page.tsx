@@ -5,9 +5,8 @@ import { Button } from "@/components/ui/button-premium";
 import { Badge, StatusBadge } from "@/components/ui/badge-premium";
 import { Card } from "@/components/ui/card-premium";
 import { 
-  Target, Zap, Brain, TrendingUp, ArrowRight, Activity, 
-  Play, Users, Clock, Trophy, Star, Flame, ChevronRight,
-  BarChart3, Shield, Cpu, Eye
+  Target, Activity, Play, Trophy, Star, ChevronRight,
+  BarChart3, Shield, Cpu, Eye, Clock
 } from "lucide-react";
 
 export default function LandingPage() {

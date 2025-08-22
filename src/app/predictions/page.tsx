@@ -9,10 +9,9 @@ import { Button } from '@/components/ui/button-premium'
 import { Card } from '@/components/ui/card-premium'
 import { Badge, ConfidenceBadge, StatusBadge } from '@/components/ui/badge-premium'
 import { 
-  TrendingUp, Target, Zap, Users, RefreshCw, Calendar, 
-  MapPin, BarChart3, Eye, ArrowLeft, Filter, Search, 
-  Crown, Clock, Home, Shield, Trophy, Star, ChevronRight,
-  Flame, Activity, Info, MoreVertical
+  RefreshCw, MapPin, BarChart3, Eye, ArrowLeft, 
+  Crown, Shield, Trophy, Star, ChevronRight,
+  Flame, Activity, Info
 } from 'lucide-react'
 
 /**

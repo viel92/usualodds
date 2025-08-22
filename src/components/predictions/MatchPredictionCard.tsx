@@ -9,13 +9,10 @@
 import { Button } from '@/components/ui/button-premium';
 import { Card } from '@/components/ui/card-premium';
 import { Badge, ConfidenceBadge, StatusBadge } from '@/components/ui/badge-premium';
-import { Progress } from '@/components/ui/loading-states';
 import { 
-  Clock, 
   TrendingUp, 
   Target, 
-  AlertTriangle, 
-  Zap,
+  AlertTriangle,
   BarChart3,
   Trophy,
   Users,

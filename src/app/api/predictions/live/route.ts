@@ -212,7 +212,7 @@ async function generateFakePredictions(matches: any[]): Promise<MLPrediction[]> 
   return predictions;
 }
 
-export async function GET(request: NextRequest): Promise<NextResponse<DashboardResponse>> {
+export async function GET(): Promise<NextResponse<DashboardResponse>> {
   try {
     console.log('🎯 API Live Predictions - Démarrage');
     

@@ -52,6 +52,17 @@ interface PlayerMatchStats {
   [key: string]: any;
 }
 
+interface TacticalFeatures {
+  formation_matchup_score: number;
+  tactical_advantage: number;
+  coach_experience_vs_opponent: number;
+  possession_style_clash: number;
+  pressing_vs_buildup: number;
+  pace_mismatch: number;
+  corner_threat_vs_defense: number;
+  free_kick_danger: number;
+}
+
 export interface EliteMatchData {
   // Core match data
   match: {
@@ -478,9 +489,6 @@ export class EliteDataPipeline {
     return 0;
   }
 
-  private async calculateTacticalFeatures(match: any, formations: any[]): Promise<any> {
-    return {};
-  }
 
   private async calculateChemistryFeatures(match: any, lineups: any[]): Promise<any> {
     return {};
@@ -488,6 +496,35 @@ export class EliteDataPipeline {
 
   private async calculatePressureFeatures(match: any, homeTeam: any, awayTeam: any): Promise<any> {
     return {};
+  }
+
+  // Tactical helper methods (stubs)
+  private calculateTacticalAdvantage(home: any, away: any): number {
+    return 0;
+  }
+
+  private async calculateCoachExperience(home: any, away: any): Promise<number> {
+    return 0;
+  }
+
+  private calculateStyleClash(home: any, away: any, type: string): number {
+    return 0;
+  }
+
+  private calculatePressBuildup(home: any, away: any): number {
+    return 0;
+  }
+
+  private calculatePaceMismatch(home: any, away: any): number {
+    return 0;
+  }
+
+  private calculateCornerThreat(home: any, away: any): number {
+    return 0;
+  }
+
+  private calculateFreeKickDanger(home: any, away: any): number {
+    return 0;
   }
 
   // Additional sophisticated calculations...

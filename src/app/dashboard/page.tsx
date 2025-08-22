@@ -1,15 +1,11 @@
 'use client'
 
-import { Suspense } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button-premium'
-import { Card } from '@/components/ui/card-premium'
-import { Badge, ConfidenceBadge } from '@/components/ui/badge-premium'
-import { PredictionCardSkeleton } from '@/components/ui/loading-states'
-import { LazyStatsGrid } from '@/components/dashboard/lazy-stats'
+import { Badge } from '@/components/ui/badge-premium'
 import { usePredictions, useRefreshPredictions } from '@/lib/hooks/use-predictions'
 import { 
-  TrendingUp, Target, RefreshCw, MapPin, BarChart3, 
+  TrendingUp, Target, RefreshCw, BarChart3, 
   Eye, ArrowRight, Activity, Flame, Trophy,
   Shield, ChevronRight
 } from 'lucide-react'
@@ -48,19 +44,11 @@ export default function DashboardPage() {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="bg-white rounded-lg p-4 animate-pulse">
-                <div className="h-8 bg-gray-200 rounded mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-16"></div>
-              </div>
-            ))}
-          </div>
-          <div className="space-y-2">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="bg-white rounded-lg p-4 animate-pulse">
-                <div className="flex items-center justify-between">
+              <div key={i} className="bg-white rounded-lg border p-4">
+                <div className="animate-pulse">
+                  <div className="w-8 h-8 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-6 bg-gray-200 rounded w-16 mb-1"></div>
                   <div className="h-4 bg-gray-200 rounded w-20"></div>
-                  <div className="h-6 bg-gray-200 rounded w-32"></div>
-                  <div className="h-4 bg-gray-200 rounded w-16"></div>
                 </div>
               </div>
             ))}
@@ -75,12 +63,10 @@ export default function DashboardPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Target className="w-8 h-8 text-red-500" />
-          </div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">Erreur de chargement</h2>
-          <p className="text-gray-600 mb-4">Impossible de charger les données</p>
-          <Button onClick={() => refetch()} className="bg-blue-600 hover:bg-blue-700">
+          <div className="text-red-500 text-4xl mb-4">⚠️</div>
+          <h2 className="text-xl font-semibold mb-2">Erreur de chargement</h2>
+          <p className="text-gray-600 mb-4">{error.message}</p>
+          <Button onClick={() => refetch()} className="btn-primary">
             <RefreshCw className="w-4 h-4 mr-2" />
             Réessayer
           </Button>
@@ -89,283 +75,184 @@ export default function DashboardPage() {
     )
   }
 
+  if (!data) {
+    return <div>Aucune donnée disponible</div>
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Style SofaScore */}
-      <div className="bg-white border-b sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between py-4">
+      <div className="bg-white border-b sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-              <div className="flex items-center space-x-3 text-sm text-gray-500 mt-1">
-                <span className="flex items-center">
-                  <Activity className="w-3 h-3 mr-1 text-green-500" />
-                  En direct
-                </span>
-                <span>•</span>
-                <span>{data?.predictions?.length || 0} prédictions actives</span>
-                <span>•</span>
-                <span>Ligue 1 2024-25</span>
-              </div>
+              <h1 className="text-xl font-bold text-gray-900 flex items-center">
+                <BarChart3 className="w-5 h-5 mr-2 text-blue-600" />
+                Dashboard Analytics
+              </h1>
+              <p className="text-sm text-gray-500">
+                Dernière mise à jour: {new Date(data.meta.lastUpdate).toLocaleString('fr-FR')}
+              </p>
             </div>
             <div className="flex items-center space-x-3">
-              <Button
+              <Badge variant="success" className="bg-green-50 text-green-700">
+                <Activity className="w-3 h-3 mr-1" />
+                {data.meta.modelAccuracy} précision
+              </Badge>
+              <Button 
                 onClick={handleRefresh}
-                variant="ghost"
-                size="sm"
                 disabled={refreshMutation.isPending}
-                className="px-3"
+                className="btn-secondary"
+                size="sm"
               >
                 <RefreshCw className={`w-4 h-4 mr-2 ${refreshMutation.isPending ? 'animate-spin' : ''}`} />
                 Actualiser
               </Button>
-              <Link href="/predictions">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
-                  <Eye className="w-4 h-4 mr-2" />
-                  Voir tout
-                </Button>
-              </Link>
             </div>
           </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-6">
-        {/* Stats Overview Style SofaScore */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-white rounded-lg p-4 border">
+        {/* Stats Grid Style SofaScore */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div className="bg-white rounded-lg border p-4 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-2xl font-bold text-gray-900">
-                  {data?.predictions?.length || 0}
-                </div>
-                <div className="text-sm text-gray-500">Prédictions</div>
+                <p className="text-2xl font-bold text-blue-600">{data.predictions.length}</p>
+                <p className="text-sm text-gray-500">Prédictions</p>
               </div>
-              <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
-                <Target className="w-5 h-5 text-blue-600" />
-              </div>
+              <Target className="w-8 h-8 text-blue-500 opacity-20" />
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-4 border">
+          <div className="bg-white rounded-lg border p-4 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-2xl font-bold text-green-600">54.2%</div>
-                <div className="text-sm text-gray-500">Précision</div>
+                <p className="text-2xl font-bold text-green-600">{data.meta.avgConfidence}%</p>
+                <p className="text-sm text-gray-500">Confiance moy.</p>
               </div>
-              <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-green-600" />
-              </div>
+              <TrendingUp className="w-8 h-8 text-green-500 opacity-20" />
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-4 border">
+          <div className="bg-white rounded-lg border p-4 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-2xl font-bold text-purple-600">
-                  {data?.predictions?.filter(p => p.confidence >= 75).length || 0}
-                </div>
-                <div className="text-sm text-gray-500">Haute conf.</div>
+                <p className="text-2xl font-bold text-orange-600">{data.meta.modelAccuracy}</p>
+                <p className="text-sm text-gray-500">Précision ML</p>
               </div>
-              <div className="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center">
-                <Flame className="w-5 h-5 text-purple-600" />
-              </div>
+              <Activity className="w-8 h-8 text-orange-500 opacity-20" />
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-4 border">
+          <div className="bg-white rounded-lg border p-4 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-2xl font-bold text-orange-600">
-                  {data?.meta?.avgConfidence ? Math.round(data.meta.avgConfidence) : 0}%
-                </div>
-                <div className="text-sm text-gray-500">Conf. moy.</div>
+                <p className="text-2xl font-bold text-purple-600">{data.pagination.total}</p>
+                <p className="text-sm text-gray-500">Total matches</p>
               </div>
-              <div className="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center">
-                <BarChart3 className="w-5 h-5 text-orange-600" />
-              </div>
+              <Trophy className="w-8 h-8 text-purple-500 opacity-20" />
             </div>
           </div>
         </div>
 
-        {/* Layout 2 colonnes Style SofaScore */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Colonne principale - Prédictions récentes */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg border">
-              <div className="p-4 border-b">
+        {/* Prédictions récentes */}
+        <div className="bg-white rounded-lg border mb-6">
+          <div className="p-4 border-b flex items-center justify-between">
+            <h2 className="font-semibold text-gray-900 flex items-center">
+              <Flame className="w-5 h-5 mr-2 text-red-500" />
+              Prédictions à haute confiance
+            </h2>
+            <Link href="/predictions">
+              <Button variant="ghost" size="sm">
+                Voir tout
+                <ChevronRight className="w-4 h-4 ml-1" />
+              </Button>
+            </Link>
+          </div>
+          <div className="divide-y">
+            {data.predictions.slice(0, 5).map((prediction) => (
+              <div key={prediction.id} className="p-4 hover:bg-gray-50 transition-colors">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900">Prédictions Récentes</h2>
-                  <Link href="/predictions">
-                    <Button variant="ghost" size="sm">
-                      <ChevronRight className="w-4 h-4" />
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-              
-              <div className="divide-y">
-                {data?.predictions?.slice(0, 8).map((prediction) => (
-                  <div key={prediction.id} className="p-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="text-center min-w-[60px]">
-                          <div className="text-xs text-gray-500">
-                            {new Date(prediction.date).toLocaleDateString('fr-FR', { 
-                              weekday: 'short', 
-                              day: '2-digit', 
-                              month: 'short' 
-                            })}
-                          </div>
-                          <div className="text-sm font-semibold text-gray-900">
-                            {new Date(prediction.date).toLocaleTimeString('fr-FR', {
-                              hour: '2-digit',
-                              minute: '2-digit'
-                            })}
-                          </div>
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between mb-1">
-                            <span className="text-sm font-medium text-gray-900">
-                              {prediction.homeTeam}
-                            </span>
-                            <span className="text-sm font-bold text-blue-600">
-                              {prediction.probabilities?.home || 0}%
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium text-gray-900">
-                              {prediction.awayTeam}
-                            </span>
-                            <span className="text-sm font-bold text-blue-600">
-                              {prediction.probabilities?.away || 0}%
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <div className={`px-2 py-1 rounded-full text-xs font-bold ${
-                          (prediction.confidence || 0) >= 80 
-                            ? 'bg-green-50 text-green-600'
-                            : (prediction.confidence || 0) >= 65
-                            ? 'bg-yellow-50 text-yellow-600'
-                            : 'bg-gray-50 text-gray-600'
-                        }`}>
-                          {prediction.confidence || 0}%
-                        </div>
-                        <div className="bg-gray-900 text-white px-2 py-1 rounded text-xs font-bold">
-                          {(prediction.probabilities?.home || 0) > (prediction.probabilities?.away || 0) ? '1' : '2'}
-                        </div>
-                      </div>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2 mb-1">
+                      <span className="font-medium text-sm">{prediction.homeTeam}</span>
+                      <span className="text-gray-400 text-xs">vs</span>
+                      <span className="font-medium text-sm">{prediction.awayTeam}</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-xs text-gray-500">
+                      <span>{new Date(prediction.date).toLocaleDateString('fr-FR')}</span>
+                      <span>•</span>
+                      <span>{prediction.venue}</span>
                     </div>
                   </div>
-                ))}
-              </div>
-
-              {data?.predictions && data.predictions.length > 8 && (
-                <div className="p-4 border-t bg-gray-50">
-                  <Link href="/predictions">
-                    <Button variant="ghost" className="w-full">
-                      Voir toutes les prédictions
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                  </Link>
+                  <div className="flex items-center space-x-3">
+                    <Badge 
+                      variant={prediction.prediction === 'home' ? 'success' : 
+                              prediction.prediction === 'draw' ? 'warning' : 'secondary'}
+                      className="text-xs"
+                    >
+                      {prediction.prediction === 'home' ? '1' : 
+                       prediction.prediction === 'draw' ? 'X' : '2'}
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      {prediction.confidence}%
+                    </Badge>
+                    <div className="text-xs text-gray-500">
+                      {prediction.probabilities.home}% - {prediction.probabilities.draw}% - {prediction.probabilities.away}%
+                    </div>
+                  </div>
                 </div>
-              )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Actions rapides */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-white rounded-lg border p-4">
+            <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+              <Eye className="w-5 h-5 mr-2 text-blue-500" />
+              Actions rapides
+            </h3>
+            <div className="space-y-2">
+              <Link href="/predictions">
+                <Button variant="ghost" className="w-full justify-start" size="sm">
+                  <Target className="w-4 h-4 mr-2" />
+                  Voir toutes les prédictions
+                </Button>
+              </Link>
+              <Button 
+                onClick={handleRefresh}
+                disabled={refreshMutation.isPending}
+                variant="ghost" 
+                className="w-full justify-start" 
+                size="sm"
+              >
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Régénérer les prédictions
+              </Button>
             </div>
           </div>
 
-          {/* Sidebar - Widgets */}
-          <div className="space-y-6">
-            {/* Top Predictions Widget */}
-            <div className="bg-white rounded-lg border">
-              <div className="p-4 border-b">
-                <h3 className="font-semibold text-gray-900 flex items-center">
-                  <Trophy className="w-4 h-4 mr-2 text-yellow-500" />
-                  Top Confiance
-                </h3>
+          <div className="bg-white rounded-lg border p-4">
+            <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+              <Shield className="w-5 h-5 mr-2 text-green-500" />
+              Système ML
+            </h3>
+            <div className="space-y-2 text-sm text-gray-600">
+              <div className="flex justify-between">
+                <span>Modèle actif:</span>
+                <span className="font-medium">Ultra Sophisticated v2</span>
               </div>
-              <div className="p-4 space-y-3">
-                {data?.predictions
-                  ?.sort((a, b) => (b.confidence || 0) - (a.confidence || 0))
-                  .slice(0, 3)
-                  .map((pred, idx) => (
-                    <div key={pred.id} className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-xs font-bold text-gray-500">#{idx + 1}</span>
-                        <div>
-                          <div className="text-sm font-medium text-gray-900">
-                            {pred.homeTeam} vs {pred.awayTeam}
-                          </div>
-                          <div className="text-xs text-gray-500">
-                            {new Date(pred.date).toLocaleDateString('fr-FR')}
-                          </div>
-                        </div>
-                      </div>
-                      <Badge className="bg-green-50 text-green-600 px-2 py-1 rounded-full text-xs">
-                        {pred.confidence || 0}%
-                      </Badge>
-                    </div>
-                  ))}
+              <div className="flex justify-between">
+                <span>Dernière prédiction:</span>
+                <span className="font-medium">Il y a {Math.floor((Date.now() - new Date(data.meta.lastUpdate).getTime()) / 60000)} min</span>
               </div>
-            </div>
-
-            {/* System Status Widget */}
-            <div className="bg-white rounded-lg border">
-              <div className="p-4 border-b">
-                <h3 className="font-semibold text-gray-900 flex items-center">
-                  <Shield className="w-4 h-4 mr-2 text-green-500" />
-                  Système ML
-                </h3>
-              </div>
-              <div className="p-4 space-y-3">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Statut</span>
-                  <span className="flex items-center text-green-600">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
-                    En ligne
-                  </span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Modèle</span>
-                  <span className="font-medium">XGBoost v2.1</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Précision</span>
-                  <span className="font-medium text-green-600">54.2%</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Dernière MAJ</span>
-                  <span className="font-medium">Il y a 2h</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="bg-white rounded-lg border">
-              <div className="p-4 border-b">
-                <h3 className="font-semibold text-gray-900">Actions Rapides</h3>
-              </div>
-              <div className="p-4 space-y-3">
-                <Link href="/predictions">
-                  <Button variant="ghost" className="w-full justify-start">
-                    <Eye className="w-4 h-4 mr-2" />
-                    Toutes les prédictions
-                  </Button>
-                </Link>
-                <Button 
-                  variant="ghost" 
-                  className="w-full justify-start"
-                  onClick={handleRefresh}
-                  disabled={refreshMutation.isPending}
-                >
-                  <RefreshCw className={`w-4 h-4 mr-2 ${refreshMutation.isPending ? 'animate-spin' : ''}`} />
-                  Actualiser les données
-                </Button>
-                <Button variant="ghost" className="w-full justify-start" disabled>
-                  <BarChart3 className="w-4 h-4 mr-2" />
-                  Analytics (Bientôt)
-                </Button>
+              <div className="flex justify-between">
+                <span>Confiance moyenne:</span>
+                <span className="font-medium text-green-600">{data.meta.avgConfidence}%</span>
               </div>
             </div>
           </div>

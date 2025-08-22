@@ -13,7 +13,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PredictionsCache, CacheHeaders, CACHE_CONFIG } from '@/lib/cache-manager';
 import { createAdminClient } from '@/lib/supabase';
-import { getUpcomingMatchesPaginated, getRecentFinishedMatchesPaginated, safeQuery } from '@/lib/supabase-pagination';
+import { getUpcomingMatchesPaginated, getRecentFinishedMatchesPaginated } from '@/lib/supabase-pagination';
 import { spawn } from 'child_process';
 import * as path from 'path';
 
@@ -379,8 +379,6 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
       const awayShotsPerGame = awayFeatures.data?.shots_per_game || 12;
       const homeShotsOnTarget = homeFeatures.data?.shots_on_target_avg || 4;
       const awayShotsOnTarget = awayFeatures.data?.shots_on_target_avg || 4;
-      const homeCorners = homeFeatures.data?.corners_for || 5;
-      const awayCorners = awayFeatures.data?.corners_for || 5;
       const homeDiscipline = homeFeatures.data?.discipline_index || 0.5;
       const awayDiscipline = awayFeatures.data?.discipline_index || 0.5;
       const homePressing = homeFeatures.data?.pressing_intensity || 50;
@@ -389,10 +387,10 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
       const awayTempo = awayFeatures.data?.tempo_score || 50;
       
       // CALCUL MÉTRIQUES MATCH_STATISTICS (5 derniers matchs)
-      function calculateRecentStats(statsData: any[]) {
-        if (!statsData || statsData.length === 0) return null;
+      function calculateRecentStats(statsData: any) {
+        if (!statsData || !statsData.data || statsData.data.length === 0) return null;
         
-        const stats = statsData.data || [];
+        const stats = statsData.data;
         if (stats.length === 0) return null;
         
         return {

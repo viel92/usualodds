@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Windows/Turbopack compatibility fixed
+  
   // Optimisation production
   compress: true,
   poweredByHeader: false,

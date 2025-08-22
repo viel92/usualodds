@@ -1,0 +1,1618 @@
+{
+  "matches": {
+    "total_rows": 2057,
+    "total_columns": 29,
+    "all_columns": [
+      "id",
+      "api_id",
+      "season",
+      "league_id",
+      "round",
+      "date",
+      "timestamp",
+      "timezone",
+      "status",
+      "status_short",
+      "elapsed",
+      "venue_id",
+      "venue_name",
+      "venue_city",
+      "home_team_id",
+      "home_team_name",
+      "away_team_id",
+      "away_team_name",
+      "home_score",
+      "away_score",
+      "referee",
+      "raw_data",
+      "created_at",
+      "updated_at",
+      "season_id",
+      "home_team_uuid",
+      "away_team_uuid",
+      "league_name",
+      "competition"
+    ],
+    "key_columns": [
+      {
+        "name": "id",
+        "type": "str",
+        "sample": "678fab56-1627-45a1-9cc8-6baceb8f83b2"
+      },
+      {
+        "name": "api_id",
+        "type": "int",
+        "sample": "718557"
+      },
+      {
+        "name": "season",
+        "type": "int",
+        "sample": "2021"
+      },
+      {
+        "name": "league_id",
+        "type": "int",
+        "sample": "61"
+      },
+      {
+        "name": "round",
+        "type": "str",
+        "sample": "Regular Season - 21"
+      },
+      {
+        "name": "date",
+        "type": "str",
+        "sample": "2022-01-16T12:00:00"
+      },
+      {
+        "name": "timestamp",
+        "type": "int",
+        "sample": "1642334400"
+      },
+      {
+        "name": "timezone",
+        "type": "str",
+        "sample": "UTC"
+      },
+      {
+        "name": "status",
+        "type": "str",
+        "sample": "Match Finished"
+      },
+      {
+        "name": "status_short",
+        "type": "str",
+        "sample": "FT"
+      }
+    ],
+    "sample_data": {
+      "id": "678fab56-1627-45a1-9cc8-6baceb8f83b2",
+      "api_id": 718557,
+      "season": 2021,
+      "league_id": 61,
+      "round": "Regular Season - 21",
+      "date": "2022-01-16T12:00:00",
+      "timestamp": 1642334400,
+      "timezone": "UTC",
+      "status": "Match Finished",
+      "status_short": "FT",
+      "elapsed": 90,
+      "venue_id": 680,
+      "venue_name": "Roazhon Park",
+      "venue_city": "Rennes",
+      "home_team_id": 94,
+      "home_team_name": "Rennes",
+      "away_team_id": 78,
+      "away_team_name": "Bordeaux",
+      "home_score": 6,
+      "away_score": 0,
+      "referee": "B. Dechepy",
+      "raw_data": {
+        "goals": {
+          "away": 0,
+          "home": 6
+        },
+        "score": {
+          "penalty": {
+            "away": null,
+            "home": null
+          },
+          "fulltime": {
+            "away": 0,
+            "home": 6
+          },
+          "halftime": {
+            "away": 0,
+            "home": 2
+          },
+          "extratime": {
+            "away": null,
+            "home": null
+          }
+        },
+        "teams": {
+          "away": {
+            "id": 78,
+            "logo": "https://media.api-sports.io/football/teams/78.png",
+            "name": "Bordeaux",
+            "winner": false
+          },
+          "home": {
+            "id": 94,
+            "logo": "https://media.api-sports.io/football/teams/94.png",
+            "name": "Rennes",
+            "winner": true
+          }
+        },
+        "league": {
+          "id": 61,
+          "flag": "https://media.api-sports.io/flags/fr.svg",
+          "logo": "https://media.api-sports.io/football/leagues/61.png",
+          "name": "Ligue 1",
+          "round": "Regular Season - 21",
+          "season": 2021,
+          "country": "France",
+          "standings": true
+        },
+        "fixture": {
+          "id": 718557,
+          "date": "2022-01-16T12:00:00+00:00",
+          "venue": {
+            "id": 680,
+            "city": "Rennes",
+            "name": "Roazhon Park"
+          },
+          "status": {
+            "long": "Match Finished",
+            "extra": null,
+            "short": "FT",
+            "elapsed": 90
+          },
+          "periods": {
+            "first": 1642334400,
+            "second": 1642338000
+          },
+          "referee": "B. Dechepy",
+          "timezone": "UTC",
+          "timestamp": 1642334400
+        }
+      },
+      "created_at": "2025-08-19T18:08:33.826519",
+      "updated_at": "2025-08-19T18:08:33.826519",
+      "season_id": null,
+      "home_team_uuid": null,
+      "away_team_uuid": null,
+      "league_name": null,
+      "competition": null
+    },
+    "ml_importance": [
+      "RESULTS",
+      "TEMPORAL"
+    ]
+  },
+  "teams": {
+    "total_rows": 19,
+    "total_columns": 14,
+    "all_columns": [
+      "id",
+      "api_id",
+      "name",
+      "code",
+      "country",
+      "founded",
+      "logo_url",
+      "venue_id",
+      "venue_name",
+      "venue_address",
+      "venue_city",
+      "venue_capacity",
+      "created_at",
+      "updated_at"
+    ],
+    "key_columns": [
+      {
+        "name": "id",
+        "type": "str",
+        "sample": "b7bcd9c4-633f-45f0-b3ea-6f0d7bb166d3"
+      },
+      {
+        "name": "api_id",
+        "type": "int",
+        "sample": "77"
+      },
+      {
+        "name": "name",
+        "type": "str",
+        "sample": "Angers"
+      },
+      {
+        "name": "code",
+        "type": "str",
+        "sample": "ANG"
+      },
+      {
+        "name": "country",
+        "type": "str",
+        "sample": "France"
+      },
+      {
+        "name": "founded",
+        "type": "int",
+        "sample": "1919"
+      },
+      {
+        "name": "logo_url",
+        "type": "str",
+        "sample": "https://media.api-sports.io/football/teams/77.png"
+      },
+      {
+        "name": "venue_id",
+        "type": "NoneType",
+        "sample": "None"
+      },
+      {
+        "name": "venue_name",
+        "type": "str",
+        "sample": "Stade Raymond-Kopa"
+      },
+      {
+        "name": "venue_address",
+        "type": "NoneType",
+        "sample": "None"
+      }
+    ],
+    "sample_data": {
+      "id": "b7bcd9c4-633f-45f0-b3ea-6f0d7bb166d3",
+      "api_id": 77,
+      "name": "Angers",
+      "code": "ANG",
+      "country": "France",
+      "founded": 1919,
+      "logo_url": "https://media.api-sports.io/football/teams/77.png",
+      "venue_id": null,
+      "venue_name": "Stade Raymond-Kopa",
+      "venue_address": null,
+      "venue_city": null,
+      "venue_capacity": 19000,
+      "created_at": "2025-08-20T12:18:03.439554",
+      "updated_at": "2025-08-20T12:18:03.439554"
+    },
+    "ml_importance": [
+      "TEMPORAL"
+    ]
+  },
+  "leagues": {
+    "total_rows": 5,
+    "total_columns": 10,
+    "all_columns": [
+      "id",
+      "api_id",
+      "name",
+      "country",
+      "country_code",
+      "logo_url",
+      "flag_url",
+      "type",
+      "created_at",
+      "updated_at"
+    ],
+    "key_columns": [
+      {
+        "name": "id",
+        "type": "str",
+        "sample": "84143503-cbb7-4c0a-826f-a7d9b0c87475"
+      },
+      {
+        "name": "api_id",
+        "type": "int",
+        "sample": "61"
+      },
+      {
+        "name": "name",
+        "type": "str",
+        "sample": "Ligue 1"
+      },
+      {
+        "name": "country",
+        "type": "str",
+        "sample": "France"
+      },
+      {
+        "name": "country_code",
+        "type": "str",
+        "sample": "FR"
+      },
+      {
+        "name": "logo_url",
+        "type": "NoneType",
+        "sample": "None"
+      },
+      {
+        "name": "flag_url",
+        "type": "NoneType",
+        "sample": "None"
+      },
+      {
+        "name": "type",
+        "type": "str",
+        "sample": "League"
+      },
+      {
+        "name": "created_at",
+        "type": "str",
+        "sample": "2025-08-20T10:00:40.707312"
+      },
+      {
+        "name": "updated_at",
+        "type": "str",
+        "sample": "2025-08-20T10:00:40.707312"
+      }
+    ],
+    "sample_data": {
+      "id": "84143503-cbb7-4c0a-826f-a7d9b0c87475",
+      "api_id": 61,
+      "name": "Ligue 1",
+      "country": "France",
+      "country_code": "FR",
+      "logo_url": null,
+      "flag_url": null,
+      "type": "League",
+      "created_at": "2025-08-20T10:00:40.707312",
+      "updated_at": "2025-08-20T10:00:40.707312"
+    },
+    "ml_importance": [
+      "TEMPORAL"
+    ]
+  },
+  "seasons": {
+    "total_rows": 3,
+    "total_columns": 9,
+    "all_columns": [
+      "id",
+      "league_id",
+      "year",
+      "start_date",
+      "end_date",
+      "current",
+      "coverage",
+      "created_at",
+      "updated_at"
+    ],
+    "key_columns": [
+      {
+        "name": "id",
+        "type": "str",
+        "sample": "4d15476c-831e-4494-81f8-d88a7e7e138d"
+      },
+      {
+        "name": "league_id",
+        "type": "str",
+        "sample": "84143503-cbb7-4c0a-826f-a7d9b0c87475"
+      },
+      {
+        "name": "year",
+        "type": "int",
+        "sample": "2024"
+      },
+      {
+        "name": "start_date",
+        "type": "NoneType",
+        "sample": "None"
+      },
+      {
+        "name": "end_date",
+        "type": "NoneType",
+        "sample": "None"
+      },
+      {
+        "name": "current",
+        "type": "bool",
+        "sample": "True"
+      },
+      {
+        "name": "coverage",
+        "type": "NoneType",
+        "sample": "None"
+      },
+      {
+        "name": "created_at",
+        "type": "str",
+        "sample": "2025-08-20T10:00:40.707312"
+      },
+      {
+        "name": "updated_at",
+        "type": "str",
+        "sample": "2025-08-20T10:00:40.707312"
+      }
+    ],
+    "sample_data": {
+      "id": "4d15476c-831e-4494-81f8-d88a7e7e138d",
+      "league_id": "84143503-cbb7-4c0a-826f-a7d9b0c87475",
+      "year": 2024,
+      "start_date": null,
+      "end_date": null,
+      "current": true,
+      "coverage": null,
+      "created_at": "2025-08-20T10:00:40.707312",
+      "updated_at": "2025-08-20T10:00:40.707312"
+    },
+    "ml_importance": [
+      "TEMPORAL"
+    ]
+  },
+  "team_features": {
+    "total_rows": 101,
+    "total_columns": 90,
+    "all_columns": [
+      "id",
+      "team_id",
+      "season",
+      "league_id",
+      "current_rank",
+      "points",
+      "points_difference",
+      "motivation_zone",
+      "motivation_score",
+      "pressure_score",
+      "expectation_score",
+      "distance_from_cl",
+      "distance_from_europa",
+      "distance_from_conference",
+      "distance_from_relegation",
+      "is_title_contender",
+      "is_european_contender",
+      "is_mid_table",
+      "is_relegation_candidate",
+      "games_played",
+      "wins",
+      "draws",
+      "losses",
+      "goals_for",
+      "goals_against",
+      "goal_difference",
+      "goals_per_game",
+      "goals_conceded_per_game",
+      "elo_rating",
+      "elo_home",
+      "elo_away",
+      "form_5_points",
+      "form_10_points",
+      "xg_for_avg",
+      "xg_against_avg",
+      "xg_diff_avg",
+      "possession_avg",
+      "tempo_score",
+      "pressing_intensity",
+      "transition_speed",
+      "verticality_index",
+      "width_usage",
+      "home_wins",
+      "home_draws",
+      "home_losses",
+      "home_goals_for",
+      "home_goals_against",
+      "home_advantage",
+      "away_wins",
+      "away_draws",
+      "away_losses",
+      "away_goals_for",
+      "away_goals_against",
+      "away_performance",
+      "corners_for",
+      "corners_against",
+      "corners_conversion_rate",
+      "corner_conversion",
+      "free_kicks_scored",
+      "penalties_scored",
+      "penalties_conceded",
+      "xga_box_avg",
+      "pressing_final_third",
+      "defensive_errors",
+      "avg_rest_days",
+      "travel_km_total",
+      "congestion_index",
+      "ucl_matches",
+      "volatility_index",
+      "big_game_performance",
+      "yellow_cards",
+      "red_cards",
+      "discipline_index",
+      "discipline_score",
+      "underdog_performance",
+      "big_game_mentality",
+      "giant_killer_flag",
+      "choker_flag",
+      "raw_stats",
+      "ai_features",
+      "style_cluster",
+      "created_at",
+      "updated_at",
+      "shots_per_game",
+      "shots_against_per_game",
+      "shots_on_target_avg",
+      "context_analysis",
+      "standing_data",
+      "team_uuid",
+      "league_uuid"
+    ],
+    "key_columns": [
+      {
+        "name": "id",
+        "type": "str",
+        "sample": "b89da586-a1f6-49de-a73b-dd5294923cba"
+      },
+      {
+        "name": "team_id",
+        "type": "int",
+        "sample": "1063"
+      },
+      {
+        "name": "season",
+        "type": "int",
+        "sample": "2024"
+      },
+      {
+        "name": "league_id",
+        "type": "int",
+        "sample": "61"
+      },
+      {
+        "name": "current_rank",
+        "type": "int",
+        "sample": "17"
+      },
+      {
+        "name": "points",
+        "type": "int",
+        "sample": "30"
+      },
+      {
+        "name": "points_difference",
+        "type": "int",
+        "sample": "-38"
+      },
+      {
+        "name": "motivation_zone",
+        "type": "str",
+        "sample": "relegation_battle"
+      },
+      {
+        "name": "motivation_score",
+        "type": "float",
+        "sample": "0.84"
+      },
+      {
+        "name": "pressure_score",
+        "type": "float",
+        "sample": "0.8"
+      }
+    ],
+    "sample_data": {
+      "id": "b89da586-a1f6-49de-a73b-dd5294923cba",
+      "team_id": 1063,
+      "season": 2024,
+      "league_id": 61,
+      "current_rank": 17,
+      "points": 30,
+      "points_difference": -38,
+      "motivation_zone": "relegation_battle",
+      "motivation_score": 0.84,
+      "pressure_score": 0.8,
+      "expectation_score": 2.0,
+      "distance_from_cl": 14,
+      "distance_from_europa": 12,
+      "distance_from_conference": 11,
+      "distance_from_relegation": 0,
+      "is_title_contender": false,
+      "is_european_contender": false,
+      "is_mid_table": false,
+      "is_relegation_candidate": true,
+      "games_played": 34,
+      "wins": 8,
+      "draws": 6,
+      "losses": 20,
+      "goals_for": 39,
+      "goals_against": 77,
+      "goal_difference": null,
+      "goals_per_game": 1.15,
+      "goals_conceded_per_game": 2.26,
+      "elo_rating": 1406.0,
+      "elo_home": 1394.0,
+      "elo_away": 1360.0,
+      "form_5_points": 6,
+      "form_10_points": 11,
+      "xg_for_avg": 1.17,
+      "xg_against_avg": 1.22,
+      "xg_diff_avg": 0.43,
+      "possession_avg": 48.87,
+      "tempo_score": 65.5,
+      "pressing_intensity": 0.45,
+      "transition_speed": 58.2,
+      "verticality_index": 0.35,
+      "width_usage": 0.72,
+      "home_wins": 6,
+      "home_draws": 3,
+      "home_losses": 8,
+      "home_goals_for": 0,
+      "home_goals_against": 0,
+      "home_advantage": 0.412,
+      "away_wins": 2,
+      "away_draws": 3,
+      "away_losses": 12,
+      "away_goals_for": 0,
+      "away_goals_against": 0,
+      "away_performance": 0.176,
+      "corners_for": 4,
+      "corners_against": 0,
+      "corners_conversion_rate": null,
+      "corner_conversion": 0.0,
+      "free_kicks_scored": 0,
+      "penalties_scored": 0,
+      "penalties_conceded": 0,
+      "xga_box_avg": null,
+      "pressing_final_third": null,
+      "defensive_errors": 0,
+      "avg_rest_days": null,
+      "travel_km_total": 0,
+      "congestion_index": null,
+      "ucl_matches": 0,
+      "volatility_index": 1.81,
+      "big_game_performance": null,
+      "yellow_cards": 2,
+      "red_cards": 1,
+      "discipline_index": null,
+      "discipline_score": 0.0,
+      "underdog_performance": 0.173,
+      "big_game_mentality": 0.461,
+      "giant_killer_flag": false,
+      "choker_flag": false,
+      "raw_stats": {
+        "form": "LLLWLDWLLWLWLLLWLDDLLLDLDWLLDWLLWL",
+        "team": {
+          "id": 1063,
+          "logo": "https://media.api-sports.io/football/teams/1063.png",
+          "name": "Saint Etienne"
+        },
+        "cards": {
+          "red": {
+            "0-15": {
+              "total": null,
+              "percentage": null
+            },
+            "16-30": {
+              "total": null,
+              "percentage": null
+            },
+            "31-45": {
+              "total": 2,
+              "percentage": "66.67%"
+            },
+            "46-60": {
+              "total": 1,
+              "percentage": "33.33%"
+            },
+            "61-75": {
+              "total": null,
+              "percentage": null
+            },
+            "76-90": {
+              "total": null,
+              "percentage": null
+            },
+            "91-105": {
+              "total": null,
+              "percentage": null
+            },
+            "106-120": {
+              "total": null,
+              "percentage": null
+            }
+          },
+          "yellow": {
+            "0-15": {
+              "total": 6,
+              "percentage": "9.23%"
+            },
+            "16-30": {
+              "total": 9,
+              "percentage": "13.85%"
+            },
+            "31-45": {
+              "total": 9,
+              "percentage": "13.85%"
+            },
+            "46-60": {
+              "total": 10,
+              "percentage": "15.38%"
+            },
+            "61-75": {
+              "total": 18,
+              "percentage": "27.69%"
+            },
+            "76-90": {
+              "total": 7,
+              "percentage": "10.77%"
+            },
+            "91-105": {
+              "total": 6,
+              "percentage": "9.23%"
+            },
+            "106-120": {
+              "total": null,
+              "percentage": null
+            }
+          }
+        },
+        "goals": {
+          "for": {
+            "total": {
+              "away": 15,
+              "home": 24,
+              "total": 39
+            },
+            "minute": {
+              "0-15": {
+                "total": 9,
+                "percentage": "21.95%"
+              },
+              "16-30": {
+                "total": 3,
+                "percentage": "7.32%"
+              },
+              "31-45": {
+                "total": 6,
+                "percentage": "14.63%"
+              },
+              "46-60": {
+                "total": 11,
+                "percentage": "26.83%"
+              },
+              "61-75": {
+                "total": 6,
+                "percentage": "14.63%"
+              },
+              "76-90": {
+                "total": 6,
+                "percentage": "14.63%"
+              },
+              "91-105": {
+                "total": null,
+                "percentage": null
+              },
+              "106-120": {
+                "total": null,
+                "percentage": null
+              }
+            },
+            "average": {
+              "away": "0.9",
+              "home": "1.4",
+              "total": "1.1"
+            },
+            "under_over": {
+              "0.5": {
+                "over": 24,
+                "under": 10
+              },
+              "1.5": {
+                "over": 11,
+                "under": 23
+              },
+              "2.5": {
+                "over": 4,
+                "under": 30
+              },
+              "3.5": {
+                "over": 0,
+                "under": 34
+              },
+              "4.5": {
+                "over": 0,
+                "under": 34
+              }
+            }
+          },
+          "against": {
+            "total": {
+              "away": 44,
+              "home": 33,
+              "total": 77
+            },
+            "minute": {
+              "0-15": {
+                "total": 14,
+                "percentage": "18.67%"
+              },
+              "16-30": {
+                "total": 11,
+                "percentage": "14.67%"
+              },
+              "31-45": {
+                "total": 9,
+                "percentage": "12.00%"
+              },
+              "46-60": {
+                "total": 12,
+                "percentage": "16.00%"
+              },
+              "61-75": {
+                "total": 15,
+                "percentage": "20.00%"
+              },
+              "76-90": {
+                "total": 12,
+                "percentage": "16.00%"
+              },
+              "91-105": {
+                "total": 2,
+                "percentage": "2.67%"
+              },
+              "106-120": {
+                "total": null,
+                "percentage": null
+              }
+            },
+            "average": {
+              "away": "2.6",
+              "home": "1.9",
+              "total": "2.3"
+            },
+            "under_over": {
+              "0.5": {
+                "over": 29,
+                "under": 5
+              },
+              "1.5": {
+                "over": 20,
+                "under": 14
+              },
+              "2.5": {
+                "over": 13,
+                "under": 21
+              },
+              "3.5": {
+                "over": 7,
+                "under": 27
+              },
+              "4.5": {
+                "over": 4,
+                "under": 30
+              }
+            }
+          }
+        },
+        "league": {
+          "id": 61,
+          "flag": "https://media.api-sports.io/flags/fr.svg",
+          "logo": "https://media.api-sports.io/football/leagues/61.png",
+          "name": "Ligue 1",
+          "season": 2024,
+          "country": "France"
+        },
+        "biggest": {
+          "wins": {
+            "away": "0-2",
+            "home": "3-1"
+          },
+          "goals": {
+            "for": {
+              "away": 2,
+              "home": 3
+            },
+            "against": {
+              "away": 8,
+              "home": 6
+            }
+          },
+          "loses": {
+            "away": "8-0",
+            "home": "1-6"
+          },
+          "streak": {
+            "wins": 1,
+            "draws": 2,
+            "loses": 3
+          }
+        },
+        "lineups": [
+          {
+            "played": 21,
+            "formation": "4-3-3"
+          },
+          {
+            "played": 6,
+            "formation": "4-1-4-1"
+          },
+          {
+            "played": 3,
+            "formation": "4-2-3-1"
+          },
+          {
+            "played": 3,
+            "formation": "5-4-1"
+          },
+          {
+            "played": 1,
+            "formation": "3-5-2"
+          }
+        ],
+        "penalty": {
+          "total": 4,
+          "missed": {
+            "total": 1,
+            "percentage": "25.00%"
+          },
+          "scored": {
+            "total": 3,
+            "percentage": "75.00%"
+          }
+        },
+        "fixtures": {
+          "wins": {
+            "away": 2,
+            "home": 6,
+            "total": 8
+          },
+          "draws": {
+            "away": 3,
+            "home": 3,
+            "total": 6
+          },
+          "loses": {
+            "away": 12,
+            "home": 8,
+            "total": 20
+          },
+          "played": {
+            "away": 17,
+            "home": 17,
+            "total": 34
+          }
+        },
+        "clean_sheet": {
+          "away": 2,
+          "home": 3,
+          "total": 5
+        },
+        "failed_to_score": {
+          "away": 6,
+          "home": 4,
+          "total": 10
+        }
+      },
+      "ai_features": {
+        "tactical_style": "tactical_flexible",
+        "style_confidence": 0.8472500000000001,
+        "tactical_profile": {
+          "tempo_intensity": 0,
+          "creativity_index": 0,
+          "transition_speed": 0,
+          "pressing_intensity": 0,
+          "set_piece_reliance": 0,
+          "big_game_adaptation": 0.3305,
+          "attacking_directness": 0.5,
+          "defensive_aggression": 0,
+          "possession_dominance": 0,
+          "tactical_flexibility": 0.736,
+          "defensive_compactness": 0.475,
+          "counter_attack_efficiency": 0
+        }
+      },
+      "style_cluster": "tactical_flexible",
+      "created_at": "2025-08-19T18:05:09.007102",
+      "updated_at": "2025-08-19T22:57:35.963",
+      "shots_per_game": 12.0,
+      "shots_against_per_game": 0.0,
+      "shots_on_target_avg": 4.0,
+      "context_analysis": {
+        "zone": "relegation_battle",
+        "pressure": 0.8,
+        "motivation": 0.8400000000000001,
+        "expectations": 2
+      },
+      "standing_data": {
+        "all": {
+          "win": 8,
+          "draw": 6,
+          "lose": 20,
+          "goals": {
+            "for": 39,
+            "against": 77
+          },
+          "played": 34
+        },
+        "away": {
+          "win": 2,
+          "draw": 3,
+          "lose": 12,
+          "goals": {
+            "for": 15,
+            "against": 44
+          },
+          "played": 17
+        },
+        "form": "LWLLW",
+        "home": {
+          "win": 6,
+          "draw": 3,
+          "lose": 8,
+          "goals": {
+            "for": 24,
+            "against": 33
+          },
+          "played": 17
+        },
+        "rank": 17,
+        "team": {
+          "id": 1063,
+          "logo": "https://media.api-sports.io/football/teams/1063.png",
+          "name": "Saint Etienne"
+        },
+        "group": "Ligue 1",
+        "points": 30,
+        "status": "same",
+        "update": "2025-05-30T00:00:00+00:00",
+        "goalsDiff": -38,
+        "description": "Relegation"
+      },
+      "team_uuid": null,
+      "league_uuid": null
+    },
+    "ml_importance": [
+      "ELO_RATING",
+      "FORM",
+      "XG_DATA",
+      "RESULTS",
+      "TEMPORAL"
+    ]
+  },
+  "player_features": {
+    "total_rows": 2415,
+    "total_columns": 60,
+    "all_columns": [
+      "id",
+      "player_id",
+      "team_id",
+      "season",
+      "league_id",
+      "position",
+      "detailed_position",
+      "appearences",
+      "lineups",
+      "minutes_total",
+      "minutes_per_game",
+      "starter_probability",
+      "goals",
+      "assists",
+      "xg_total",
+      "xa_total",
+      "shots_total",
+      "shots_on_target",
+      "key_passes",
+      "big_chances_created",
+      "goals_per90",
+      "assists_per90",
+      "xg_per90",
+      "xa_per90",
+      "shots_per90",
+      "keypasses_per90",
+      "touches_box_per90",
+      "shot_map_features",
+      "preferred_foot",
+      "header_ability",
+      "finishing_ability",
+      "penalty_taker",
+      "free_kick_taker",
+      "corner_taker",
+      "penalties_scored",
+      "penalties_missed",
+      "age",
+      "height",
+      "weight",
+      "fitness_index",
+      "injury_history",
+      "fatigue_resistance",
+      "key_partnerships",
+      "passing_network_centrality",
+      "triangle_motifs",
+      "chemistry_score",
+      "yellow_cards",
+      "red_cards",
+      "early_substitutions",
+      "disciplinary_risk",
+      "raw_stats",
+      "ai_player_type",
+      "performance_clusters",
+      "created_at",
+      "updated_at",
+      "fatigue_level",
+      "player_uuid",
+      "team_uuid",
+      "player_name",
+      "team_name"
+    ],
+    "key_columns": [
+      {
+        "name": "id",
+        "type": "str",
+        "sample": "c932ff44-0bd0-4653-935e-9abcc26b856f"
+      },
+      {
+        "name": "player_id",
+        "type": "int",
+        "sample": "2248"
+      },
+      {
+        "name": "team_id",
+        "type": "int",
+        "sample": "108"
+      },
+      {
+        "name": "season",
+        "type": "int",
+        "sample": "2022"
+      },
+      {
+        "name": "league_id",
+        "type": "int",
+        "sample": "1"
+      },
+      {
+        "name": "position",
+        "type": "str",
+        "sample": "MID"
+      },
+      {
+        "name": "detailed_position",
+        "type": "str",
+        "sample": "Central Midfielder"
+      },
+      {
+        "name": "appearences",
+        "type": "int",
+        "sample": "0"
+      },
+      {
+        "name": "lineups",
+        "type": "int",
+        "sample": "0"
+      },
+      {
+        "name": "minutes_total",
+        "type": "int",
+        "sample": "0"
+      }
+    ],
+    "sample_data": {
+      "id": "c932ff44-0bd0-4653-935e-9abcc26b856f",
+      "player_id": 2248,
+      "team_id": 108,
+      "season": 2022,
+      "league_id": 1,
+      "position": "MID",
+      "detailed_position": "Central Midfielder",
+      "appearences": 0,
+      "lineups": 0,
+      "minutes_total": 0,
+      "minutes_per_game": 45.0,
+      "starter_probability": null,
+      "goals": 0,
+      "assists": 0,
+      "xg_total": 0.5,
+      "xa_total": 0.3,
+      "shots_total": 0,
+      "shots_on_target": 0,
+      "key_passes": 0,
+      "big_chances_created": 0,
+      "goals_per90": null,
+      "assists_per90": null,
+      "xg_per90": null,
+      "xa_per90": null,
+      "shots_per90": null,
+      "keypasses_per90": null,
+      "touches_box_per90": null,
+      "shot_map_features": null,
+      "preferred_foot": null,
+      "header_ability": null,
+      "finishing_ability": null,
+      "penalty_taker": false,
+      "free_kick_taker": false,
+      "corner_taker": false,
+      "penalties_scored": 0,
+      "penalties_missed": 0,
+      "age": null,
+      "height": null,
+      "weight": null,
+      "fitness_index": null,
+      "injury_history": null,
+      "fatigue_resistance": null,
+      "key_partnerships": null,
+      "passing_network_centrality": null,
+      "triangle_motifs": 0,
+      "chemistry_score": null,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "early_substitutions": 0,
+      "disciplinary_risk": null,
+      "raw_stats": null,
+      "ai_player_type": null,
+      "performance_clusters": null,
+      "created_at": "2025-08-20T12:41:06.000102",
+      "updated_at": "2025-08-20T12:41:06.000102",
+      "fatigue_level": null,
+      "player_uuid": null,
+      "team_uuid": null,
+      "player_name": "Ange Loic N'gatta",
+      "team_name": null
+    },
+    "ml_importance": [
+      "FORM",
+      "XG_DATA",
+      "RESULTS",
+      "TEMPORAL"
+    ]
+  },
+  "match_statistics": {
+    "total_rows": 3520,
+    "total_columns": 31,
+    "all_columns": [
+      "id",
+      "match_id",
+      "team_id",
+      "team_name",
+      "ball_possession",
+      "total_shots",
+      "shots_on_goal",
+      "shots_off_goal",
+      "shots_insidebox",
+      "shots_outsidebox",
+      "fouls",
+      "corner_kicks",
+      "offsides",
+      "yellow_cards",
+      "red_cards",
+      "goalkeeper_saves",
+      "total_passes",
+      "passes_accurate",
+      "passes_percentage",
+      "expected_goals",
+      "pressing_intensity",
+      "possession_quality",
+      "transition_efficiency",
+      "final_third_entries",
+      "statistics",
+      "raw_data",
+      "created_at",
+      "shots_blocked",
+      "shots_inside_box",
+      "shots_outside_box",
+      "shots_total"
+    ],
+    "key_columns": [
+      {
+        "name": "id",
+        "type": "str",
+        "sample": "ce15e178-4d9d-49f9-9e2b-7c52d480c527"
+      },
+      {
+        "name": "match_id",
+        "type": "int",
+        "sample": "1213840"
+      },
+      {
+        "name": "team_id",
+        "type": "int",
+        "sample": "111"
+      },
+      {
+        "name": "team_name",
+        "type": "str",
+        "sample": "Le Havre"
+      },
+      {
+        "name": "ball_possession",
+        "type": "int",
+        "sample": "55"
+      },
+      {
+        "name": "total_shots",
+        "type": "int",
+        "sample": "10"
+      },
+      {
+        "name": "shots_on_goal",
+        "type": "int",
+        "sample": "3"
+      },
+      {
+        "name": "shots_off_goal",
+        "type": "int",
+        "sample": "5"
+      },
+      {
+        "name": "shots_insidebox",
+        "type": "int",
+        "sample": "7"
+      },
+      {
+        "name": "shots_outsidebox",
+        "type": "int",
+        "sample": "3"
+      }
+    ],
+    "sample_data": {
+      "id": "ce15e178-4d9d-49f9-9e2b-7c52d480c527",
+      "match_id": 1213840,
+      "team_id": 111,
+      "team_name": "Le Havre",
+      "ball_possession": 55,
+      "total_shots": 10,
+      "shots_on_goal": 3,
+      "shots_off_goal": 5,
+      "shots_insidebox": 7,
+      "shots_outsidebox": 3,
+      "fouls": 10,
+      "corner_kicks": 8,
+      "offsides": 1,
+      "yellow_cards": 1,
+      "red_cards": null,
+      "goalkeeper_saves": 4,
+      "total_passes": 396,
+      "passes_accurate": 329,
+      "passes_percentage": 83,
+      "expected_goals": 1.63,
+      "pressing_intensity": 0.42,
+      "possession_quality": 0.68,
+      "transition_efficiency": 0.55,
+      "final_third_entries": 28,
+      "statistics": {
+        "fouls": 10,
+        "offsides": 1,
+        "passes_%": "83%",
+        "red_cards": null,
+        "total_shots": 10,
+        "corner_kicks": 8,
+        "total_passes": 396,
+        "yellow_cards": 1,
+        "blocked_shots": 2,
+        "shots_on_goal": 3,
+        "expected_goals": "1.63",
+        "shots_off_goal": 5,
+        "ball_possession": "55%",
+        "goals_prevented": 1,
+        "passes_accurate": 329,
+        "shots_insidebox": 7,
+        "goalkeeper_saves": 4,
+        "shots_outsidebox": 3
+      },
+      "raw_data": {
+        "team": {
+          "id": 111,
+          "logo": "https://media.api-sports.io/football/teams/111.png",
+          "name": "Le Havre"
+        },
+        "statistics": [
+          {
+            "type": "Shots on Goal",
+            "value": 3
+          },
+          {
+            "type": "Shots off Goal",
+            "value": 5
+          },
+          {
+            "type": "Total Shots",
+            "value": 10
+          },
+          {
+            "type": "Blocked Shots",
+            "value": 2
+          },
+          {
+            "type": "Shots insidebox",
+            "value": 7
+          },
+          {
+            "type": "Shots outsidebox",
+            "value": 3
+          },
+          {
+            "type": "Fouls",
+            "value": 10
+          },
+          {
+            "type": "Corner Kicks",
+            "value": 8
+          },
+          {
+            "type": "Offsides",
+            "value": 1
+          },
+          {
+            "type": "Ball Possession",
+            "value": "55%"
+          },
+          {
+            "type": "Yellow Cards",
+            "value": 1
+          },
+          {
+            "type": "Red Cards",
+            "value": null
+          },
+          {
+            "type": "Goalkeeper Saves",
+            "value": 4
+          },
+          {
+            "type": "Total passes",
+            "value": 396
+          },
+          {
+            "type": "Passes accurate",
+            "value": 329
+          },
+          {
+            "type": "Passes %",
+            "value": "83%"
+          },
+          {
+            "type": "expected_goals",
+            "value": "1.63"
+          },
+          {
+            "type": "goals_prevented",
+            "value": 1
+          }
+        ]
+      },
+      "created_at": "2025-08-19T18:18:02.867527",
+      "shots_blocked": null,
+      "shots_inside_box": null,
+      "shots_outside_box": null,
+      "shots_total": null
+    }
+  },
+  "match_events": {
+    "total_rows": 15691,
+    "total_columns": 17,
+    "all_columns": [
+      "id",
+      "match_id",
+      "time_elapsed",
+      "time_extra",
+      "team_id",
+      "team_name",
+      "player_id",
+      "player_name",
+      "assist_player_id",
+      "assist_player_name",
+      "type",
+      "detail",
+      "comments",
+      "goal_type_classified",
+      "goal_context",
+      "raw_data",
+      "created_at"
+    ],
+    "key_columns": [
+      {
+        "name": "id",
+        "type": "str",
+        "sample": "fde694fd-b5da-4509-9fc8-43740c6503d9"
+      },
+      {
+        "name": "match_id",
+        "type": "int",
+        "sample": "1213754"
+      },
+      {
+        "name": "time_elapsed",
+        "type": "int",
+        "sample": "3"
+      },
+      {
+        "name": "time_extra",
+        "type": "NoneType",
+        "sample": "None"
+      },
+      {
+        "name": "team_id",
+        "type": "int",
+        "sample": "85"
+      },
+      {
+        "name": "team_name",
+        "type": "str",
+        "sample": "Paris Saint Germain"
+      },
+      {
+        "name": "player_id",
+        "type": "int",
+        "sample": "927"
+      },
+      {
+        "name": "player_name",
+        "type": "str",
+        "sample": "Lee Kang-In"
+      },
+      {
+        "name": "assist_player_id",
+        "type": "int",
+        "sample": "41585"
+      },
+      {
+        "name": "assist_player_name",
+        "type": "str",
+        "sample": "Gonçalo Ramos"
+      }
+    ],
+    "sample_data": {
+      "id": "fde694fd-b5da-4509-9fc8-43740c6503d9",
+      "match_id": 1213754,
+      "time_elapsed": 3,
+      "time_extra": null,
+      "team_id": 85,
+      "team_name": "Paris Saint Germain",
+      "player_id": 927,
+      "player_name": "Lee Kang-In",
+      "assist_player_id": 41585,
+      "assist_player_name": "Gonçalo Ramos",
+      "type": "Goal",
+      "detail": "Normal Goal",
+      "comments": null,
+      "goal_type_classified": null,
+      "goal_context": null,
+      "raw_data": {
+        "team": {
+          "id": 85,
+          "logo": "https://media.api-sports.io/football/teams/85.png",
+          "name": "Paris Saint Germain"
+        },
+        "time": {
+          "extra": null,
+          "elapsed": 3
+        },
+        "type": "Goal",
+        "assist": {
+          "id": 41585,
+          "name": "Gonçalo Ramos"
+        },
+        "detail": "Normal Goal",
+        "player": {
+          "id": 927,
+          "name": "Lee Kang-In"
+        },
+        "comments": null
+      },
+      "created_at": "2025-08-19T18:09:27.509781"
+    },
+    "ml_importance": [
+      "TEMPORAL"
+    ]
+  },
+  "predictions": {
+    "error": "{'message': \"Could not find the table 'public.predictions' in the schema cache\", 'code': 'PGRST205', 'hint': \"Perhaps you meant the table 'public.seasons'\", 'details': None}"
+  },
+  "prediction_features": {
+    "error": "{'message': \"Could not find the table 'public.prediction_features' in the schema cache\", 'code': 'PGRST205', 'hint': \"Perhaps you meant the table 'public.team_features'\", 'details': None}"
+  },
+  "betting_odds": {
+    "error": "{'message': \"Could not find the table 'public.betting_odds' in the schema cache\", 'code': 'PGRST205', 'hint': None, 'details': None}"
+  },
+  "market_movements": {
+    "error": "{'message': \"Could not find the table 'public.market_movements' in the schema cache\", 'code': 'PGRST205', 'hint': \"Perhaps you meant the table 'public.match_events'\", 'details': None}"
+  },
+  "weather_conditions": {
+    "error": "{'message': \"Could not find the table 'public.weather_conditions' in the schema cache\", 'code': 'PGRST205', 'hint': \"Perhaps you meant the table 'public.match_formations'\", 'details': None}"
+  },
+  "referee_features": {
+    "error": "{'message': \"Could not find the table 'public.referee_features' in the schema cache\", 'code': 'PGRST205', 'hint': \"Perhaps you meant the table 'public.team_features'\", 'details': None}"
+  },
+  "injury_reports": {
+    "error": "{'message': \"Could not find the table 'public.injury_reports' in the schema cache\", 'code': 'PGRST205', 'hint': None, 'details': None}"
+  },
+  "venue_features": {
+    "error": "{'message': \"Could not find the table 'public.venue_features' in the schema cache\", 'code': 'PGRST205', 'hint': \"Perhaps you meant the table 'public.team_features'\", 'details': None}"
+  }
+}

@@ -306,8 +306,7 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
           `)
           .eq('team_id', match.home_team_id)
           .order('season', { ascending: false })
-          .limit(1)
-          .single(),
+          .limit(1),
         supabase
           .from('team_features')
           .select(`
@@ -333,8 +332,7 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
           `)
           .eq('team_id', match.away_team_id)
           .order('season', { ascending: false })
-          .limit(1)
-          .single(),
+          .limit(1),
         // Match statistics récentes (5 derniers matchs)
         supabase
           .from('match_statistics')
@@ -379,28 +377,32 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
       ]);
       
       // NOUVELLES MÉTRIQUES INTELLIGENTES avec TOUTES les données disponibles
-      const homeElo = homeFeatures.data?.elo_rating || 1500;
-      const awayElo = awayFeatures.data?.elo_rating || 1500;
-      const homeForm = homeFeatures.data?.form_5_points || 7;
-      const awayForm = awayFeatures.data?.form_5_points || 7;
-      const homeGoalsPerGame = homeFeatures.data?.goals_per_game || 1.2;
-      const awayGoalsPerGame = awayFeatures.data?.goals_per_game || 1.2;
-      const homeConcededPerGame = homeFeatures.data?.goals_conceded_per_game || 1.2;
-      const awayConcededPerGame = awayFeatures.data?.goals_conceded_per_game || 1.2;
-      const homeXG = homeFeatures.data?.xg_for_avg || homeGoalsPerGame;
-      const awayXG = awayFeatures.data?.xg_for_avg || awayGoalsPerGame;
+      // Fix: accès au premier élément de l'array au lieu de .data directement
+      const homeTeamData = homeFeatures.data?.[0];
+      const awayTeamData = awayFeatures.data?.[0];
+      
+      const homeElo = homeTeamData?.elo_rating || 1500;
+      const awayElo = awayTeamData?.elo_rating || 1500;
+      const homeForm = homeTeamData?.form_5_points || 7;
+      const awayForm = awayTeamData?.form_5_points || 7;
+      const homeGoalsPerGame = homeTeamData?.goals_per_game || 1.2;
+      const awayGoalsPerGame = awayTeamData?.goals_per_game || 1.2;
+      const homeConcededPerGame = homeTeamData?.goals_conceded_per_game || 1.2;
+      const awayConcededPerGame = awayTeamData?.goals_conceded_per_game || 1.2;
+      const homeXG = homeTeamData?.xg_for_avg || homeGoalsPerGame;
+      const awayXG = awayTeamData?.xg_for_avg || awayGoalsPerGame;
       
       // NOUVELLES FEATURES: Données avancées team_features
-      const homeShotsPerGame = homeFeatures.data?.shots_per_game || 12;
-      const awayShotsPerGame = awayFeatures.data?.shots_per_game || 12;
-      const homeShotsOnTarget = homeFeatures.data?.shots_on_target_avg || 4;
-      const awayShotsOnTarget = awayFeatures.data?.shots_on_target_avg || 4;
-      const homeDiscipline = homeFeatures.data?.discipline_index || 0.5;
-      const awayDiscipline = awayFeatures.data?.discipline_index || 0.5;
-      const homePressing = homeFeatures.data?.pressing_intensity || 50;
-      const awayPressing = awayFeatures.data?.pressing_intensity || 50;
-      const homeTempo = homeFeatures.data?.tempo_score || 50;
-      const awayTempo = awayFeatures.data?.tempo_score || 50;
+      const homeShotsPerGame = homeTeamData?.shots_per_game || 12;
+      const awayShotsPerGame = awayTeamData?.shots_per_game || 12;
+      const homeShotsOnTarget = homeTeamData?.shots_on_target_avg || 4;
+      const awayShotsOnTarget = awayTeamData?.shots_on_target_avg || 4;
+      const homeDiscipline = homeTeamData?.discipline_index || 0.5;
+      const awayDiscipline = awayTeamData?.discipline_index || 0.5;
+      const homePressing = homeTeamData?.pressing_intensity || 50;
+      const awayPressing = awayTeamData?.pressing_intensity || 50;
+      const homeTempo = homeTeamData?.tempo_score || 50;
+      const awayTempo = awayTeamData?.tempo_score || 50;
       
       // CALCUL MÉTRIQUES MATCH_STATISTICS (5 derniers matchs)
       function calculateRecentStats(statsData: any) {
@@ -427,8 +429,8 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
       
       // DEBUG: Vérifier requêtes team_features
       console.log(`🔍 DEBUG Match: ${match.home_team_name} (ID: ${match.home_team_id}) vs ${match.away_team_name} (ID: ${match.away_team_id})`);
-      console.log(`🔍 Home features result:`, homeFeatures.data ? 'TROUVÉ' : 'NULL', homeFeatures.error ? homeFeatures.error.message : '');
-      console.log(`🔍 Away features result:`, awayFeatures.data ? 'TROUVÉ' : 'NULL', awayFeatures.error ? awayFeatures.error.message : '');
+      console.log(`🔍 Home features result:`, homeTeamData ? `TROUVÉ (ELO: ${homeTeamData.elo_rating})` : 'NULL', homeFeatures.error ? homeFeatures.error.message : '');
+      console.log(`🔍 Away features result:`, awayTeamData ? `TROUVÉ (ELO: ${awayTeamData.elo_rating})` : 'NULL', awayFeatures.error ? awayFeatures.error.message : '');
       
       // ALGORITHME INTELLIGENT MULTI-DIMENSIONNEL - TOUTES DONNÉES
       console.log(`🧠 Analyse: ${match.home_team_name} (ELO ${homeElo}) vs ${match.away_team_name} (ELO ${awayElo})`);
@@ -515,7 +517,7 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
       let dataQualityScore = 0;
       
       // +15-25 si on a de vraies données ELO (pas 1500 par défaut)  
-      if (homeFeatures.data && awayFeatures.data) {
+      if (homeTeamData && awayTeamData) {
         confidence += 20;
         dataQualityScore += 2;
         console.log(`  ✅ Vraies données ELO trouvées`);
@@ -532,7 +534,7 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
       confidence += formConfidence;
       
       // +5-10 si on a des données xG
-      if (homeFeatures.data?.xg_for_avg && awayFeatures.data?.xg_for_avg) {
+      if (homeTeamData?.xg_for_avg && awayTeamData?.xg_for_avg) {
         confidence += 8;
         dataQualityScore += 1;
         console.log(`  ✅ Données xG disponibles`);
@@ -547,14 +549,14 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
       }
       
       // NOUVEAU: +3-8 si on a des données tactiques (pressing, tempo)
-      if (homeFeatures.data?.pressing_intensity && homeFeatures.data?.tempo_score) {
+      if (homeTeamData?.pressing_intensity && homeTeamData?.tempo_score) {
         confidence += 6;
         dataQualityScore += 1;
         console.log(`  ✅ Données tactiques disponibles`);
       }
       
       // NOUVEAU: +2-5 si données disciplinaires
-      if (homeFeatures.data?.discipline_index && awayFeatures.data?.discipline_index) {
+      if (homeTeamData?.discipline_index && awayTeamData?.discipline_index) {
         confidence += 4;
         dataQualityScore += 1;
       }

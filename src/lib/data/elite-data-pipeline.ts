@@ -277,47 +277,49 @@ export class EliteDataPipeline {
       .from('team_features')
       .select('*')
       .eq('team_id', teamId)
-      .eq('season', season)
-      .single();
+      .order('season', { ascending: false })
+      .limit(1);
       
-    if (error || !features) {
+    if (error || !features || features.length === 0) {
       console.warn(`Team features not found for ${teamId}, using defaults`);
       return this.getDefaultTeamFeatures();
     }
     
+    const teamData = features[0];
+    
     return {
       // Basic metrics
-      elo_rating: features.elo_rating || 1500,
-      form_5_points: features.form_5_points || 7,
-      goals_per_game: features.goals_per_game || 1.2,
-      xg_for_avg: features.xg_for_avg || 1.2,
+      elo_rating: teamData.elo_rating || 1500,
+      form_5_points: teamData.form_5_points || 7,
+      goals_per_game: teamData.goals_per_game || 1.2,
+      xg_for_avg: teamData.xg_for_avg || 1.2,
       
       // Advanced performance
-      possession_avg: features.possession_avg || 50,
-      pressing_intensity: features.pressing_intensity || 0,
-      transition_speed: features.transition_speed || 0,
-      verticality_index: features.verticality_index || 0,
+      possession_avg: teamData.possession_avg || 50,
+      pressing_intensity: teamData.pressing_intensity || 0,
+      transition_speed: teamData.transition_speed || 0,
+      verticality_index: teamData.verticality_index || 0,
       
       // Contextual factors
-      motivation_score: features.motivation_score || 50,
-      pressure_score: features.pressure_score || 50,
-      big_game_performance: features.big_game_performance || 0,
-      volatility_index: features.volatility_index || 0.5,
+      motivation_score: teamData.motivation_score || 50,
+      pressure_score: teamData.pressure_score || 50,
+      big_game_performance: teamData.big_game_performance || 0,
+      volatility_index: teamData.volatility_index || 0.5,
       
       // Set pieces
-      corners_conversion_rate: features.corners_conversion_rate || 0.1,
-      free_kicks_scored: features.free_kicks_scored || 0,
-      penalties_scored: features.penalties_scored || 0,
+      corners_conversion_rate: teamData.corners_conversion_rate || 0.1,
+      free_kicks_scored: teamData.free_kicks_scored || 0,
+      penalties_scored: teamData.penalties_scored || 0,
       
       // Fatigue & calendar
-      avg_rest_days: features.avg_rest_days || 7,
-      congestion_index: features.congestion_index || 0.3,
-      travel_km_total: features.travel_km_total || 0,
+      avg_rest_days: teamData.avg_rest_days || 7,
+      congestion_index: teamData.congestion_index || 0.3,
+      travel_km_total: teamData.travel_km_total || 0,
       
       // Discipline
-      yellow_cards: features.yellow_cards || 0,
-      red_cards: features.red_cards || 0,
-      discipline_score: features.discipline_score || 50
+      yellow_cards: teamData.yellow_cards || 0,
+      red_cards: teamData.red_cards || 0,
+      discipline_score: teamData.discipline_score || 50
     };
   }
   

@@ -21,6 +21,22 @@ interface Prediction {
     awayElo: number
     homeForm: number
     awayForm: number
+    // NOUVELLES FEATURES ENRICHIES
+    homeXG?: number
+    awayXG?: number
+    homeShotsPerGame?: number
+    awayShotsPerGame?: number
+    homeShotEfficiency?: number
+    awayShotEfficiency?: number
+    homeStyle?: number
+    awayStyle?: number
+    dataQuality?: number
+    homeRecentXG?: number
+    homeRecentPoss?: number
+    homeRecentMatches?: number
+    awayRecentXG?: number
+    awayRecentPoss?: number
+    awayRecentMatches?: number
   }
 }
 

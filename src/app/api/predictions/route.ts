@@ -11,7 +11,9 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { PredictionsCache, CacheHeaders, CACHE_CONFIG } from '@/lib/cache-manager';
 import { createAdminClient } from '@/lib/supabase';
+import { getUpcomingMatchesPaginated, getRecentFinishedMatchesPaginated, safeQuery } from '@/lib/supabase-pagination';
 import { spawn } from 'child_process';
 import * as path from 'path';
 
@@ -148,35 +150,25 @@ async function loadSophisticatedPredictions(): Promise<Prediction[]> {
  * Récupère les matches à venir depuis Supabase (fallback)
  */
 async function getUpcomingMatches(limit: number = 20) {
-  console.log('📊 Récupération matches à venir (fallback)...');
+  console.log('📊 Récupération matches à venir avec pagination automatique...');
   
   const supabase = createAdminClient();
   
-  const { data: matches, error } = await supabase
-    .from('matches')
-    .select(`
-      id,
-      home_team_name,
-      away_team_name,
-      date,
-      venue_name,
-      season,
-      home_team_id,
-      away_team_id,
-      status
-    `)
-    .is('home_score', null)
-    .is('away_score', null)
-    .gte('date', new Date().toISOString())
-    .order('date')
-    .limit(limit);
+  try {
+    // Utiliser la pagination automatique
+    const result = await getUpcomingMatchesPaginated(supabase, limit);
     
-  if (error) {
-    throw new Error(`Données de prédiction - À venir: ${error.message}`);
+    console.log(`✅ ${result.data.length} matches trouvés (${result.batches} batches)`);
+    if (result.hasMore) {
+      console.log('⚠️ Plus de matches disponibles que la limite demandée');
+    }
+    
+    return result.data || [];
+    
+  } catch (error) {
+    console.error('❌ Erreur récupération matches:', error);
+    throw new Error(`Données de prédiction - À venir: ${error instanceof Error ? error.message : 'Erreur inconnue'}`);
   }
-  
-  console.log(`✅ ${matches?.length || 0} matches trouvés`);
-  return matches || [];
 }
 
 /**
@@ -189,19 +181,17 @@ async function triggerContinuousLearning(): Promise<void> {
     // Vérifier s'il y a de nouveaux résultats à apprendre
     const supabase = createAdminClient();
     
-    // Récupérer matches récents avec résultats
-    const { data: recentMatches, error } = await supabase
-      .from('matches')
-      .select('id, home_score, away_score, date, status')
-      .eq('status', 'Match Finished')
-      .not('home_score', 'is', null)
-      .not('away_score', 'is', null)
-      .gte('date', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()) // 7 derniers jours
-      .order('date', { ascending: false });
+    // Récupérer matches récents avec résultats - avec pagination
+    const result = await getRecentFinishedMatchesPaginated(supabase, 7);
+    const recentMatches = result.data;
     
-    if (error || !recentMatches || recentMatches.length === 0) {
+    if (!recentMatches || recentMatches.length === 0) {
       console.log('📝 Pas de nouveaux résultats à apprendre');
       return;
+    }
+    
+    if (result.batches > 1) {
+      console.log(`📊 Récupération en ${result.batches} batches pour éviter limite Supabase`);
     }
     
     console.log(`🔄 ${recentMatches.length} nouveaux résultats détectés`);
@@ -266,7 +256,7 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
       
       // Ajustement pour 3 résultats
       let homeProb = Math.max(0.25, Math.min(0.70, expectedHome));
-      let drawProb = 0.25 + (0.10 * Math.random());
+      let drawProb = Math.max(0.15, 0.35 - (Math.abs(eloDiff) / 2000));
       let awayProb = 1 - homeProb - drawProb;
       
       // Normalisation à 100%
@@ -426,7 +416,13 @@ export async function GET(request: NextRequest): Promise<NextResponse<APIRespons
     
     console.log(`✅ ${paginatedPredictions.length} prédictions retournées (page ${page})`);
     
-    return NextResponse.json(response);
+    // Mettre en cache et ajouter headers
+    const cacheKey = PredictionsCache.generateKey(CACHE_CONFIG.CACHE_KEYS.PREDICTIONS, { limit, confidenceMin, page });
+    PredictionsCache.set(cacheKey, response.data);
+    
+    return NextResponse.json(response, {
+      headers: CacheHeaders.getHeaders()
+    });
     
   } catch (error) {
     console.error('❌ Erreur API Prédictions:', error);
@@ -435,6 +431,69 @@ export async function GET(request: NextRequest): Promise<NextResponse<APIRespons
       success: false,
       error: error instanceof Error ? error.message : 'Erreur inconnue'
     }, { status: 500 });
+  }
+}
+
+/**
+ * HEAD /api/predictions
+ * Health check et statut du cache
+ */
+export async function HEAD(request: NextRequest): Promise<NextResponse> {
+  try {
+    const supabase = createAdminClient();
+    
+    // Test connexion BDD
+    const dbStart = Date.now();
+    const { error: dbError } = await supabase
+      .from('matches')
+      .select('id')
+      .limit(1);
+    const dbLatency = Date.now() - dbStart;
+    
+    // Stats cache
+    const cacheStats = PredictionsCache.getStats();
+    
+    // Cleanup automatique
+    const cleaned = PredictionsCache.cleanup();
+    
+    const healthData = {
+      status: 'healthy',
+      timestamp: new Date().toISOString(),
+      database: {
+        connected: !dbError,
+        latency_ms: dbLatency,
+        error: dbError?.message || null
+      },
+      cache: {
+        ...cacheStats,
+        cleaned_items: cleaned,
+        hit_rate_percent: Math.round(cacheStats.hitRate * 100)
+      },
+      api: {
+        cache_ttl_hours: CACHE_CONFIG.PREDICTIONS_TTL / (1000 * 60 * 60),
+        version: '2.0'
+      }
+    };
+    
+    const status = dbError ? 503 : 200;
+    
+    return NextResponse.json(healthData, {
+      status,
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Content-Type': 'application/json'
+      }
+    });
+    
+  } catch (error) {
+    return NextResponse.json({
+      status: 'error',
+      timestamp: new Date().toISOString(),
+      error: error instanceof Error ? error.message : 'Health check failed'
+    }, { 
+      status: 503,
+      headers: { 'Cache-Control': 'no-cache' }
+    });
   }
 }
 

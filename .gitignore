@@ -41,3 +41,11 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# backup folders
+backup_essential_*/
+
+# test files and logs
+test_*.js
+test_*.py
+*.log

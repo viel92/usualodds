@@ -1,6 +1,7 @@
 'use client'
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { CACHE_CONFIG, PredictionsCache } from '@/lib/cache-manager'
 
 interface Prediction {
   id: string
@@ -39,11 +40,21 @@ interface DashboardData {
   }
 }
 
-// Hook pour charger les prédictions avec cache
+// Hook pour charger les prédictions avec cache unifié
 export function usePredictions(limit = 10, confidenceMin = 50) {
+  const cacheKey = PredictionsCache.generateKey(CACHE_CONFIG.CACHE_KEYS.PREDICTIONS, { limit, confidenceMin });
+  
   return useQuery({
     queryKey: ['predictions', limit, confidenceMin],
     queryFn: async (): Promise<DashboardData> => {
+      // Vérifier cache local d'abord
+      const cached = PredictionsCache.get<DashboardData>(cacheKey);
+      if (cached) {
+        console.log('Cache hit - retour données locales');
+        return cached;
+      }
+      
+      // Sinon fetch API
       const response = await fetch(`/api/predictions?limit=${limit}&confidence_min=${confidenceMin}`)
       const result = await response.json()
       
@@ -51,10 +62,13 @@ export function usePredictions(limit = 10, confidenceMin = 50) {
         throw new Error(result.error || 'Erreur chargement prédictions')
       }
       
+      // Mettre en cache
+      PredictionsCache.set(cacheKey, result.data);
+      
       return result.data
     },
-    staleTime: 1000 * 60 * 2, // 2 minutes
-    gcTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: CACHE_CONFIG.PREDICTIONS_STALE_TIME, // 2h unifié
+    gcTime: CACHE_CONFIG.PREDICTIONS_GC_TIME, // 4h unifié
   })
 }
 
@@ -76,7 +90,8 @@ export function useRefreshPredictions() {
       return result.data
     },
     onSuccess: (data) => {
-      // Invalider et mettre à jour le cache
+      // Invalider cache local et React Query
+      PredictionsCache.invalidate('predictions*');
       queryClient.setQueryData(['predictions', 10, 50], data)
       queryClient.invalidateQueries({ queryKey: ['predictions'] })
     },

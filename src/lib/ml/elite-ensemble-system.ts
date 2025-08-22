@@ -586,7 +586,7 @@ class NeuralNetworkPredictor extends BasePredictor {
     const interactions = [
       features.elo_differential * features.form_differential * 0.0001,
       features.momentum_score * features.confidence_differential * 0.05,
-      features.formation_compatibility * features.tactical_advantage * 0.1,
+      features.formation_compatibility * features.coach_tactical_edge * 0.1,
       Math.sin(features.pressure_differential * 0.01) * 0.1
     ];
     

@@ -22,6 +22,8 @@ interface Prediction {
   id: string;
   homeTeam: string;
   awayTeam: string;
+  homeTeamLogo?: string;
+  awayTeamLogo?: string;
   date: string;
   venue: string;
   probabilities: {
@@ -93,12 +95,18 @@ async function calculateElitePredictions(limit: number = 20): Promise<Prediction
     // Récupérer matches à venir
     const upcomingMatches = await getUpcomingMatches(limit);
     
+    const supabase = createAdminClient();
+    
     for (const match of upcomingMatches) {
       try {
         console.log(`🔬 Elite processing: ${match.home_team_name} vs ${match.away_team_name}`);
         
-        // 1. Extract complete match data (299 columns)
-        const eliteData = await eliteDataPipeline.extractCompleteMatchData(match.id);
+        // 1. Fetch team logos in parallel with elite data processing
+        const [eliteData, homeTeamInfo, awayTeamInfo] = await Promise.all([
+          eliteDataPipeline.extractCompleteMatchData(match.id),
+          supabase.from('teams').select('name, logo_url').eq('name', match.home_team_name).single(),
+          supabase.from('teams').select('name, logo_url').eq('name', match.away_team_name).single()
+        ]);
         
         if (!eliteData) {
           console.warn(`❌ Could not extract elite data for match ${match.id}`);
@@ -114,11 +122,13 @@ async function calculateElitePredictions(limit: number = 20): Promise<Prediction
         // 4. Record for performance monitoring
         await elitePerformanceMonitor.recordPrediction(elitePrediction, eliteFeatures);
         
-        // 5. Convert to API format
+        // 5. Convert to API format with team logos
         const apiPrediction: Prediction = {
           id: match.id,
           homeTeam: match.home_team_name,
           awayTeam: match.away_team_name,
+          homeTeamLogo: homeTeamInfo.data?.logo_url,
+          awayTeamLogo: awayTeamInfo.data?.logo_url,
           date: match.date,
           venue: match.venue_name || 'Venue TBD',
           probabilities: {
@@ -278,8 +288,8 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
   
   for (const match of matches) {
     try {
-      // INTÉGRATION DONNÉES COMPLÈTES: team_features + match_statistics + match_events
-      const [homeFeatures, awayFeatures, homeRecentStats, awayRecentStats] = await Promise.all([
+      // INTÉGRATION DONNÉES COMPLÈTES: team_features + match_statistics + teams (logos)
+      const [homeFeatures, awayFeatures, homeRecentStats, awayRecentStats, homeTeamInfo, awayTeamInfo] = await Promise.all([
         // Team features existantes (ELO, forme, xG)
         supabase
           .from('team_features')
@@ -373,7 +383,18 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
           `)
           .eq('team_id', match.away_team_id)
           .order('created_at', { ascending: false })
-          .limit(5)
+          .limit(5),
+        // Logos équipes depuis la table teams
+        supabase
+          .from('teams')
+          .select('name, logo_url')
+          .eq('name', match.home_team_name)
+          .single(),
+        supabase
+          .from('teams')
+          .select('name, logo_url')
+          .eq('name', match.away_team_name)
+          .single()
       ]);
       
       // NOUVELLES MÉTRIQUES INTELLIGENTES avec TOUTES les données disponibles
@@ -577,6 +598,8 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
         awayTeam: match.away_team_name,
         date: match.date,
         venue: match.venue_name || 'Stade non défini',
+        homeTeamLogo: homeTeamInfo.data?.logo_url,
+        awayTeamLogo: awayTeamInfo.data?.logo_url,
         probabilities: {
           home: homeProb,
           draw: drawProb,

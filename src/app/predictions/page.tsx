@@ -161,7 +161,7 @@ export default function PredictionsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-2xl font-bold text-orange-600">{data.predictions.filter(p => p.confidence >= 70).length}</p>
-                <p className="text-sm text-gray-500">Confiance >70%</p>
+                <p className="text-sm text-gray-500">Confiance {'>'}70%</p>
               </div>
               <Crown className="w-8 h-8 text-orange-500 opacity-20" />
             </div>

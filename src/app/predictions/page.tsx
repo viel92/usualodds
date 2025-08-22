@@ -305,8 +305,11 @@ export default function PredictionsPage() {
         {/* Predictions List with Professional Cards */}
         <div className="space-y-6">
           {filteredAndSortedPredictions.map((prediction) => {
-            // Simulate lineup availability for demo purposes
-            const hasLineup = Math.random() > 0.4
+            // Only show lineup as confirmed for matches within next 48h
+            const matchDate = new Date(prediction.date)
+            const now = new Date()
+            const hoursUntilMatch = (matchDate.getTime() - now.getTime()) / (1000 * 60 * 60)
+            const hasLineup = hoursUntilMatch <= 48 && hoursUntilMatch > 0
             
             // Transform prediction data to match new component interface
             const matchData = {
@@ -339,9 +342,9 @@ export default function PredictionsPage() {
                 dataQuality: Math.random()
               },
               bookmakerOdds: Math.random() > 0.5 ? {
-                homeWin: Math.random() * 3 + 1,
-                draw: Math.random() * 2 + 2.5,
-                awayWin: Math.random() * 4 + 1.5
+                homeWin: Math.round((Math.random() * 3 + 1) * 100) / 100,
+                draw: Math.round((Math.random() * 2 + 2.5) * 100) / 100,
+                awayWin: Math.round((Math.random() * 4 + 1.5) * 100) / 100
               } : undefined,
               value: Math.random() > 0.7 ? {
                 market: '1X2',
@@ -350,10 +353,22 @@ export default function PredictionsPage() {
                 confidence: 'HIGH' as const
               } : undefined,
               context: {
-                isRivalry: Math.random() > 0.8,
-                importance: Math.random() > 0.7 ? 'high' as const : 'medium' as const,
-                weatherImpact: Math.random() > 0.9,
-                keyPlayersOut: Math.random() > 0.8 ? Math.floor(Math.random() * 3) + 1 : 0
+                isRivalry: prediction.context?.isRivalry || false,
+                importance: prediction.context?.importance || 'medium',
+                weatherImpact: false, // Will be implemented with weather API
+                keyPlayersOut: (prediction.context?.homeInjuries?.length || 0) + (prediction.context?.awayInjuries?.length || 0),
+                topScorers: {
+                  home: prediction.context?.homeTopScorers || [],
+                  away: prediction.context?.awayTopScorers || []
+                },
+                trendingPlayers: {
+                  home: prediction.context?.homeTrending || [],
+                  away: prediction.context?.awayTrending || []
+                },
+                injuries: {
+                  home: prediction.context?.homeInjuries || [],
+                  away: prediction.context?.awayInjuries || []
+                }
               }
             }
 

@@ -68,6 +68,18 @@ interface MatchPredictionCardProps {
       importance?: 'low' | 'medium' | 'high';
       weatherImpact?: boolean;
       keyPlayersOut?: number;
+      topScorers?: {
+        home: Array<{name: string; goals: number; form: number}>;
+        away: Array<{name: string; goals: number; form: number}>;
+      };
+      trendingPlayers?: {
+        home: Array<{name: string; position: string; form: number}>;
+        away: Array<{name: string; position: string; form: number}>;
+      };
+      injuries?: {
+        home: Array<{name: string; injury: string; severity: string}>;
+        away: Array<{name: string; injury: string; severity: string}>;
+      };
     };
   };
   onDetailsClick?: (matchId: string) => void;
@@ -436,9 +448,78 @@ export default function MatchPredictionCard({
           )}
         </div>
 
-        {/* Professional Context Alerts */}
-        {(match.context?.weatherImpact || (match.context?.keyPlayersOut && match.context.keyPlayersOut > 0)) && (
+        {/* Professional Match Context */}
+        {(match.context?.topScorers || match.context?.trendingPlayers || match.context?.injuries || match.context?.weatherImpact) && (
           <div className="mt-6 pt-4 border-t border-neutral-100">
+            
+            {/* Top Scorers */}
+            {(match.context.topScorers?.home?.length > 0 || match.context.topScorers?.away?.length > 0) && (
+              <div className="mb-4">
+                <h4 className="text-xs font-semibold text-neutral-600 mb-2 uppercase tracking-wide">Potentiels Buteurs</h4>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    {match.context.topScorers?.home?.slice(0, 2).map((scorer, i) => (
+                      <div key={i} className="flex items-center justify-between text-xs bg-blue-50 px-2 py-1 rounded mb-1">
+                        <span className="font-medium text-blue-900">{scorer.name}</span>
+                        <span className="text-blue-700">{scorer.goals}⚽</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    {match.context.topScorers?.away?.slice(0, 2).map((scorer, i) => (
+                      <div key={i} className="flex items-center justify-between text-xs bg-red-50 px-2 py-1 rounded mb-1">
+                        <span className="font-medium text-red-900">{scorer.name}</span>
+                        <span className="text-red-700">{scorer.goals}⚽</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Trending Players */}
+            {(match.context.trendingPlayers?.home?.length > 0 || match.context.trendingPlayers?.away?.length > 0) && (
+              <div className="mb-4">
+                <h4 className="text-xs font-semibold text-neutral-600 mb-2 uppercase tracking-wide">Joueurs En Vogue</h4>
+                <div className="flex flex-wrap gap-2">
+                  {match.context.trendingPlayers?.home?.map((player, i) => (
+                    <span key={`h-${i}`} className="inline-flex items-center px-2 py-1 rounded text-xs bg-green-100 text-green-700 font-medium">
+                      <TrendingUp className="w-3 h-3 mr-1" />
+                      {player.name} ({player.position})
+                    </span>
+                  ))}
+                  {match.context.trendingPlayers?.away?.map((player, i) => (
+                    <span key={`a-${i}`} className="inline-flex items-center px-2 py-1 rounded text-xs bg-green-100 text-green-700 font-medium">
+                      <TrendingUp className="w-3 h-3 mr-1" />
+                      {player.name} ({player.position})
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Injuries */}
+            {(match.context.injuries?.home?.length > 0 || match.context.injuries?.away?.length > 0) && (
+              <div className="mb-4">
+                <h4 className="text-xs font-semibold text-neutral-600 mb-2 uppercase tracking-wide">Absences Confirmées</h4>
+                <div className="space-y-1">
+                  {match.context.injuries?.home?.map((injury, i) => (
+                    <div key={`h-${i}`} className="flex items-center justify-between text-xs bg-red-50 px-2 py-1 rounded">
+                      <span className="font-medium text-red-900">{injury.name}</span>
+                      <span className="text-red-700">{injury.injury}</span>
+                    </div>
+                  ))}
+                  {match.context.injuries?.away?.map((injury, i) => (
+                    <div key={`a-${i}`} className="flex items-center justify-between text-xs bg-red-50 px-2 py-1 rounded">
+                      <span className="font-medium text-red-900">{injury.name}</span>
+                      <span className="text-red-700">{injury.injury}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Alerts */}
             <div className="flex items-center gap-3">
               {match.context.weatherImpact && (
                 <span className="inline-flex items-center px-2 py-1 rounded text-xs bg-orange-100 text-orange-700 font-medium">
@@ -446,10 +527,10 @@ export default function MatchPredictionCard({
                   Conditions météo défavorables
                 </span>
               )}
-              {match.context.keyPlayersOut && match.context.keyPlayersOut > 0 && (
-                <span className="inline-flex items-center px-2 py-1 rounded text-xs bg-red-100 text-red-700 font-medium">
-                  <Users className="w-3 h-3 mr-1" />
-                  {match.context.keyPlayersOut} absences importantes
+              {match.context.isRivalry && (
+                <span className="inline-flex items-center px-2 py-1 rounded text-xs bg-purple-100 text-purple-700 font-medium">
+                  <Zap className="w-3 h-3 mr-1" />
+                  Derby
                 </span>
               )}
             </div>

@@ -16,6 +16,7 @@ import { createAdminClient } from '@/lib/supabase';
 import { getUpcomingMatchesPaginated, getRecentFinishedMatchesPaginated } from '@/lib/supabase-pagination';
 import { spawn } from 'child_process';
 import * as path from 'path';
+import { matchContextAnalyzer } from '@/lib/match-context-analyzer';
 
 // Types pour l'API unifiée
 interface Prediction {
@@ -54,6 +55,17 @@ interface Prediction {
     awayRecentXG?: number;
     awayRecentPoss?: number;
     awayRecentMatches?: number;
+  };
+  context?: {
+    homeTopScorers?: Array<{name: string; goals: number; form: number}>;
+    awayTopScorers?: Array<{name: string; goals: number; form: number}>;
+    homeTrending?: Array<{name: string; position: string; form: number}>;
+    awayTrending?: Array<{name: string; position: string; form: number}>;
+    homeInjuries?: Array<{name: string; injury: string; severity: string}>;
+    awayInjuries?: Array<{name: string; injury: string; severity: string}>;
+    isRivalry?: boolean;
+    importance?: 'low' | 'medium' | 'high';
+    matchPressure?: number;
   };
 }
 
@@ -592,6 +604,15 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
       console.log(`  🎯 Confiance: ${confidence}% (DataQuality: ${dataQualityScore}/7, ProbSpread: ${probSpread}%)`);
       console.log(`  🎯 Facteurs confiance: ELO+${eloConfidence} Form+${formConfidence} Total=${confidence}`);
       
+      // NOUVEAU: Analyse contexte réel du match
+      const matchContext = await matchContextAnalyzer.getMatchContext(
+        match.home_team_id,
+        match.away_team_id, 
+        match.home_team_name,
+        match.away_team_name,
+        match.date
+      );
+      
       predictions.push({
         id: match.id,
         homeTeam: match.home_team_name,
@@ -633,6 +654,41 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
             awayRecentPoss: Math.round(awayRecentForm.avgPossession * 10) / 10,
             awayRecentMatches: awayRecentForm.recentForm
           })
+        },
+        context: {
+          homeTopScorers: matchContext.homeTopScorers.map(player => ({
+            name: player.name,
+            goals: player.goals_season,
+            form: Math.round(player.form_score * 100) / 100
+          })),
+          awayTopScorers: matchContext.awayTopScorers.map(player => ({
+            name: player.name, 
+            goals: player.goals_season,
+            form: Math.round(player.form_score * 100) / 100
+          })),
+          homeTrending: matchContext.homeTrendingPlayers.map(player => ({
+            name: player.name,
+            position: player.position,
+            form: Math.round(player.form_score * 100) / 100
+          })),
+          awayTrending: matchContext.awayTrendingPlayers.map(player => ({
+            name: player.name,
+            position: player.position, 
+            form: Math.round(player.form_score * 100) / 100
+          })),
+          homeInjuries: matchContext.homeInjuries.map(injury => ({
+            name: injury.player_name,
+            injury: injury.injury_type,
+            severity: injury.severity
+          })),
+          awayInjuries: matchContext.awayInjuries.map(injury => ({
+            name: injury.player_name,
+            injury: injury.injury_type,
+            severity: injury.severity
+          })),
+          isRivalry: matchContext.isRivalry,
+          importance: matchContext.importance,
+          matchPressure: Math.round(matchContext.matchPressure * 100) / 100
         }
       });
       

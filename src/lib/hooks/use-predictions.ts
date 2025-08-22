@@ -56,10 +56,19 @@ export function usePredictions(limit = 10, confidenceMin = 50) {
       
       // Sinon fetch API
       const response = await fetch(`/api/predictions?limit=${limit}&confidence_min=${confidenceMin}`)
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+      }
+      
       const result = await response.json()
       
       if (!result.success) {
         throw new Error(result.error || 'Erreur chargement prédictions')
+      }
+      
+      if (!result.data) {
+        throw new Error('Aucune donnée retournée par l\'API')
       }
       
       // Mettre en cache
@@ -78,13 +87,25 @@ export function useRefreshPredictions() {
   
   return useMutation({
     mutationFn: async () => {
-      const response = await fetch('/api/predictions', {
-        method: 'POST'
+      const response = await fetch('/api/predictions?refresh=true', {
+        method: 'GET',
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
       })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+      }
+      
       const result = await response.json()
       
       if (!result.success) {
         throw new Error(result.error || 'Erreur rafraîchissement')
+      }
+      
+      if (!result.data) {
+        throw new Error('Aucune donnée lors du rafraîchissement')
       }
       
       return result.data

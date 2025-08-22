@@ -9,6 +9,10 @@ import sys
 import argparse
 import logging
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Charger variables d'environnement
+load_dotenv('.env.local')
 
 # Configuration logging sans émojis
 logging.basicConfig(

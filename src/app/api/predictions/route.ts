@@ -60,47 +60,82 @@ interface APIResponse {
 }
 
 /**
- * NOUVEAU: Calcule prédictions en temps réel avec Ultra Sophisticated ML System
+ * ELITE: Calcule prédictions avec système ML élite complet
  */
-async function calculateRealTimePredictions(limit: number = 20): Promise<Prediction[]> {
-  console.log('🧠 Calcul prédictions temps réel Ultra Sophisticated...');
+async function calculateElitePredictions(limit: number = 20): Promise<Prediction[]> {
+  console.log('🧠 Elite ML System - Calcul prédictions niveau professionnel...');
   
   try {
-    // Exécuter le système Python Ultra Sophisticated
-    const pythonScript = path.join(process.cwd(), 'generate_sophisticated_predictions.py');
+    const { eliteDataPipeline } = await import('@/lib/data/elite-data-pipeline');
+    const { EliteFeatureEngineering } = await import('@/lib/ml/elite-feature-engineering');
+    const { eliteEnsembleSystem } = await import('@/lib/ml/elite-ensemble-system');
+    const { elitePerformanceMonitor } = await import('@/lib/ml/elite-performance-monitor');
     
-    const pythonProcess = spawn('python', [pythonScript, '--matches', limit.toString()], {
-      cwd: process.cwd(),
-      env: { ...process.env }
-    });
+    const featureEngine = new EliteFeatureEngineering();
+    const predictions: Prediction[] = [];
     
-    let output = '';
-    let error = '';
+    // Récupérer matches à venir
+    const upcomingMatches = await getUpcomingMatches(limit);
     
-    pythonProcess.stdout?.on('data', (data) => {
-      output += data.toString();
-    });
-    
-    pythonProcess.stderr?.on('data', (data) => {
-      error += data.toString();
-    });
-    
-    // Attendre la fin du processus
-    await new Promise((resolve, reject) => {
-      pythonProcess.on('close', (code) => {
-        if (code === 0) {
-          resolve(code);
-        } else {
-          reject(new Error(`Python script failed with code ${code}: ${error}`));
+    for (const match of upcomingMatches) {
+      try {
+        console.log(`🔬 Elite processing: ${match.home_team_name} vs ${match.away_team_name}`);
+        
+        // 1. Extract complete match data (299 columns)
+        const eliteData = await eliteDataPipeline.extractCompleteMatchData(match.id);
+        
+        if (!eliteData) {
+          console.warn(`❌ Could not extract elite data for match ${match.id}`);
+          continue;
         }
-      });
-    });
+        
+        // 2. Transform to elite features (200+ derived features)
+        const eliteFeatures = await featureEngine.transformToEliteFeatures(eliteData);
+        
+        // 3. Generate elite prediction with ensemble
+        const elitePrediction = await eliteEnsembleSystem.predict(eliteFeatures);
+        
+        // 4. Record for performance monitoring
+        await elitePerformanceMonitor.recordPrediction(elitePrediction, eliteFeatures);
+        
+        // 5. Convert to API format
+        const apiPrediction: Prediction = {
+          id: match.id,
+          homeTeam: match.home_team_name,
+          awayTeam: match.away_team_name,
+          date: match.date,
+          venue: match.venue_name || 'Venue TBD',
+          probabilities: {
+            home: Math.round(elitePrediction.probabilities.home * 100),
+            draw: Math.round(elitePrediction.probabilities.draw * 100),
+            away: Math.round(elitePrediction.probabilities.away * 100)
+          },
+          confidence: elitePrediction.confidence,
+          prediction: elitePrediction.probabilities.home > Math.max(elitePrediction.probabilities.draw, elitePrediction.probabilities.away) ? 'home' :
+                    elitePrediction.probabilities.away > elitePrediction.probabilities.draw ? 'away' : 'draw',
+          features: {
+            homeElo: Math.round(eliteData.homeTeam.elo_rating),
+            awayElo: Math.round(eliteData.awayTeam.elo_rating),
+            homeForm: eliteData.homeTeam.form_5_points,
+            awayForm: eliteData.awayTeam.form_5_points
+          }
+        };
+        
+        predictions.push(apiPrediction);
+        
+        console.log(`✅ Elite prediction: ${apiPrediction.homeTeam} ${apiPrediction.probabilities.home}% - ${apiPrediction.probabilities.draw}% - ${apiPrediction.probabilities.away}% ${apiPrediction.awayTeam} (${apiPrediction.confidence}%)`);
+        
+      } catch (matchError) {
+        console.warn(`⚠️ Elite prediction failed for match ${match.id}:`, matchError);
+        continue;
+      }
+    }
     
-    // Charger le cache généré
-    return await loadSophisticatedPredictions();
+    console.log(`🏆 Elite ML System generated ${predictions.length} professional predictions`);
+    return predictions;
     
   } catch (error) {
-    console.error('❌ Erreur calcul temps réel:', error);
+    console.error('❌ Elite ML System error:', error);
     throw error;
   }
 }
@@ -227,36 +262,226 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
   
   for (const match of matches) {
     try {
-      // Récupérer features équipes si disponibles
-      const [homeFeatures, awayFeatures] = await Promise.all([
+      // INTÉGRATION DONNÉES COMPLÈTES: team_features + match_statistics + match_events
+      const [homeFeatures, awayFeatures, homeRecentStats, awayRecentStats] = await Promise.all([
+        // Team features existantes (ELO, forme, xG)
         supabase
           .from('team_features')
-          .select('elo_rating, form_5_points, possession_avg')
-          .eq('team_name', match.home_team_name)
+          .select(`
+            elo_rating, 
+            form_5_points, 
+            possession_avg,
+            goals_per_game,
+            goals_conceded_per_game,
+            xg_for_avg,
+            xg_against_avg,
+            shots_per_game,
+            shots_against_per_game,
+            shots_on_target_avg,
+            corners_for,
+            corners_against,
+            corners_conversion_rate,
+            yellow_cards,
+            red_cards,
+            discipline_index,
+            pressing_intensity,
+            tempo_score,
+            season
+          `)
+          .eq('team_id', match.home_team_id)
+          .order('season', { ascending: false })
+          .limit(1)
           .single(),
         supabase
           .from('team_features')
-          .select('elo_rating, form_5_points, possession_avg')
-          .eq('team_name', match.away_team_name)
-          .single()
+          .select(`
+            elo_rating, 
+            form_5_points, 
+            possession_avg,
+            goals_per_game,
+            goals_conceded_per_game,
+            xg_for_avg,
+            xg_against_avg,
+            shots_per_game,
+            shots_against_per_game,
+            shots_on_target_avg,
+            corners_for,
+            corners_against,
+            corners_conversion_rate,
+            yellow_cards,
+            red_cards,
+            discipline_index,
+            pressing_intensity,
+            tempo_score,
+            season
+          `)
+          .eq('team_id', match.away_team_id)
+          .order('season', { ascending: false })
+          .limit(1)
+          .single(),
+        // Match statistics récentes (5 derniers matchs)
+        supabase
+          .from('match_statistics')
+          .select(`
+            ball_possession,
+            total_shots,
+            shots_on_goal,
+            shots_off_goal,
+            corner_kicks,
+            fouls,
+            total_passes,
+            passes_accurate,
+            passes_percentage,
+            expected_goals,
+            pressing_intensity,
+            possession_quality,
+            match_id
+          `)
+          .eq('team_id', match.home_team_id)
+          .order('created_at', { ascending: false })
+          .limit(5),
+        supabase
+          .from('match_statistics')
+          .select(`
+            ball_possession,
+            total_shots,
+            shots_on_goal,
+            shots_off_goal,
+            corner_kicks,
+            fouls,
+            total_passes,
+            passes_accurate,
+            passes_percentage,
+            expected_goals,
+            pressing_intensity,
+            possession_quality,
+            match_id
+          `)
+          .eq('team_id', match.away_team_id)
+          .order('created_at', { ascending: false })
+          .limit(5)
       ]);
       
-      // ELO par défaut si pas trouvé
+      // NOUVELLES MÉTRIQUES INTELLIGENTES avec TOUTES les données disponibles
       const homeElo = homeFeatures.data?.elo_rating || 1500;
       const awayElo = awayFeatures.data?.elo_rating || 1500;
       const homeForm = homeFeatures.data?.form_5_points || 7;
       const awayForm = awayFeatures.data?.form_5_points || 7;
+      const homeGoalsPerGame = homeFeatures.data?.goals_per_game || 1.2;
+      const awayGoalsPerGame = awayFeatures.data?.goals_per_game || 1.2;
+      const homeConcededPerGame = homeFeatures.data?.goals_conceded_per_game || 1.2;
+      const awayConcededPerGame = awayFeatures.data?.goals_conceded_per_game || 1.2;
+      const homeXG = homeFeatures.data?.xg_for_avg || homeGoalsPerGame;
+      const awayXG = awayFeatures.data?.xg_for_avg || awayGoalsPerGame;
       
-      // Calcul probabilités ELO + avantage domicile
-      const homeAdvantage = 100;
+      // NOUVELLES FEATURES: Données avancées team_features
+      const homeShotsPerGame = homeFeatures.data?.shots_per_game || 12;
+      const awayShotsPerGame = awayFeatures.data?.shots_per_game || 12;
+      const homeShotsOnTarget = homeFeatures.data?.shots_on_target_avg || 4;
+      const awayShotsOnTarget = awayFeatures.data?.shots_on_target_avg || 4;
+      const homeCorners = homeFeatures.data?.corners_for || 5;
+      const awayCorners = awayFeatures.data?.corners_for || 5;
+      const homeDiscipline = homeFeatures.data?.discipline_index || 0.5;
+      const awayDiscipline = awayFeatures.data?.discipline_index || 0.5;
+      const homePressing = homeFeatures.data?.pressing_intensity || 50;
+      const awayPressing = awayFeatures.data?.pressing_intensity || 50;
+      const homeTempo = homeFeatures.data?.tempo_score || 50;
+      const awayTempo = awayFeatures.data?.tempo_score || 50;
+      
+      // CALCUL MÉTRIQUES MATCH_STATISTICS (5 derniers matchs)
+      function calculateRecentStats(statsData: any[]) {
+        if (!statsData || statsData.length === 0) return null;
+        
+        const stats = statsData.data || [];
+        if (stats.length === 0) return null;
+        
+        return {
+          avgPossession: stats.reduce((sum, s) => sum + (s.ball_possession || 50), 0) / stats.length,
+          avgShots: stats.reduce((sum, s) => sum + (s.total_shots || 10), 0) / stats.length,
+          avgShotsOnTarget: stats.reduce((sum, s) => sum + (s.shots_on_goal || 3), 0) / stats.length,
+          avgCorners: stats.reduce((sum, s) => sum + (s.corner_kicks || 5), 0) / stats.length,
+          avgFouls: stats.reduce((sum, s) => sum + (s.fouls || 10), 0) / stats.length,
+          avgPasses: stats.reduce((sum, s) => sum + (s.total_passes || 400), 0) / stats.length,
+          avgPassAccuracy: stats.reduce((sum, s) => sum + (s.passes_percentage || 80), 0) / stats.length,
+          avgXG: stats.reduce((sum, s) => sum + (s.expected_goals || 1.2), 0) / stats.length,
+          recentForm: stats.length // Nombre de matchs récents avec données
+        };
+      }
+      
+      const homeRecentForm = calculateRecentStats(homeRecentStats);
+      const awayRecentForm = calculateRecentStats(awayRecentStats);
+      
+      // DEBUG: Vérifier requêtes team_features
+      console.log(`🔍 DEBUG Match: ${match.home_team_name} (ID: ${match.home_team_id}) vs ${match.away_team_name} (ID: ${match.away_team_id})`);
+      console.log(`🔍 Home features result:`, homeFeatures.data ? 'TROUVÉ' : 'NULL', homeFeatures.error ? homeFeatures.error.message : '');
+      console.log(`🔍 Away features result:`, awayFeatures.data ? 'TROUVÉ' : 'NULL', awayFeatures.error ? awayFeatures.error.message : '');
+      
+      // ALGORITHME INTELLIGENT MULTI-DIMENSIONNEL - TOUTES DONNÉES
+      console.log(`🧠 Analyse: ${match.home_team_name} (ELO ${homeElo}) vs ${match.away_team_name} (ELO ${awayElo})`);
+      
+      // 1. Base ELO avec avantage domicile réaliste
+      const homeAdvantage = 80;
       const eloDiff = (homeElo + homeAdvantage) - awayElo;
-      
-      // Formule ELO standard
       const expectedHome = 1 / (1 + Math.pow(10, -eloDiff / 400));
       
-      // Ajustement pour 3 résultats
-      let homeProb = Math.max(0.25, Math.min(0.70, expectedHome));
-      let drawProb = Math.max(0.15, 0.35 - (Math.abs(eloDiff) / 2000));
+      // 2. Facteur forme récente (plus impactant)
+      const formDiff = (homeForm - awayForm) / 10; // Normaliser
+      const formImpact = Math.max(-0.2, Math.min(0.2, formDiff));
+      
+      // 3. NOUVEAU: Facteur offensif/défensif enrichi
+      const homeAttackStrength = (homeGoalsPerGame + homeXG) / 3.0; // Goals + xG
+      const awayAttackStrength = (awayGoalsPerGame + awayXG) / 3.0;
+      const homeDefenseStrength = 2.0 / (homeConcededPerGame + 1); // Inverse renforcé
+      const awayDefenseStrength = 2.0 / (awayConcededPerGame + 1);
+      
+      // 4. NOUVEAU: Facteur efficacité (tirs/buts)
+      const homeShotEfficiency = homeShotsOnTarget / (homeShotsPerGame || 1);
+      const awayShotEfficiency = awayShotsOnTarget / (awayShotsPerGame || 1);
+      const efficiencyDiff = (homeShotEfficiency - awayShotEfficiency) * 0.1;
+      
+      // 5. NOUVEAU: Facteur tactique (pressing/tempo)
+      const homeStyle = (homePressing + homeTempo) / 200; // Normaliser 0-1
+      const awayStyle = (awayPressing + awayTempo) / 200;
+      const styleDiff = (homeStyle - awayStyle) * 0.08;
+      
+      // 6. NOUVEAU: Facteur discipline (cartons/fouls)
+      const disciplineDiff = (awayDiscipline - homeDiscipline) * 0.06; // Moins disciplinée = désavantage
+      
+      // 7. NOUVEAU: Forme récente basée match_statistics
+      let recentFormImpact = 0;
+      if (homeRecentForm && awayRecentForm) {
+        const homeRecentXG = homeRecentForm.avgXG;
+        const awayRecentXG = awayRecentForm.avgXG;
+        const homeRecentPossession = homeRecentForm.avgPossession;
+        const awayRecentPossession = awayRecentForm.avgPossession;
+        
+        // Combiner xG récent et possession
+        const homeRecentStrength = (homeRecentXG / 2) + (homeRecentPossession / 100);
+        const awayRecentStrength = (awayRecentXG / 2) + (awayRecentPossession / 100);
+        recentFormImpact = (homeRecentStrength - awayRecentStrength) * 0.12;
+        
+        console.log(`  📊 Forme récente: Home xG=${homeRecentXG.toFixed(2)} Poss=${homeRecentPossession.toFixed(1)}%`);
+        console.log(`  📊 Forme récente: Away xG=${awayRecentXG.toFixed(2)} Poss=${awayRecentPossession.toFixed(1)}%`);
+      }
+      
+      // COMBINAISON FINALE avec pondération intelligente
+      const attackDefenseHome = (homeAttackStrength + homeDefenseStrength) / 2;
+      const attackDefenseAway = (awayAttackStrength + awayDefenseStrength) / 2;
+      const attackDefenseDiff = (attackDefenseHome - attackDefenseAway) * 0.15;
+      
+      // 8. Calcul probabilités enrichies MULTI-FACTEURS
+      let homeProb = expectedHome + formImpact + attackDefenseDiff + efficiencyDiff + 
+                    styleDiff + disciplineDiff + recentFormImpact;
+      homeProb = Math.max(0.20, Math.min(0.75, homeProb));
+      
+      console.log(`  🎯 Facteurs: Form=${formImpact.toFixed(3)} AttDef=${attackDefenseDiff.toFixed(3)} Eff=${efficiencyDiff.toFixed(3)}`);
+      console.log(`  🎯 Style=${styleDiff.toFixed(3)} Disc=${disciplineDiff.toFixed(3)} Recent=${recentFormImpact.toFixed(3)}`);
+      
+      // Ajustement nul plus réaliste basé sur équilibrage des forces
+      const teamBalance = Math.abs(homeElo - awayElo) / 200; // Plus l'écart est grand, moins de nuls
+      let drawProb = Math.max(0.15, 0.40 - teamBalance);
+      drawProb = Math.min(0.35, drawProb);
+      
       let awayProb = 1 - homeProb - drawProb;
       
       // Normalisation à 100%
@@ -271,10 +496,64 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
         homeProb === maxProb ? 'home' :
         awayProb === maxProb ? 'away' : 'draw';
       
-      // Confiance basée sur écart ELO + forme
-      const confidence = Math.min(95, 
-        60 + Math.abs(eloDiff) / 15 + Math.abs(homeForm - awayForm) * 2
-      );
+      // CONFIANCE INTELLIGENTE MULTI-DIMENSIONNELLE basée sur RICHESSE des données
+      let confidence = 45; // Base légèrement plus basse car plus exigeant
+      let dataQualityScore = 0;
+      
+      // +15-25 si on a de vraies données ELO (pas 1500 par défaut)  
+      if (homeFeatures.data && awayFeatures.data) {
+        confidence += 20;
+        dataQualityScore += 2;
+        console.log(`  ✅ Vraies données ELO trouvées`);
+      } else {
+        console.log(`  ⚠️ Pas de données ELO, utilisation valeurs par défaut`);
+      }
+      
+      // +5-15 selon écart ELO (plus l'écart est grand, plus on est confiant)
+      const eloConfidence = Math.min(15, Math.abs(eloDiff) / 20);
+      confidence += eloConfidence;
+      
+      // +5-10 selon différence de forme
+      const formConfidence = Math.min(10, Math.abs(homeForm - awayForm) * 1.5);
+      confidence += formConfidence;
+      
+      // +5-10 si on a des données xG
+      if (homeFeatures.data?.xg_for_avg && awayFeatures.data?.xg_for_avg) {
+        confidence += 8;
+        dataQualityScore += 1;
+        console.log(`  ✅ Données xG disponibles`);
+      }
+      
+      // NOUVEAU: +5-12 si on a des statistics récentes
+      if (homeRecentForm && awayRecentForm) {
+        const recentDataBonus = Math.min(12, (homeRecentForm.recentForm + awayRecentForm.recentForm));
+        confidence += recentDataBonus;
+        dataQualityScore += 2;
+        console.log(`  ✅ Statistics récentes: ${homeRecentForm.recentForm + awayRecentForm.recentForm} matchs`);
+      }
+      
+      // NOUVEAU: +3-8 si on a des données tactiques (pressing, tempo)
+      if (homeFeatures.data?.pressing_intensity && homeFeatures.data?.tempo_score) {
+        confidence += 6;
+        dataQualityScore += 1;
+        console.log(`  ✅ Données tactiques disponibles`);
+      }
+      
+      // NOUVEAU: +2-5 si données disciplinaires
+      if (homeFeatures.data?.discipline_index && awayFeatures.data?.discipline_index) {
+        confidence += 4;
+        dataQualityScore += 1;
+      }
+      
+      // NOUVEAU: Bonus écart significatif (prédiction plus claire)
+      const probSpread = Math.max(homeProb, drawProb, awayProb) - Math.min(homeProb, drawProb, awayProb);
+      if (probSpread > 30) confidence += 8; // Prédiction nette
+      else if (probSpread < 15) confidence -= 5; // Prédiction incertaine
+      
+      confidence = Math.min(90, Math.max(35, confidence));
+      
+      console.log(`  🎯 Confiance: ${confidence}% (DataQuality: ${dataQualityScore}/7, ProbSpread: ${probSpread}%)`);
+      console.log(`  🎯 Facteurs confiance: ELO+${eloConfidence} Form+${formConfidence} Total=${confidence}`);
       
       predictions.push({
         id: match.id,
@@ -293,7 +572,28 @@ async function generatePredictions(matches: any[]): Promise<Prediction[]> {
           homeElo: Math.round(homeElo),
           awayElo: Math.round(awayElo),
           homeForm: Math.round(homeForm * 10) / 10,
-          awayForm: Math.round(awayForm * 10) / 10
+          awayForm: Math.round(awayForm * 10) / 10,
+          // NOUVELLES FEATURES ENRICHIES
+          homeXG: Math.round(homeXG * 100) / 100,
+          awayXG: Math.round(awayXG * 100) / 100,
+          homeShotsPerGame: Math.round(homeShotsPerGame * 10) / 10,
+          awayShotsPerGame: Math.round(awayShotsPerGame * 10) / 10,
+          homeShotEfficiency: Math.round(homeShotEfficiency * 100) / 100,
+          awayShotEfficiency: Math.round(awayShotEfficiency * 100) / 100,
+          homeStyle: Math.round(homeStyle * 100) / 100,
+          awayStyle: Math.round(awayStyle * 100) / 100,
+          dataQuality: dataQualityScore,
+          // Forme récente si disponible
+          ...(homeRecentForm && {
+            homeRecentXG: Math.round(homeRecentForm.avgXG * 100) / 100,
+            homeRecentPoss: Math.round(homeRecentForm.avgPossession * 10) / 10,
+            homeRecentMatches: homeRecentForm.recentForm
+          }),
+          ...(awayRecentForm && {
+            awayRecentXG: Math.round(awayRecentForm.avgXG * 100) / 100,
+            awayRecentPoss: Math.round(awayRecentForm.avgPossession * 10) / 10,
+            awayRecentMatches: awayRecentForm.recentForm
+          })
         }
       });
       
@@ -328,15 +628,15 @@ export async function GET(request: NextRequest): Promise<NextResponse<APIRespons
       console.warn('Apprentissage continu échoué:', err)
     );
     
-    // PRIORITÉ 1: Calcul prédictions temps réel Ultra Sophisticated
+    // PRIORITÉ 1: Calcul prédictions Elite ML System
     let allPredictions: Prediction[] = [];
     
     try {
-      console.log('🚀 Tentative calcul temps réel Ultra Sophisticated...');
-      allPredictions = await calculateRealTimePredictions(limit);
-      console.log(`✅ ${allPredictions.length} prédictions temps réel générées`);
+      console.log('🏆 Tentative Elite ML System...');
+      allPredictions = await calculateElitePredictions(limit);
+      console.log(`✅ ${allPredictions.length} prédictions élite générées`);
     } catch (error) {
-      console.log('⚠️ Échec calcul temps réel, tentative cache...');
+      console.log('⚠️ Échec Elite ML, tentative cache...');
       
       // FALLBACK 1: Charger cache sophistiqué existant
       try {

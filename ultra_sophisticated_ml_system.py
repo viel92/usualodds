@@ -58,6 +58,10 @@ from dataclasses import dataclass
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 import logging
+from dotenv import load_dotenv
+
+# Charger variables d'environnement  
+load_dotenv('.env.local')
 
 # Core ML Libraries
 import sklearn
@@ -259,7 +263,7 @@ class IntelligentFeatureCalculator:
     
     def calculate_missing_player_features(self, player_data: pd.DataFrame) -> Dict:
         """Calcule les player features manquantes"""
-        logger.info("👥 Calcul des player features manquantes...")
+        logger.info("Calcul des player features manquantes...")
         
         calculated = {}
         
@@ -544,7 +548,7 @@ class SupabasePaginationManager:
                 
                 all_data.extend(response.data)
                 
-                logger.info(f"  📄 Page {page + 1}: {len(response.data)} lignes "
+                logger.info(f"   Page {page + 1}: {len(response.data)} lignes "
                           f"(total: {len(all_data)})")
                 
                 # Arrêt si page incomplète
@@ -613,7 +617,7 @@ class AdvancedFeatureEngineer:
     
     def create_momentum_features(self, events_data: List[Dict]) -> Dict:
         """Crée des features de momentum depuis les 15,691 events"""
-        logger.info("⚡ Création des momentum features...")
+        logger.info(" Création des momentum features...")
         
         momentum_features = {}
         
@@ -651,7 +655,7 @@ class AdvancedFeatureEngineer:
     
     def create_chemistry_scores(self, lineups_data: List[Dict]) -> Dict:
         """Crée des scores de chimie entre joueurs"""
-        logger.info("🧪 Création des chemistry scores...")
+        logger.info(" Création des chemistry scores...")
         
         chemistry_scores = {}
         
@@ -703,7 +707,7 @@ class AdvancedFeatureEngineer:
     
     def create_team_style_embeddings(self, team_stats: pd.DataFrame) -> Dict:
         """Crée des embeddings de style de jeu pour chaque équipe"""
-        logger.info("🎨 Création des team style embeddings...")
+        logger.info(" Création des team style embeddings...")
         
         # Sélection des features de style
         style_features = [
@@ -716,7 +720,7 @@ class AdvancedFeatureEngineer:
         available_features = [f for f in style_features if f in team_stats.columns]
         
         if len(available_features) < 3:
-            logger.warning("⚠️ Pas assez de features pour les embeddings")
+            logger.warning("Pas assez de features pour les embeddings")
             return {}
         
         # Préparation des données
@@ -782,7 +786,7 @@ class AdvancedFeatureEngineer:
     
     def create_interaction_features(self, data: pd.DataFrame) -> pd.DataFrame:
         """Crée des features d'interaction intelligentes"""
-        logger.info("🔗 Création des features d'interaction...")
+        logger.info(" Création des features d'interaction...")
         
         df = data.copy()
         numeric_cols = df.select_dtypes(include=[np.number]).columns
@@ -981,7 +985,7 @@ class HybridMLArchitecture:
         model_performances = {}
         
         for name, model in base_models.items():
-            logger.info(f"  🔧 Entraînement {name}...")
+            logger.info(f"   Entraînement {name}...")
             
             try:
                 # Validation croisée temporelle
@@ -1001,10 +1005,10 @@ class HybridMLArchitecture:
                     'cv_scores': cv_scores.tolist()
                 }
                 
-                logger.info(f"    ✅ {name}: {cv_scores.mean():.4f} (±{cv_scores.std():.4f})")
+                logger.info(f"    OK {name}: {cv_scores.mean():.4f} (±{cv_scores.std():.4f})")
                 
             except Exception as e:
-                logger.error(f"    ❌ Erreur {name}: {e}")
+                logger.error(f"    ERREUR Erreur {name}: {e}")
         
         self.models = model_performances
         return model_performances
@@ -1014,7 +1018,7 @@ class HybridMLArchitecture:
         logger.info("Creation du meta-ensemble...")
         
         if not self.models:
-            logger.error("❌ Aucun modèle de base disponible")
+            logger.error("ERREUR Aucun modèle de base disponible")
             return {}
         
         # Sélection des meilleurs modèles
@@ -1066,15 +1070,15 @@ class HybridMLArchitecture:
             'improvement': ensemble_scores.mean() - best_models[0][1]['cv_mean']
         }
         
-        logger.info(f"🏆 Ensemble: {ensemble_scores.mean():.4f} (±{ensemble_scores.std():.4f})")
-        logger.info(f"📈 Amélioration: +{ensemble_performance['improvement']:.4f}")
+        logger.info(f"WIN Ensemble: {ensemble_scores.mean():.4f} (±{ensemble_scores.std():.4f})")
+        logger.info(f"TREND Amélioration: +{ensemble_performance['improvement']:.4f}")
         
         return ensemble_performance
     
     def build_deep_model(self, X: pd.DataFrame, y: pd.Series) -> Dict:
         """Construit un modèle de deep learning"""
         if not PYTORCH_AVAILABLE:
-            logger.warning("⚠️ PyTorch non disponible, skip deep learning")
+            logger.warning("WARNING PyTorch non disponible, skip deep learning")
             return {}
         
         logger.info("Construction du modele deep learning...")
@@ -1160,10 +1164,10 @@ class HybridMLArchitecture:
     def auto_ml_optimization(self, X: pd.DataFrame, y: pd.Series) -> Dict:
         """Optimisation automatique avec Optuna"""
         if not OPTUNA_AVAILABLE:
-            logger.warning("⚠️ Optuna non disponible, skip auto-ML")
+            logger.warning("WARNING Optuna non disponible, skip auto-ML")
             return {}
         
-        logger.info("⚡ Optimisation Auto-ML avec Optuna...")
+        logger.info(" Optimisation Auto-ML avec Optuna...")
         
         X_processed = self._preprocess_features(X)
         y_encoded = self._encode_target(y)
@@ -1226,7 +1230,7 @@ class HybridMLArchitecture:
             'study_completed': True
         }
         
-        logger.info(f"⚡ Auto-ML: {best_score:.4f} avec {best_params}")
+        logger.info(f" Auto-ML: {best_score:.4f} avec {best_params}")
         
         return auto_ml_results
     
@@ -1235,7 +1239,7 @@ class HybridMLArchitecture:
         logger.info("Calibration de confiance...")
         
         if self.ensemble is None:
-            logger.warning("⚠️ Ensemble non disponible pour calibration")
+            logger.warning("WARNING Ensemble non disponible pour calibration")
             return {}
         
         X_processed = self._preprocess_features(X)
@@ -1319,10 +1323,10 @@ class ExplainabilityEngine:
     def create_shap_explainer(self, model, X: pd.DataFrame) -> Dict:
         """Crée un explainer SHAP"""
         if not SHAP_AVAILABLE:
-            logger.warning("⚠️ SHAP non disponible")
+            logger.warning("WARNING SHAP non disponible")
             return {}
         
-        logger.info("🔍 Création de l'explainer SHAP...")
+        logger.info("SEARCH Création de l'explainer SHAP...")
         
         try:
             # Sélection d'un échantillon pour SHAP (performance)
@@ -1350,18 +1354,18 @@ class ExplainabilityEngine:
             
             self.explainers['shap'] = explainer
             
-            logger.info(f"✅ SHAP explainer créé (échantillon: {sample_size})")
+            logger.info(f"OK SHAP explainer créé (échantillon: {sample_size})")
             return shap_results
             
         except Exception as e:
-            logger.error(f"❌ Erreur SHAP: {e}")
+            logger.error(f"ERREUR Erreur SHAP: {e}")
             return {'shap_available': False, 'error': str(e)}
     
     def monitor_prediction_quality(self, predictions: np.ndarray, 
                                  probabilities: np.ndarray, 
                                  true_values: np.ndarray = None) -> Dict:
         """Monitore la qualité des prédictions"""
-        logger.info("📈 Monitoring qualité prédictions...")
+        logger.info("TREND Monitoring qualité prédictions...")
         
         monitoring_metrics = {
             'timestamp': datetime.now().isoformat(),
@@ -1417,6 +1421,7 @@ class UltraSophisticatedMLSystem:
         self.raw_data = {}
         self.processed_data = None
         self.final_model = None
+        self.performance_metrics = {}
         
         logger.info("SYSTEME ML ULTRA SOPHISTIQUE INITIALISE")
     
@@ -1471,7 +1476,7 @@ class UltraSophisticatedMLSystem:
             results['phases']['feature_calculation'] = feature_calculation_results
             
             # Phase 3: Feature engineering avancé
-            logger.info("\n🔧 PHASE 3: FEATURE ENGINEERING AVANCÉ")
+            logger.info("\n PHASE 3: FEATURE ENGINEERING AVANCÉ")
             engineering_results = self._advanced_feature_engineering()
             results['phases']['feature_engineering'] = engineering_results
             
@@ -1481,7 +1486,7 @@ class UltraSophisticatedMLSystem:
             results['phases']['ml_architecture'] = ml_results
             
             # Phase 5: Innovations techniques spécifiques
-            logger.info("\n⚡ PHASE 5: INNOVATIONS TECHNIQUES")
+            logger.info("\n PHASE 5: INNOVATIONS TECHNIQUES")
             innovation_results = self._implement_technical_innovations()
             results['phases']['innovations'] = innovation_results
             
@@ -1491,12 +1496,12 @@ class UltraSophisticatedMLSystem:
             results['phases']['explainability'] = explainability_results
             
             # Phase 7: Validation finale et sauvegarde
-            logger.info("\n💾 PHASE 7: VALIDATION ET SAUVEGARDE")
+            logger.info("\n PHASE 7: VALIDATION ET SAUVEGARDE")
             validation_results = self._final_validation_and_save()
             results['phases']['validation'] = validation_results
             
         except Exception as e:
-            logger.error(f"❌ ERREUR PIPELINE: {e}")
+            logger.error(f"ERREUR PIPELINE: {e}")
             results['error'] = str(e)
             results['success'] = False
             return results
@@ -1514,7 +1519,7 @@ class UltraSophisticatedMLSystem:
         })
         
         # Log final
-        logger.info("\n🎉 PIPELINE ULTRA SOPHISTIQUÉ TERMINÉ!")
+        logger.info("\n PIPELINE ULTRA SOPHISTIQUÉ TERMINÉ!")
         logger.info("=" * 50)
         logger.info(f"⏱️ Temps d'exécution: {execution_time:.1f}s")
         
@@ -1522,7 +1527,7 @@ class UltraSophisticatedMLSystem:
             accuracy = self.performance_metrics['final_accuracy']
             logger.info(f"Performance finale: {accuracy:.3f} ({accuracy*100:.1f}%)")
         
-        logger.info(f"📋 Rapport complet: {self._save_execution_report(results)}")
+        logger.info(f" Rapport complet: {self._save_execution_report(results)}")
         
         return results
     
@@ -1577,7 +1582,7 @@ class UltraSophisticatedMLSystem:
             team_calculated = self.feature_calculator.calculate_missing_team_features(team_df)
             calculated_features['team_features'] = team_calculated
             
-            logger.info(f"  🏆 Team features calculées: {len(team_calculated)}")
+            logger.info(f"  WIN Team features calculées: {len(team_calculated)}")
         
         # Player features manquantes  
         if 'player_features' in self.raw_data and self.raw_data['player_features']:
@@ -1585,14 +1590,21 @@ class UltraSophisticatedMLSystem:
             player_calculated = self.feature_calculator.calculate_missing_player_features(player_df)
             calculated_features['player_features'] = player_calculated
             
-            logger.info(f"  👥 Player features calculées: {len(player_calculated)}")
+            logger.info(f"Player features calculees: {len(player_calculated)}")
         
         # Analyse des patterns
         if self.raw_data:
-            all_data = pd.concat([
+            # Vérifier qu'il y a des données à concatener
+            data_frames = [
                 pd.DataFrame(data) for data in self.raw_data.values() 
                 if data and len(data) > 0
-            ], ignore_index=True)
+            ]
+            
+            if not data_frames:
+                logger.warning("Aucune donnee disponible pour l'analyse des patterns")
+                return calculated_features
+                
+            all_data = pd.concat(data_frames, ignore_index=True)
             
             patterns = self.feature_calculator.analyze_existing_patterns(all_data)
             calculated_features['patterns_analysis'] = patterns
@@ -1609,7 +1621,7 @@ class UltraSophisticatedMLSystem:
         self.processed_data = self._consolidate_data_for_ml()
         
         if self.processed_data is None or len(self.processed_data) == 0:
-            logger.warning("⚠️ Pas de données pour feature engineering")
+            logger.warning("WARNING Pas de données pour feature engineering")
             return {'error': 'No data available'}
         
         # Features temporelles
@@ -1643,16 +1655,16 @@ class UltraSophisticatedMLSystem:
             style_embeddings = self.feature_engineer.create_team_style_embeddings(team_df)
             engineering_results['style_embeddings'] = len(style_embeddings)
         
-        logger.info(f"✅ Features finales: {len(self.processed_data.columns)} colonnes")
+        logger.info(f"OK Features finales: {len(self.processed_data.columns)} colonnes")
         
         return engineering_results
     
     def _build_hybrid_ml_architecture(self) -> Dict:
         """Phase 4: Construction de l'architecture ML hybride"""
-        logger.info("🚀 Construction architecture ML hybride...")
+        logger.info("LAUNCH Construction architecture ML hybride...")
         
         if self.processed_data is None or 'result' not in self.processed_data.columns:
-            logger.error("❌ Données insuffisantes pour ML")
+            logger.error("ERREUR Données insuffisantes pour ML")
             return {'error': 'Insufficient data for ML'}
         
         # Préparation des données ML
@@ -1702,7 +1714,7 @@ class UltraSophisticatedMLSystem:
     
     def _implement_technical_innovations(self) -> Dict:
         """Phase 5: Implémentation des innovations techniques"""
-        logger.info("💡 Implémentation innovations techniques...")
+        logger.info("TIP Implémentation innovations techniques...")
         
         innovations = {}
         
@@ -1739,7 +1751,7 @@ class UltraSophisticatedMLSystem:
     
     def _setup_explainability_monitoring(self) -> Dict:
         """Phase 6: Configuration explainabilité et monitoring"""
-        logger.info("📈 Configuration explainabilité...")
+        logger.info("TREND Configuration explainabilité...")
         
         explainability_results = {}
         
@@ -1765,7 +1777,7 @@ class UltraSophisticatedMLSystem:
     
     def _final_validation_and_save(self) -> Dict:
         """Phase 7: Validation finale et sauvegarde"""
-        logger.info("💾 Validation finale et sauvegarde...")
+        logger.info(" Validation finale et sauvegarde...")
         
         validation_results = {}
         
@@ -1811,11 +1823,11 @@ class UltraSophisticatedMLSystem:
     
     def _consolidate_data_for_ml(self) -> pd.DataFrame:
         """Consolide les données pour l'apprentissage ML"""
-        logger.info("🔄 Consolidation données ML...")
+        logger.info("PROCESSING Consolidation données ML...")
         
         # Base: matches avec résultats
         if 'matches' not in self.raw_data or not self.raw_data['matches']:
-            logger.error("❌ Pas de données matches")
+            logger.error("ERREUR Pas de données matches")
             return None
         
         # DataFrame principal depuis matches
@@ -1826,7 +1838,7 @@ class UltraSophisticatedMLSystem:
             df = df[df['status'] == 'finished']
         
         if 'result' not in df.columns:
-            logger.error("❌ Pas de colonne result")
+            logger.error("ERREUR Pas de colonne result")
             return None
         
         # Suppression des valeurs manquantes sur result
@@ -1850,7 +1862,7 @@ class UltraSophisticatedMLSystem:
                 elif 'xg' in feature:
                     df[feature] = np.random.gamma(1.5, 0.8, len(df))
         
-        logger.info(f"✅ Données consolidées: {len(df)} matches, {len(df.columns)} colonnes")
+        logger.info(f"OK Données consolidées: {len(df)} matches, {len(df.columns)} colonnes")
         
         return df
     
@@ -1876,7 +1888,7 @@ class UltraSophisticatedMLSystem:
     
     def _validate_temporal_consistency(self) -> Dict:
         """Valide la cohérence temporelle (anti-leakage)"""
-        logger.info("🔒 Validation cohérence temporelle...")
+        logger.info(" Validation cohérence temporelle...")
         
         validation = {
             'temporal_validation_enabled': True,
@@ -2294,7 +2306,7 @@ class UltraSophisticatedMLSystem:
 
 def main():
     """Fonction principale pour exécuter le système ultra sophistiqué"""
-    print("🚀 USUALODDS ULTRA SOPHISTICATED ML SYSTEM")
+    print("LAUNCH USUALODDS ULTRA SOPHISTICATED ML SYSTEM")
     print("=" * 60)
     print("Démarrage du système ML de nouvelle génération...")
     print()
@@ -2314,19 +2326,19 @@ def main():
     print("=" * 60)
     
     if results.get('success', False):
-        print("✅ Statut: SUCCÈS")
+        print("OK Statut: SUCCÈS")
         
         if 'final_accuracy' in results.get('final_performance', {}):
             accuracy = results['final_performance']['final_accuracy']
-            print(f"🎯 Performance: {accuracy:.3f} ({accuracy*100:.1f}%)")
+            print(f"TARGET Performance: {accuracy:.3f} ({accuracy*100:.1f}%)")
         
         if results.get('model_path'):
-            print(f"💾 Modèle sauvé: {results['model_path']}")
+            print(f" Modèle sauvé: {results['model_path']}")
             
         print(f"⏱️ Temps d'exécution: {results.get('execution_time_seconds', 0):.1f}s")
         
     else:
-        print("❌ Statut: ÉCHEC")
+        print("ERREUR Statut: ÉCHEC")
         if 'error' in results:
             print(f"Erreur: {results['error']}")
     

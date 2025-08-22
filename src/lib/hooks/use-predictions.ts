@@ -38,6 +38,17 @@ interface Prediction {
     awayRecentPoss?: number
     awayRecentMatches?: number
   }
+  context?: {
+    homeTopScorers?: Array<{name: string; goals: number; form: number}>;
+    awayTopScorers?: Array<{name: string; goals: number; form: number}>;
+    homeTrending?: Array<{name: string; position: string; form: number}>;
+    awayTrending?: Array<{name: string; position: string; form: number}>;
+    homeInjuries?: Array<{name: string; injury: string; severity: string}>;
+    awayInjuries?: Array<{name: string; injury: string; severity: string}>;
+    isRivalry?: boolean;
+    importance?: 'low' | 'medium' | 'high';
+    matchPressure?: number;
+  };
 }
 
 interface DashboardData {

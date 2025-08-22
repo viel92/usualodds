@@ -453,7 +453,7 @@ export default function MatchPredictionCard({
           <div className="mt-6 pt-4 border-t border-neutral-100">
             
             {/* Top Scorers */}
-            {(match.context.topScorers?.home?.length > 0 || match.context.topScorers?.away?.length > 0) && (
+            {((match.context.topScorers?.home?.length || 0) > 0 || (match.context.topScorers?.away?.length || 0) > 0) && (
               <div className="mb-4">
                 <h4 className="text-xs font-semibold text-neutral-600 mb-2 uppercase tracking-wide">Potentiels Buteurs</h4>
                 <div className="grid grid-cols-2 gap-3">
@@ -478,7 +478,7 @@ export default function MatchPredictionCard({
             )}
 
             {/* Trending Players */}
-            {(match.context.trendingPlayers?.home?.length > 0 || match.context.trendingPlayers?.away?.length > 0) && (
+            {((match.context.trendingPlayers?.home?.length || 0) > 0 || (match.context.trendingPlayers?.away?.length || 0) > 0) && (
               <div className="mb-4">
                 <h4 className="text-xs font-semibold text-neutral-600 mb-2 uppercase tracking-wide">Joueurs En Vogue</h4>
                 <div className="flex flex-wrap gap-2">
@@ -499,7 +499,7 @@ export default function MatchPredictionCard({
             )}
 
             {/* Injuries */}
-            {(match.context.injuries?.home?.length > 0 || match.context.injuries?.away?.length > 0) && (
+            {((match.context.injuries?.home?.length || 0) > 0 || (match.context.injuries?.away?.length || 0) > 0) && (
               <div className="mb-4">
                 <h4 className="text-xs font-semibold text-neutral-600 mb-2 uppercase tracking-wide">Absences Confirmées</h4>
                 <div className="space-y-1">

@@ -36,7 +36,7 @@ interface Prediction {
     awayElo: number;
     homeForm: number;
     awayForm: number;
-    // NOUVELLES FEATURES ENRICHIES
+    // NOUVELLES FEATURES ENRICHIES - V2
     homeXG?: number;
     awayXG?: number;
     homeShotsPerGame?: number;
